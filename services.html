@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="theme-color" content="#09101a"/>
+<title>Services — UHP · Ultimate Health Project</title>
+<meta name="description" content="UHP builds simple health systems for founders, executives, and business owners. Fat loss, more energy, sharper focus — without extreme routines."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+
+/* ══════════════════════════════════════════════
+   UHP — Ultimate Health Project
+   Brand Design System v2.0
+   ══════════════════════════════════════════════ */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* ─── CSS Variables ─── */
+:root{
+  --bg:#09101a;
+  --bg2:#0c1828;
+  --bg3:#0f2035;
+  --ink:#ededed;
+  --ink-dim:#9aaabb;
+  --ink-mute:#4a6070;
+  --accent:#5d6a78;
+  --accent2:#7a8a9a;
+  --accent3:#3d4d5d;
+  --blue:#2a5a8a;
+  --blue-light:#4a8aaa;
+  --blue-bright:#6aaaca;
+  --steel:#5d6a78;
+  --navy:#0a1e35;
+  --charcoal:#2e2e2d;
+  --white:#ffffff;
+  --line:rgba(93,106,120,.12);
+  --line-strong:rgba(93,106,120,.24);
+  --grad:linear-gradient(135deg,#7a8a9a,#5d6a78 50%,#3d4d5d);
+  --grad-blue:linear-gradient(135deg,#1e2d3e 0%,#2a5a8a 50%,#5d6a78 100%);
+  --grad-blue-bright:linear-gradient(135deg,#2e4a6a 0%,#5d6a78 50%,#8aaabb 100%);
+  --glow-blue:0 0 24px rgba(93,106,120,.45),0 0 60px rgba(42,90,138,.25);
+  --glow-blue-strong:0 0 36px rgba(93,106,120,.7),0 8px 60px rgba(42,90,138,.45);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --r:18px;
+}
+
+/* ─── Reset ─── */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font-family:'Montserrat',system-ui,sans-serif;letter-spacing:-.005em;overflow-x:hidden}
+::selection{background:rgba(93,106,120,.4);color:#fff}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
+
+/* ─── Typography ─── */
+h1,h2,h3,h4{font-family:'Montserrat',sans-serif;font-weight:700;line-height:1.05;letter-spacing:-.022em}
+.display{font-size:clamp(48px,7.5vw,108px);text-transform:uppercase;color:#fff}
+.display .it{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;text-transform:none;letter-spacing:-.005em;background:var(--grad-blue-bright);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2.section-title{font-size:clamp(36px,4.8vw,68px);color:#fff;text-transform:uppercase;max-width:860px}
+h2.section-title .it{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;text-transform:none;background:var(--grad-blue-bright);-webkit-background-clip:text;background-clip:text;color:transparent}
+h3{font-size:clamp(20px,2vw,28px);color:#fff}
+p.lead{font-size:clamp(16px,1.4vw,18.5px);color:var(--ink-dim);line-height:1.65;max-width:580px}
+
+/* ─── Layout ─── */
+.container{width:100%;max-width:1280px;margin:0 auto;padding:0 48px}
+.section{padding:120px 0;position:relative}
+.section-sm{padding:80px 0;position:relative}
+@media(max-width:768px){
+  .container{padding:0 24px}
+  .section{padding:80px 0}
+}
+
+/* ─── Eyebrow ─── */
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 8px;border-radius:100px;background:rgba(93,106,120,.08);border:1px solid rgba(93,106,120,.22);font-size:11px;color:var(--ink-dim);letter-spacing:.2em;text-transform:uppercase;font-weight:600;margin-bottom:24px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:#5d6a78;box-shadow:0 0 14px rgba(93,106,120,.9)}
+
+/* ─── Buttons ─── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;font-size:13.5px;font-weight:600;border-radius:100px;transition:all .35s var(--ease);position:relative;border:1px solid transparent;white-space:nowrap;cursor:pointer;font-family:'Montserrat',sans-serif;letter-spacing:.02em}
+.btn-primary{color:#fff;background:linear-gradient(135deg,#1e3a5a 0%,#2a5a8a 50%,#5d6a78 100%);border-color:rgba(93,106,120,.4);box-shadow:0 6px 28px rgba(42,90,138,.35),0 0 24px rgba(93,106,120,.2),inset 0 1px 0 rgba(255,255,255,.1)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(42,90,138,.55),0 0 40px rgba(93,106,120,.35),inset 0 1px 0 rgba(255,255,255,.15)}
+.btn-outline{color:#fff;border-color:rgba(93,106,120,.35);background:rgba(93,106,120,.05);backdrop-filter:blur(10px)}
+.btn-outline:hover{background:rgba(93,106,120,.12);border-color:rgba(93,106,120,.6);transform:translateY(-1px)}
+.btn-lg{padding:16px 28px;font-size:15px}
+.btn-arrow{transition:transform .3s var(--ease)}
+.btn:hover .btn-arrow{transform:translateX(3px)}
+
+/* ─── Noise / Grain overlay ─── */
+.grain{position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.025;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='1'/></svg>");mix-blend-mode:overlay}
+
+/* ─── NAV ─── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;transition:background .4s var(--ease),box-shadow .4s var(--ease)}
+.nav.scrolled{background:rgba(9,16,26,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 1px 0 rgba(93,106,120,.15)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.brand-mark{width:32px;height:36px;flex-shrink:0}
+.brand-mark svg{width:100%;height:100%;filter:drop-shadow(0 0 12px rgba(93,106,120,.6))}
+.brand-mark svg path{fill:url(#navGrad)}
+.brand-text{line-height:1.2}
+.brand-text span{display:block;font-size:9px;letter-spacing:.28em;font-weight:500;color:var(--ink-dim);margin-top:2px}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-links a{padding:8px 14px;font-size:13px;color:var(--ink-dim);border-radius:100px;transition:all .25s var(--ease);letter-spacing:.01em}
+.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(93,106,120,.1)}
+.nav-cta{display:flex;align-items:center;gap:10px}
+@media(max-width:900px){
+  .nav-links{display:none}
+  .nav-cta .btn-outline{display:none}
+}
+@media(max-width:768px){
+  .nav-inner{padding:0 24px}
+}
+
+/* ─── MOBILE MENU ─── */
+.menu-btn{display:none;width:36px;height:36px;align-items:center;justify-content:center;background:rgba(93,106,120,.1);border:1px solid var(--line-strong);border-radius:8px;cursor:pointer;flex-direction:column;gap:5px}
+.menu-btn span{display:block;width:18px;height:1.5px;background:var(--ink);border-radius:2px;transition:all .3s var(--ease)}
+@media(max-width:900px){.menu-btn{display:flex}}
+.mobile-menu{position:fixed;inset:0;z-index:98;background:rgba(9,16,26,.98);backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:0;visibility:hidden;transition:all .4s var(--ease)}
+.mobile-menu.open{opacity:1;visibility:visible}
+.mobile-menu a{font-size:28px;font-weight:700;color:var(--ink-dim);letter-spacing:-.01em;padding:12px 24px;transition:color .3s var(--ease)}
+.mobile-menu a:hover{color:#fff}
+
+/* ─── SCROLL PROGRESS ─── */
+.scroll-bar{position:fixed;top:0;left:0;right:0;height:2px;z-index:101;background:rgba(93,106,120,.15)}
+.scroll-bar i{display:block;height:100%;background:var(--grad-blue-bright);width:0;transition:width .08s linear;box-shadow:0 0 10px rgba(93,106,120,.8)}
+
+/* ─── CARDS ─── */
+.card{background:linear-gradient(180deg,rgba(42,90,138,.06),rgba(14,32,50,.04));border:1px solid var(--line);border-radius:var(--r);padding:32px;position:relative;overflow:hidden;transition:transform .5s var(--ease-out),border-color .4s;backdrop-filter:blur(12px)}
+.card::before{content:"";position:absolute;top:0;left:24px;right:24px;height:1px;background:linear-gradient(90deg,transparent,rgba(93,106,120,.5),transparent)}
+.card:hover{transform:translateY(-4px);border-color:rgba(93,106,120,.35)}
+.card-icon{width:48px;height:48px;border-radius:12px;background:rgba(42,90,138,.15);border:1px solid rgba(93,106,120,.25);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.card-icon svg{width:22px;height:22px;stroke:var(--blue-light);fill:none;stroke-width:1.8}
+
+/* ─── TAGS / PILLS ─── */
+.tag{display:inline-flex;align-items:center;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.tag-blue{background:rgba(42,90,138,.2);border:1px solid rgba(42,90,138,.4);color:var(--blue-light)}
+.tag-steel{background:rgba(93,106,120,.15);border:1px solid rgba(93,106,120,.3);color:var(--accent2)}
+
+/* ─── FOOTER ─── */
+footer{background:#060d15;border-top:1px solid var(--line);padding:80px 0 40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:64px}
+.footer-brand .brand-mark{width:36px;height:40px;margin-bottom:16px}
+.footer-brand p{font-size:14px;color:var(--ink-mute);line-height:1.7;max-width:280px;margin-top:14px}
+.footer-col h5{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim);font-weight:600;margin-bottom:20px}
+.footer-col a{display:block;font-size:14px;color:var(--ink-mute);margin-bottom:12px;transition:color .25s var(--ease)}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid var(--line);padding-top:32px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.footer-bottom p{font-size:12px;color:var(--ink-mute);letter-spacing:.04em}
+.social-links{display:flex;gap:8px}
+.social-link{width:36px;height:36px;border-radius:8px;background:rgba(93,106,120,.08);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;transition:all .3s var(--ease)}
+.social-link:hover{background:rgba(93,106,120,.18);border-color:rgba(93,106,120,.4);transform:translateY(-2px)}
+.social-link svg{width:16px;height:16px;fill:var(--ink-dim)}
+@media(max-width:900px){
+  .footer-grid{grid-template-columns:1fr 1fr;gap:40px}
+  .footer-brand{grid-column:1/-1}
+}
+@media(max-width:600px){
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+
+/* ─── REVEAL ANIMATIONS ─── */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.reveal-scale{opacity:0;transform:scale(.92);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+[data-delay="1"]{transition-delay:.1s}[data-delay="2"]{transition-delay:.2s}
+[data-delay="3"]{transition-delay:.3s}[data-delay="4"]{transition-delay:.4s}
+[data-delay="5"]{transition-delay:.5s}[data-delay="6"]{transition-delay:.6s}
+
+/* ─── PAGE HERO ─── */
+.page-hero{min-height:55vh;display:flex;align-items:flex-end;padding:120px 0 80px;position:relative;overflow:hidden}
+.page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 60% 0%,rgba(42,90,138,.18) 0%,transparent 65%),radial-gradient(ellipse at 0% 100%,rgba(93,106,120,.08) 0%,transparent 55%);pointer-events:none}
+.page-hero-canvas{position:absolute;inset:0;z-index:0}
+.page-hero-content{position:relative;z-index:2}
+
+/* ─── GLASS PANELS ─── */
+.glass{background:rgba(9,16,26,.6);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(93,106,120,.18);border-radius:var(--r)}
+
+/* ─── STATS ROW ─── */
+.stats-row{display:flex;gap:48px;flex-wrap:wrap}
+.stat-item .value{font-size:clamp(32px,4vw,52px);font-weight:700;letter-spacing:-.025em;color:#fff;line-height:1}
+.stat-item .value small{font-size:.45em;background:var(--grad-blue-bright);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700}
+.stat-item .label{font-size:12px;color:var(--ink-mute);letter-spacing:.1em;text-transform:uppercase;margin-top:8px}
+
+/* ─── TESTIMONIALS ─── */
+.testi-card{padding:36px;border-radius:20px;background:linear-gradient(160deg,rgba(42,90,138,.08),rgba(9,16,26,.95));border:1px solid rgba(93,106,120,.2);position:relative}
+.testi-card::before{content:open-quote;position:absolute;top:20px;left:28px;font-size:80px;line-height:1;color:rgba(93,106,120,.25);font-family:'Playfair Display',serif}
+.testi-text{font-size:16px;line-height:1.7;color:var(--ink-dim);padding-top:28px;margin-bottom:24px}
+.testi-author{display:flex;align-items:center;gap:14px}
+.testi-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#1e3a5a,#3d6a8a);border:2px solid rgba(93,106,120,.4);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff}
+.testi-name{font-weight:600;color:#fff;font-size:14px}
+.testi-role{font-size:12px;color:var(--ink-mute);letter-spacing:.05em;margin-top:2px}
+.stars{color:#4a8aaa;font-size:13px;letter-spacing:2px;margin-bottom:4px}
+
+/* ─── FORM ELEMENTS ─── */
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px}
+.form-control{width:100%;background:rgba(93,106,120,.06);border:1px solid rgba(93,106,120,.22);border-radius:10px;padding:14px 18px;color:var(--ink);font-family:'Montserrat',sans-serif;font-size:14px;outline:none;transition:border-color .3s var(--ease),background .3s var(--ease)}
+.form-control:focus{border-color:rgba(93,106,120,.6);background:rgba(93,106,120,.1)}
+.form-control::placeholder{color:var(--ink-mute)}
+textarea.form-control{resize:vertical;min-height:140px}
+select.form-control{cursor:pointer}
+
+/* ─── BLOG ─── */
+.blog-card{border-radius:20px;overflow:hidden;background:rgba(9,16,26,.8);border:1px solid var(--line);transition:all .5s var(--ease-out)}
+.blog-card:hover{transform:translateY(-6px);border-color:rgba(93,106,120,.35);box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.blog-thumb{aspect-ratio:16/9;background:linear-gradient(135deg,#0a1e35,#1e3a5a);position:relative;overflow:hidden}
+.blog-thumb-canvas{position:absolute;inset:0}
+.blog-body{padding:28px}
+.blog-category{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--blue-light);font-weight:700;margin-bottom:12px}
+.blog-title{font-size:clamp(17px,1.6vw,22px);font-weight:700;color:#fff;line-height:1.3;margin-bottom:12px;letter-spacing:-.012em}
+.blog-excerpt{font-size:14px;color:var(--ink-mute);line-height:1.65;margin-bottom:20px}
+.blog-meta{display:flex;align-items:center;gap:16px;font-size:11.5px;color:var(--ink-mute)}
+.blog-meta span{display:flex;align-items:center;gap:5px}
+
+/* ─── PRICING ─── */
+.pricing-card{border-radius:24px;padding:40px;background:linear-gradient(180deg,rgba(42,90,138,.06),rgba(9,16,26,.95));border:1px solid var(--line);position:relative;overflow:hidden;transition:all .5s var(--ease-out)}
+.pricing-card.featured{border-color:rgba(93,106,120,.5);background:linear-gradient(180deg,rgba(42,90,138,.14),rgba(9,16,26,.98))}
+.pricing-card.featured::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-blue-bright)}
+.pricing-badge{position:absolute;top:24px;right:24px;padding:4px 12px;border-radius:100px;background:rgba(42,90,138,.25);border:1px solid rgba(93,106,120,.4);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-light)}
+.price-amount{font-size:52px;font-weight:700;color:#fff;letter-spacing:-.025em;line-height:1}
+.price-amount small{font-size:18px;color:var(--ink-dim);font-weight:400;letter-spacing:0}
+.price-period{font-size:12px;color:var(--ink-mute);letter-spacing:.1em;text-transform:uppercase;margin:6px 0 28px}
+.price-features{list-style:none;margin-bottom:32px}
+.price-features li{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink-dim)}
+.price-features li::before{content:"";width:18px;height:18px;border-radius:50%;background:rgba(42,90,138,.2);border:1px solid rgba(93,106,120,.4);flex-shrink:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a8aaa' stroke-width='2.5'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");background-size:11px;background-position:center;background-repeat:no-repeat}
+
+/* ─── PAGE TRANSITIONS ─── */
+.page-transition{position:fixed;inset:0;z-index:500;background:#09101a;transform:scaleY(1);transform-origin:top;transition:transform .7s cubic-bezier(.76,0,.24,1);pointer-events:none}
+.page-transition.done{transform:scaleY(0);transform-origin:bottom}
+
+/* ─── FAQ ─── */
+.faq-item{border-bottom:1px solid var(--line);overflow:hidden}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:22px 0;cursor:pointer;font-weight:600;color:#fff;font-size:16px;gap:20px;transition:color .3s var(--ease)}
+.faq-q:hover{color:var(--blue-bright)}
+.faq-icon{width:26px;height:26px;border-radius:50%;border:1px solid rgba(93,106,120,.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .4s var(--ease)}
+.faq-icon svg{width:12px;height:12px;stroke:var(--accent2);fill:none;stroke-width:2.5;transition:transform .4s var(--ease)}
+.faq-item.open .faq-icon{background:rgba(42,90,138,.2);border-color:rgba(93,106,120,.6)}
+.faq-item.open .faq-icon svg{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .5s var(--ease-out)}
+.faq-a p{padding:0 0 22px;font-size:15px;color:var(--ink-mute);line-height:1.7}
+.faq-item.open .faq-a{max-height:300px}
+
+/* ─── SUPPLEMENT STACK ─── */
+.supp-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:100px;background:rgba(42,90,138,.1);border:1px solid rgba(93,106,120,.25);font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--ink-dim);transition:all .3s var(--ease);margin:4px}
+.supp-pill:hover{background:rgba(42,90,138,.2);border-color:rgba(93,106,120,.5);color:#fff}
+.supp-pill .dot{width:6px;height:6px;border-radius:50%;background:#4a8aaa;box-shadow:0 0 8px rgba(74,138,170,.8)}
+
+/* ─── HUD DECORATIONS ─── */
+.hud-corner{position:absolute;width:28px;height:28px;border-color:rgba(93,106,120,.3);border-style:solid}
+.hud-corner.tl{top:16px;left:16px;border-width:1px 0 0 1px}
+.hud-corner.tr{top:16px;right:16px;border-width:1px 1px 0 0}
+.hud-corner.bl{bottom:16px;left:16px;border-width:0 0 1px 1px}
+.hud-corner.br{bottom:16px;right:16px;border-width:0 1px 1px 0}
+
+/* ─── TIMELINE ─── */
+.timeline{position:relative;padding-left:40px}
+.timeline::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,transparent,rgba(93,106,120,.5) 15%,rgba(93,106,120,.5) 85%,transparent)}
+.timeline-item{position:relative;margin-bottom:48px}
+.timeline-dot{position:absolute;left:-40px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid rgba(93,106,120,.5);box-shadow:0 0 12px rgba(93,106,120,.3)}
+.timeline-item.active .timeline-dot{border-color:#4a8aaa;background:#1e3a5a;box-shadow:0 0 16px rgba(74,138,170,.6)}
+.timeline-year{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue-light);font-weight:700;margin-bottom:8px}
+.timeline-title{font-size:19px;font-weight:700;color:#fff;margin-bottom:8px}
+.timeline-text{font-size:14px;color:var(--ink-mute);line-height:1.7}
+
+/* ─── 3D CANVAS ─── */
+#main-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page-canvas{position:absolute;inset:0;z-index:0;pointer-events:none}
+
+/* ─── PORTRAIT FRAME ─── */
+.portrait-wrap{position:relative}
+.portrait-img{width:100%;border-radius:24px;overflow:hidden;position:relative}
+.portrait-img img{width:100%;height:auto;display:block;border-radius:24px;filter:brightness(.9) contrast(1.05)}
+.portrait-img::after{content:"";position:absolute;inset:0;border-radius:24px;border:1px solid rgba(93,106,120,.3);background:linear-gradient(to bottom,transparent 60%,rgba(9,16,26,.6));pointer-events:none}
+.portrait-badge{position:absolute;background:rgba(9,16,26,.85);backdrop-filter:blur(16px);border:1px solid rgba(93,106,120,.3);border-radius:14px;padding:14px 18px}
+.portrait-badge .num{font-size:22px;font-weight:700;color:#fff;line-height:1;background:var(--grad-blue-bright);-webkit-background-clip:text;background-clip:text;color:transparent}
+.portrait-badge .lbl{font-size:10px;color:var(--ink-mute);letter-spacing:.14em;text-transform:uppercase;margin-top:3px}
+
+
+.services-hero{min-height:65vh;display:flex;align-items:flex-end;padding:140px 0 80px;position:relative;z-index:1}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
+.service-card{border-radius:22px;padding:36px 30px;background:linear-gradient(160deg,rgba(42,90,138,.07),rgba(9,16,26,.96));border:1px solid var(--line);position:relative;overflow:hidden;transition:all .5s var(--ease-out);cursor:pointer}
+.service-card:hover{transform:translateY(-6px);border-color:rgba(93,106,120,.45);box-shadow:0 30px 60px rgba(0,0,0,.5),0 0 30px rgba(42,90,138,.12)}
+.service-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-blue-bright);opacity:0;transition:opacity .4s}
+.service-card:hover::before{opacity:.8}
+.service-num{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--blue-light);font-weight:700;margin-bottom:20px}
+.service-icon{width:56px;height:56px;border-radius:14px;background:rgba(42,90,138,.12);border:1px solid rgba(93,106,120,.25);display:grid;place-items:center;margin-bottom:22px;transition:all .4s}
+.service-card:hover .service-icon{background:rgba(42,90,138,.22);border-color:rgba(93,106,120,.5)}
+.service-icon svg{width:26px;height:26px;stroke:var(--blue-bright);fill:none;stroke-width:1.7}
+.service-feature{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-dim);padding:7px 0;border-bottom:1px solid rgba(93,106,120,.1)}
+.service-feature::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--blue-light);flex-shrink:0}
+.pricing-section{padding:100px 0;position:relative;z-index:1}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+@media(max-width:1100px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.services-grid,.pricing-grid{grid-template-columns:1fr}}
+.supp-showcase{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:50px}
+.supp-visual{position:relative;background:linear-gradient(160deg,#0a1e35,#1a3a6a);border-radius:24px;min-height:380px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(93,106,120,.2)}
+.supp-visual canvas{border-radius:24px}
+.supp-pills-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+@media(max-width:900px){.supp-showcase{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<canvas id="main-canvas" style="position:fixed;inset:0;z-index:0;pointer-events:none;width:100%;height:100%"></canvas>
+
+<div class="grain"></div>
+<div class="scroll-bar"><i id="sb"></i></div>
+<div class="page-transition" id="pt"></div>
+
+<svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true">
+  <defs>
+    <linearGradient id="navGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4a8aaa"/>
+      <stop offset="50%" stop-color="#5d6a78"/>
+      <stop offset="100%" stop-color="#8aaabb"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e3a5a"/>
+      <stop offset="50%" stop-color="#2a5a8a"/>
+      <stop offset="100%" stop-color="#5d6a78"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 54 70" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 4 L5 50 Q5 64 30 68 Q16 64 16 50 L16 4 Z M32 18 Q38 4 44 18 L44 50 Q44 64 30 68 Q32 62 32 50 Z"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        THE ULTIMATE
+        <span>Health Project</span>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+      
+    </nav>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-outline" style="padding:9px 16px;font-size:12.5px">Book a call</a>
+      <a href="services.html" class="btn btn-primary" style="padding:9px 18px;font-size:12.5px">
+        Get started
+        <svg class="btn-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+      </a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="blog.html">Blog</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html" class="btn btn-primary" style="margin-top:24px;font-size:16px">Get started →</a>
+</div>
+
+<section class="services-hero" style="overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(42,90,138,.14) 0%,transparent 60%);z-index:0"></div>
+  <div class="container" style="position:relative;z-index:2">
+    <div class="reveal">
+      <div class="eyebrow"><span class="dot"></span>What we offer</div>
+      <h1 class="display" style="max-width:800px">Systems built for <span class="it">your exact life.</span></h1>
+      <p class="lead" style="margin-top:24px;max-width:560px">Every program is fully personalized — your schedule, your goals, your constraints. No templates. No guessing. Just a system that works.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="z-index:1;position:relative">
+  <div class="container">
+    <div class="reveal"><div class="eyebrow"><span class="dot"></span>Core services</div><h2 class="section-title">Everything you need. <span class="it">Nothing you don't.</span></h2></div>
+    <div class="services-grid">
+      <div class="service-card reveal" data-delay="1">
+        <div class="service-num">01</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 4v8l4 2"/></svg></div>
+        <h3 style="margin-bottom:12px">Founder Nutrition System</h3>
+        <p style="font-size:14px;color:var(--ink-mute);line-height:1.7;margin-bottom:20px">A flexible, practical nutrition strategy that works with your actual schedule — not a rigid meal plan you'll abandon in a week.</p>
+        <div class="service-feature">Personalized macro targets</div>
+        <div class="service-feature">Flexible food strategies</div>
+        <div class="service-feature">Weekly recalibrations</div>
+        <div class="service-feature">Travel-ready protocols</div>
+      </div>
+      <div class="service-card reveal" data-delay="2">
+        <div class="service-num">02</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="8" ry="4" transform="rotate(-45 12 12)"/><path d="M8.5 8.5l7 7"/></svg></div>
+        <h3 style="margin-bottom:12px">Supplement Protocol</h3>
+        <p style="font-size:14px;color:var(--ink-mute);line-height:1.7;margin-bottom:20px">Stop buying random supplements. We identify exactly what your body is missing and build a targeted protocol that fills the gaps.</p>
+        <div class="service-feature">Full supplement audit</div>
+        <div class="service-feature">Personalized stack design</div>
+        <div class="service-feature">Dosing & timing guide</div>
+        <div class="service-feature">Brand recommendations</div>
+      </div>
+      <div class="service-card reveal" data-delay="3">
+        <div class="service-num">03</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <h3 style="margin-bottom:12px">1-on-1 Accountability</h3>
+        <p style="font-size:14px;color:var(--ink-mute);line-height:1.7;margin-bottom:20px">Weekly check-ins, direct access to Steven, and real-time adjustments as your business life changes. No app. No bot. Actual coaching.</p>
+        <div class="service-feature">Weekly video check-ins</div>
+        <div class="service-feature">Direct messaging access</div>
+        <div class="service-feature">Real-time plan updates</div>
+        <div class="service-feature">Progress tracking</div>
+      </div>
+      <div class="service-card reveal" data-delay="4">
+        <div class="service-num">04</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h3 style="margin-bottom:12px">Energy & Focus Optimization</h3>
+        <p style="font-size:14px;color:var(--ink-mute);line-height:1.7;margin-bottom:20px">Reduce caffeine dependency, eliminate afternoon crashes, and build sustained cognitive energy through strategic nutrition and targeted supplementation.</p>
+        <div class="service-feature">Caffeine reduction plan</div>
+        <div class="service-feature">Natural energy protocol</div>
+        <div class="service-feature">Sleep optimization</div>
+        <div class="service-feature">Focus supplement stack</div>
+      </div>
+      <div class="service-card reveal" data-delay="5">
+        <div class="service-num">05</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></div>
+        <h3 style="margin-bottom:12px">Fat Loss System</h3>
+        <p style="font-size:14px;color:var(--ink-mute);line-height:1.7;margin-bottom:20px">Sustainable fat loss without extreme routines. Built around your business schedule, stress levels, and actual eating patterns.</p>
+        <div class="service-feature">Body composition analysis</div>
+        <div class="service-feature">Deficit strategy (non-extreme)</div>
+        <div class="service-feature">Metabolic support plan</div>
+        <div class="service-feature">Maintenance programming</div>
+      </div>
+      <div class="service-card reveal" data-delay="6">
+        <div class="service-num">06</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3 style="margin-bottom:12px">Recovery & Stress Management</h3>
+        <p style="font-size:14px;color:var(--ink-mute);line-height:1.7;margin-bottom:20px">Practical recovery protocols that work for founders under high stress — improving sleep quality, reducing cortisol, and rebuilding resilience.</p>
+        <div class="service-feature">Sleep protocol design</div>
+        <div class="service-feature">Stress nutrition strategies</div>
+        <div class="service-feature">Adaptogens & recovery supps</div>
+        <div class="service-feature">HRV monitoring guidance</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUPPLEMENT SHOWCASE -->
+<section class="section" style="background:linear-gradient(180deg,transparent,rgba(42,90,138,.04),transparent);z-index:1;position:relative">
+  <div class="container">
+    <div class="reveal" style="text-align:center;max-width:640px;margin:0 auto 50px">
+      <div class="eyebrow" style="margin:0 auto 24px"><span class="dot"></span>Supplement system</div>
+      <h2 class="section-title" style="text-align:center;margin:0 auto">No guesswork. <span class="it">Just what works.</span></h2>
+    </div>
+    <div class="supp-showcase">
+      <div class="reveal-left">
+        <h3 style="font-size:26px;margin-bottom:16px">Your supplement stack, built for you</h3>
+        <p style="font-size:15px;color:var(--ink-mute);line-height:1.75;margin-bottom:24px">Most founders waste hundreds every month on supplements that either don't work or aren't right for them. We run a full audit of what you're taking, what you need, and what to eliminate.</p>
+        <p style="font-size:15px;color:var(--ink-mute);line-height:1.75;margin-bottom:32px">The result: a minimal, targeted stack that actually moves the needle — nothing more, nothing less.</p>
+        <div class="supp-pills-list">
+          <span class="supp-pill"><span class="dot"></span>Magnesium Glycinate</span>
+          <span class="supp-pill"><span class="dot"></span>Omega-3 (EPA/DHA)</span>
+          <span class="supp-pill"><span class="dot"></span>Vitamin D3+K2</span>
+          <span class="supp-pill"><span class="dot"></span>Creatine Monohydrate</span>
+          <span class="supp-pill"><span class="dot"></span>B-Complex</span>
+          <span class="supp-pill"><span class="dot"></span>Zinc + Copper</span>
+          <span class="supp-pill"><span class="dot"></span>Electrolytes</span>
+          <span class="supp-pill"><span class="dot"></span>Ashwagandha</span>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="supp-visual">
+          <div style="text-align:center;position:relative;z-index:2;padding:40px">
+            <div style="width:80px;height:80px;border-radius:50%;background:rgba(42,90,138,.2);border:1px solid rgba(93,106,120,.35);display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#4a8aaa" stroke-width="1.5"><ellipse cx="12" cy="12" rx="8" ry="4" transform="rotate(-45 12 12)"/><path d="M8.5 8.5l7 7"/></svg>
+            </div>
+            <p style="font-size:13px;color:var(--ink-dim);max-width:220px;margin:0 auto;line-height:1.6">Your personalized stack is identified in your first consultation call</p>
+          </div>
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(42,90,138,.15),transparent 70%);pointer-events:none"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section">
+  <div class="container">
+    <div class="reveal" style="text-align:center;max-width:580px;margin:0 auto 56px">
+      <div class="eyebrow" style="margin:0 auto 24px"><span class="dot"></span>Programs</div>
+      <h2 class="section-title" style="text-align:center;margin:0 auto">Pick your <span class="it">level of support.</span></h2>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal" data-delay="1">
+        <h4 style="font-size:18px;font-weight:700;color:#fff;margin-bottom:8px">Founder Essentials</h4>
+        <p style="font-size:13px;color:var(--ink-mute);margin-bottom:24px">For founders who need a solid foundation</p>
+        <div class="price-amount">$297<small>/mo</small></div>
+        <div class="price-period">Billed monthly · Cancel anytime</div>
+        <ul class="price-features">
+          <li>Personalized nutrition strategy</li>
+          <li>Supplement protocol audit</li>
+          <li>Bi-weekly check-in calls</li>
+          <li>WhatsApp support (48h response)</li>
+          <li>Monthly plan recalibration</li>
+        </ul>
+        <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center">Get started →</a>
+      </div>
+      <div class="pricing-card featured reveal" data-delay="2">
+        <div class="pricing-badge">Most Popular</div>
+        <h4 style="font-size:18px;font-weight:700;color:#fff;margin-bottom:8px">Elite Performance</h4>
+        <p style="font-size:13px;color:var(--ink-mute);margin-bottom:24px">For founders serious about transformation</p>
+        <div class="price-amount">$597<small>/mo</small></div>
+        <div class="price-period">Billed monthly · Cancel anytime</div>
+        <ul class="price-features">
+          <li>Everything in Essentials</li>
+          <li>Weekly 1-on-1 coaching calls</li>
+          <li>Daily WhatsApp access</li>
+          <li>Energy & focus optimization</li>
+          <li>Fat loss system included</li>
+          <li>Sleep + recovery protocol</li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center">Get started →</a>
+      </div>
+      <div class="pricing-card reveal" data-delay="3">
+        <h4 style="font-size:18px;font-weight:700;color:#fff;margin-bottom:8px">VIP Concierge</h4>
+        <p style="font-size:13px;color:var(--ink-mute);margin-bottom:24px">Full-service health management</p>
+        <div class="price-amount">$1,497<small>/mo</small></div>
+        <div class="price-period">Billed monthly · 3-month minimum</div>
+        <ul class="price-features">
+          <li>Everything in Elite</li>
+          <li>Unlimited access to Steven</li>
+          <li>Same-day response guaranteed</li>
+          <li>Quarterly bloodwork review</li>
+          <li>Travel & event prep plans</li>
+          <li>Custom supplement sourcing</li>
+        </ul>
+        <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center">Apply now →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-sm" style="z-index:1;position:relative">
+  <div class="container" style="max-width:780px">
+    <div class="reveal" style="text-align:center;margin-bottom:50px">
+      <div class="eyebrow" style="margin:0 auto 24px"><span class="dot"></span>FAQ</div>
+      <h2 class="section-title" style="text-align:center;margin:0 auto">Common <span class="it">questions.</span></h2>
+    </div>
+    <div class="faq-item reveal" data-delay="1"><div class="faq-q">How is this different from hiring a regular nutritionist?<div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faq-a"><p>Regular nutritionists give you a meal plan and see you monthly. UHP is built specifically for founders — we build around your travel schedule, your stress patterns, your work hours, and your actual food environment. The accountability model is also very different: we're available when you need us, not just at scheduled appointments.</p></div></div>
+    <div class="faq-item reveal" data-delay="2"><div class="faq-q">How much time does this actually require from me?<div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faq-a"><p>The weekly check-in call is 20-30 minutes. Beyond that, it's about applying a simple system that we design around your existing life — not adding a second job. Most clients report the system takes less mental energy than trying to figure it out alone.</p></div></div>
+    <div class="faq-item reveal" data-delay="3"><div class="faq-q">Do I need to follow a strict diet or meal plan?<div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faq-a"><p>No. Rigid meal plans are exactly what we avoid. The UHP approach uses a flexible nutrition framework that gives you principles and targets — not a list of specific foods. You'll be eating out, traveling, and living normally while still hitting your goals.</p></div></div>
+    <div class="faq-item reveal" data-delay="4"><div class="faq-q">How quickly will I see results?<div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faq-a"><p>Most clients notice energy improvements within the first 2-3 weeks. Visible body composition changes typically begin around weeks 4-6. Our average client hits significant results (6-10kg fat loss, major energy improvement) by week 12. Results depend on consistency and starting point.</p></div></div>
+    <div class="faq-item reveal" data-delay="5"><div class="faq-q">Can I cancel anytime?<div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faq-a"><p>Yes. Essentials and Elite programs are month-to-month with no lock-in. The VIP Concierge has a 3-month minimum commitment due to the level of investment on our side. We've never had anyone want to cancel because the results speak for themselves.</p></div></div>
+  </div>
+</section>
+
+<section class="section" style="z-index:1;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(42,90,138,.1),transparent 70%)"></div>
+  <div class="container" style="position:relative;z-index:2">
+    <div class="reveal" style="text-align:center;max-width:640px;margin:0 auto">
+      <div class="eyebrow" style="margin:0 auto 28px"><span class="dot"></span>Ready to start</div>
+      <h2 class="section-title" style="text-align:center;margin:0 auto 20px">Not sure which program? <span class="it">Let's talk.</span></h2>
+      <p class="lead" style="text-align:center;margin:0 auto 40px">Book a free 30-minute call and we'll recommend the right program for your goals, schedule, and budget.</p>
+      <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">
+        <a href="contact.html" class="btn btn-primary btn-lg">Book free call <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 54 70" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 4 L5 50 Q5 64 30 68 Q16 64 16 50 L16 4 Z M32 18 Q38 4 44 18 L44 50 Q44 64 30 68 Q32 62 32 50 Z" fill="url(#navGrad)"/>
+          </svg>
+        </div>
+        <div style="font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#fff;margin-top:4px">THE ULTIMATE<br><span style="font-size:10px;letter-spacing:.22em;font-weight:500;color:var(--ink-dim)">HEALTH PROJECT</span></div>
+        <p>Health systems for busy founders. Simple, sustainable, and built around your life — not someone else's routine.</p>
+        <div class="social-links" style="margin-top:24px">
+          <a class="social-link" href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a class="social-link" href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a class="social-link" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Programs</h5>
+        <a href="services.html">Founder Essentials</a>
+        <a href="services.html">Elite Performance</a>
+        <a href="services.html">VIP Concierge</a>
+        <a href="services.html">Supplement Guide</a>
+        <a href="services.html">Custom Plans</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <a href="mailto:hello@uhp.com">hello@uhp.com</a>
+        <a href="contact.html">Book a consultation</a>
+        <a href="contact.html">Free health audit</a>
+        <a href="#">Privacy policy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 The Ultimate Health Project. All rights reserved.</p>
+      <p style="color:var(--ink-mute)">Health systems for busy founders.</p>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+// ── Nav scroll behavior ──
+(function(){
+  const nav = document.getElementById('nav');
+  const sb  = document.getElementById('sb');
+  const pt  = document.getElementById('pt');
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  // page-in animation
+  if(pt){ setTimeout(()=>pt.classList.add('done'), 50); }
+
+  window.addEventListener('scroll', ()=>{
+    const p = window.scrollY/(document.documentElement.scrollHeight - window.innerHeight);
+    if(nav) nav.classList.toggle('scrolled', window.scrollY > 60);
+    if(sb) sb.style.width = (p*100)+'%';
+  }, {passive:true});
+
+  if(menuBtn && mobileMenu){
+    menuBtn.addEventListener('click', ()=>{
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open')?'hidden':'';
+    });
+    mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow='';
+    }));
+  }
+
+  // page transitions on nav clicks
+  document.querySelectorAll('a[href]').forEach(a=>{
+    const href = a.getAttribute('href');
+    if(!href || href.startsWith('#') || href.startsWith('mailto') || href.startsWith('http')) return;
+    a.addEventListener('click', e=>{
+      e.preventDefault();
+      if(pt){
+        pt.style.transition='none';
+        pt.style.transform='scaleY(1)';
+        pt.style.transformOrigin='top';
+        pt.classList.remove('done');
+        setTimeout(()=>{ window.location.href = href; }, 500);
+      } else {
+        window.location.href = href;
+      }
+    });
+  });
+})();
+
+// ── Scroll reveal ──
+(function(){
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.1, rootMargin:'0px 0px -60px 0px'});
+  document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>io.observe(el));
+})();
+
+// ── FAQ accordion ──
+(function(){
+  document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click', ()=>{
+      const item = q.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+      if(!isOpen) item.classList.add('open');
+    });
+  });
+})();
+
+// ── Counter animation ──
+(function(){
+  function animCount(el){
+    const target = parseInt(el.dataset.count);
+    const span = el.querySelector('span');
+    if(!span) return;
+    let current = 0;
+    const step = target / 60;
+    const timer = setInterval(()=>{
+      current = Math.min(current + step, target);
+      span.textContent = Math.round(current);
+      if(current >= target) clearInterval(timer);
+    }, 16);
+  }
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ animCount(e.target); io.unobserve(e.target); } });
+  },{threshold:.5});
+  document.querySelectorAll('[data-count]').forEach(el=>io.observe(el));
+})();
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  if(typeof THREE==='undefined') return;
+  const canvas=document.getElementById('main-canvas');if(!canvas)return;
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);renderer.setClearColor(0,0);
+  renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.25;
+  const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,.05,200);camera.position.set(0,.3,12);
+  scene.fog=new THREE.FogExp2(0x05090f,.022);
+  scene.add(new THREE.AmbientLight(0x061020,.7));
+  const kl=new THREE.DirectionalLight(0x8ab8e0,2.5);kl.position.set(-4,7,5);scene.add(kl);
+  const rl=new THREE.DirectionalLight(0x3a7aaa,2);rl.position.set(5,2,-4);scene.add(rl);
+  const pl=new THREE.PointLight(0x2a6aaa,4,12);pl.position.set(0,.5,3.5);scene.add(pl);
+  // Mini bottle
+  const glassMat=new THREE.MeshStandardMaterial({color:0x061828,metalness:.08,roughness:.04,transparent:true,opacity:.93,emissive:0x040e18,emissiveIntensity:.55});
+  const capMat=new THREE.MeshStandardMaterial({color:0x1a3a5a,metalness:.88,roughness:.12,emissive:0x0a2240,emissiveIntensity:.55});
+  const labelMat=new THREE.MeshStandardMaterial({color:0x0a2040,metalness:.18,roughness:.06,transparent:true,opacity:.97,emissive:0x0d253d,emissiveIntensity:.6});
+  function mkBottle(scale,x,y){
+    const g=new THREE.Group();
+    const parts=[
+      [new THREE.CylinderGeometry(.62,.68,3.1,48),glassMat,[0,0,0]],
+      [new THREE.CylinderGeometry(.36,.62,.55,40),glassMat,[0,1.82,0]],
+      [new THREE.CylinderGeometry(.32,.36,.5,32),glassMat,[0,2.33,0]],
+      [new THREE.CylinderGeometry(.38,.38,.58,40),capMat,[0,2.9,0]],
+      [new THREE.CylinderGeometry(.635,.695,1.9,48),labelMat,[0,-.05,0]],
+    ];
+    parts.forEach(([geo,mat,pos])=>{const m=new THREE.Mesh(geo,mat);m.position.set(...pos);g.add(m);});
+    const aura=new THREE.Mesh(new THREE.CylinderGeometry(.82,.9,3.2,24),new THREE.MeshBasicMaterial({color:0x1a4a8a,transparent:true,opacity:.055,blending:THREE.AdditiveBlending,side:THREE.BackSide}));
+    g.add(aura);g.scale.setScalar(scale);g.position.set(x,y,0);return g;
+  }
+  const b1=mkBottle(1,0,0),b2=mkBottle(.72,-2.8,.3),b3=mkBottle(.72,2.8,-.2);
+  [b1,b2,b3].forEach(b=>scene.add(b));
+  // Floating capsules
+  function mkCap(c1,c2){
+    const g=new THREE.Group();const r=.1,hl=.28;
+    const m1=new THREE.MeshStandardMaterial({color:c1,metalness:.3,roughness:.22,emissive:c1,emissiveIntensity:.28,transparent:true,opacity:.88});
+    const m2=new THREE.MeshStandardMaterial({color:c2,metalness:.3,roughness:.22,emissive:c2,emissiveIntensity:.28,transparent:true,opacity:.88});
+    const cy1=new THREE.Mesh(new THREE.CylinderGeometry(r,r,hl,12),m1);cy1.rotation.z=Math.PI/2;cy1.position.x=-hl/2;g.add(cy1);
+    const sp1=new THREE.Mesh(new THREE.SphereGeometry(r,12,12),m1);sp1.position.x=-hl;g.add(sp1);
+    const cy2=new THREE.Mesh(new THREE.CylinderGeometry(r,r,hl,12),m2);cy2.rotation.z=Math.PI/2;cy2.position.x=hl/2;g.add(cy2);
+    const sp2=new THREE.Mesh(new THREE.SphereGeometry(r,12,12),m2);sp2.position.x=hl;g.add(sp2);
+    return g;
+  }
+  const caps=[];
+  for(let i=0;i<12;i++){
+    const c=mkCap([0x0a2a5a,0x1a3a6a,0x2a4a7a][i%3],[0x2a5a8a,0x3d6a9a,0x5d6a78][i%3]);
+    c.position.set((Math.random()-.5)*10,(Math.random()-.5)*6,(Math.random()-.5)*5-2);
+    c.rotation.set(Math.random()*6.28,Math.random()*6.28,Math.random()*6.28);
+    c.userData={by:c.position.y,ph:Math.random()*6.28,rs:new THREE.Vector3((Math.random()-.5)*.008,(Math.random()-.5)*.009,(Math.random()-.5)*.006)};
+    scene.add(c);caps.push(c);
+  }
+  // bg particles
+  const N=500;const pos=new Float32Array(N*3);for(let i=0;i<N;i++){pos[i*3]=(Math.random()-.5)*50;pos[i*3+1]=(Math.random()-.5)*28;pos[i*3+2]=(Math.random()-.5)*28-6;}
+  const fg=new THREE.BufferGeometry();fg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  scene.add(new THREE.Points(fg,new THREE.PointsMaterial({color:0x3a6a8a,size:.035,transparent:true,opacity:.5,blending:THREE.AdditiveBlending})));
+  let t=0,mx=0,my=0,tx=0,ty=0;
+  const scrollMax=()=>document.documentElement.scrollHeight-innerHeight;
+  let sp=0,tsp=0;window.addEventListener('scroll',()=>{tsp=window.scrollY/Math.max(1,scrollMax());},{passive:true});
+  window.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2;});
+  window.addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();});
+  function tick(){t+=.005;sp+=(tsp-sp)*.07;tx+=(mx-tx)*.04;ty+=(my-ty)*.04;
+    camera.position.x=tx*.7;camera.position.y=.3-ty*.4-sp*1.2;camera.position.z=12-sp*1.5;camera.lookAt(0,-sp*1.2,0);
+    pl.position.x=Math.sin(t*.7)*1.5;pl.intensity=3.5+Math.sin(t*1.2)*.5;
+    b1.rotation.y=t*.25;b1.position.y=Math.sin(t*.6)*.18;
+    b2.rotation.y=-t*.2;b2.position.y=.3+Math.sin(t*.55+1)*.15;
+    b3.rotation.y=t*.18;b3.position.y=-.2+Math.sin(t*.5+2)*.14;
+    caps.forEach(c=>{c.position.y=c.userData.by+Math.sin(t*.65+c.userData.ph)*.2;c.rotation.x+=c.userData.rs.x;c.rotation.y+=c.userData.rs.y;c.rotation.z+=c.userData.rs.z;});
+    renderer.render(scene,camera);requestAnimationFrame(tick);
+  }tick();
+})();
+</script>
+</body></html>

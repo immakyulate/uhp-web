@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="theme-color" content="#09101a"/>
+<title>Contact — UHP · Ultimate Health Project</title>
+<meta name="description" content="Book your free founder health audit with UHP. We identify the 3 biggest performance leaks in your current routine and show you exactly how to fix them."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════
+   UHP — Ultimate Health Project
+   Contact Page
+   ══════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root{
+  --bg:#09101a;--bg2:#0c1828;--bg3:#0f2035;
+  --ink:#ededed;--ink-dim:#9aaabb;--ink-mute:#4a6070;
+  --accent:#5d6a78;--accent2:#7a8a9a;--accent3:#3d4d5d;
+  --blue:#2a5a8a;--blue-light:#4a8aaa;--blue-bright:#6aaaca;
+  --steel:#5d6a78;--navy:#0a1e35;--charcoal:#2e2e2d;--white:#ffffff;
+  --line:rgba(93,106,120,.12);--line-strong:rgba(93,106,120,.24);
+  --grad:linear-gradient(135deg,#7a8a9a,#5d6a78 50%,#3d4d5d);
+  --grad-blue:linear-gradient(135deg,#1e2d3e 0%,#2a5a8a 50%,#5d6a78 100%);
+  --grad-blue-bright:linear-gradient(135deg,#2e4a6a 0%,#5d6a78 50%,#8aaabb 100%);
+  --glow-blue:0 0 24px rgba(93,106,120,.45),0 0 60px rgba(42,90,138,.25);
+  --glow-blue-strong:0 0 36px rgba(93,106,120,.7),0 8px 60px rgba(42,90,138,.45);
+  --ease:cubic-bezier(.22,.61,.36,1);--ease-out:cubic-bezier(.16,1,.3,1);--r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font-family:'Montserrat',system-ui,sans-serif;letter-spacing:-.005em;overflow-x:hidden}
+::selection{background:rgba(93,106,120,.4);color:#fff}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
+
+h1,h2,h3,h4{font-family:'Montserrat',sans-serif;font-weight:700;line-height:1.05;letter-spacing:-.022em}
+.display{font-size:clamp(48px,7.5vw,108px);text-transform:uppercase;color:#fff}
+.display .it{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;text-transform:none;letter-spacing:-.005em;background:var(--grad-blue-bright);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2.section-title{font-size:clamp(36px,4.8vw,68px);color:#fff;text-transform:uppercase;max-width:860px}
+h2.section-title .it{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;text-transform:none;background:var(--grad-blue-bright);-webkit-background-clip:text;background-clip:text;color:transparent}
+h3{font-size:clamp(20px,2vw,28px);color:#fff}
+p.lead{font-size:clamp(16px,1.4vw,18.5px);color:var(--ink-dim);line-height:1.65;max-width:580px}
+
+.container{width:100%;max-width:1280px;margin:0 auto;padding:0 48px}
+.section{padding:120px 0;position:relative}
+.section-sm{padding:80px 0;position:relative}
+@media(max-width:768px){.container{padding:0 24px}.section{padding:80px 0}}
+
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 8px;border-radius:100px;background:rgba(93,106,120,.08);border:1px solid rgba(93,106,120,.22);font-size:11px;color:var(--ink-dim);letter-spacing:.2em;text-transform:uppercase;font-weight:600;margin-bottom:24px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:#5d6a78;box-shadow:0 0 14px rgba(93,106,120,.9)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;font-size:13.5px;font-weight:600;border-radius:100px;transition:all .35s var(--ease);position:relative;border:1px solid transparent;white-space:nowrap;cursor:pointer;font-family:'Montserrat',sans-serif;letter-spacing:.02em}
+.btn-primary{color:#fff;background:linear-gradient(135deg,#1e3a5a 0%,#2a5a8a 50%,#5d6a78 100%);border-color:rgba(93,106,120,.4);box-shadow:0 6px 28px rgba(42,90,138,.35),0 0 24px rgba(93,106,120,.2),inset 0 1px 0 rgba(255,255,255,.1)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(42,90,138,.55),0 0 40px rgba(93,106,120,.35),inset 0 1px 0 rgba(255,255,255,.15)}
+.btn-outline{color:#fff;border-color:rgba(93,106,120,.35);background:rgba(93,106,120,.05);backdrop-filter:blur(10px)}
+.btn-outline:hover{background:rgba(93,106,120,.12);border-color:rgba(93,106,120,.6);transform:translateY(-1px)}
+.btn-lg{padding:16px 28px;font-size:15px}
+.btn-arrow{transition:transform .3s var(--ease)}
+.btn:hover .btn-arrow{transform:translateX(3px)}
+
+.grain{position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.025;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='1'/></svg>");mix-blend-mode:overlay}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;transition:background .4s var(--ease),box-shadow .4s var(--ease)}
+.nav.scrolled{background:rgba(9,16,26,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 1px 0 rgba(93,106,120,.15)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.brand-mark{width:32px;height:36px;flex-shrink:0}
+.brand-mark svg{width:100%;height:100%;filter:drop-shadow(0 0 12px rgba(93,106,120,.6))}
+.brand-mark svg path{fill:url(#navGrad)}
+.brand-text{line-height:1.2}
+.brand-text span{display:block;font-size:9px;letter-spacing:.28em;font-weight:500;color:var(--ink-dim);margin-top:2px}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-links a{padding:8px 14px;font-size:13px;color:var(--ink-dim);border-radius:100px;transition:all .25s var(--ease);letter-spacing:.01em}
+.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(93,106,120,.1)}
+.nav-cta{display:flex;align-items:center;gap:10px}
+@media(max-width:900px){.nav-links{display:none}.nav-cta .btn-outline{display:none}}
+@media(max-width:768px){.nav-inner{padding:0 24px}}
+
+.menu-btn{display:none;width:36px;height:36px;align-items:center;justify-content:center;background:rgba(93,106,120,.1);border:1px solid var(--line-strong);border-radius:8px;cursor:pointer;flex-direction:column;gap:5px}
+.menu-btn span{display:block;width:18px;height:1.5px;background:var(--ink);border-radius:2px;transition:all .3s var(--ease)}
+@media(max-width:900px){.menu-btn{display:flex}}
+.mobile-menu{position:fixed;inset:0;z-index:98;background:rgba(9,16,26,.98);backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:0;visibility:hidden;transition:all .4s var(--ease)}
+.mobile-menu.open{opacity:1;visibility:visible}
+.mobile-menu a{font-size:28px;font-weight:700;color:var(--ink-dim);letter-spacing:-.01em;padding:12px 24px;transition:color .3s var(--ease)}
+.mobile-menu a:hover{color:#fff}
+
+.scroll-bar{position:fixed;top:0;left:0;right:0;height:2px;z-index:101;background:rgba(93,106,120,.15)}
+.scroll-bar i{display:block;height:100%;background:var(--grad-blue-bright);width:0;transition:width .08s linear;box-shadow:0 0 10px rgba(93,106,120,.8)}
+
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.reveal-scale{opacity:0;transform:scale(.92);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+[data-delay="1"]{transition-delay:.1s}[data-delay="2"]{transition-delay:.2s}
+[data-delay="3"]{transition-delay:.3s}[data-delay="4"]{transition-delay:.4s}
+[data-delay="5"]{transition-delay:.5s}[data-delay="6"]{transition-delay:.6s}
+
+.page-transition{position:fixed;inset:0;z-index:500;background:#09101a;transform:scaleY(1);transform-origin:top;transition:transform .7s cubic-bezier(.76,0,.24,1);pointer-events:none}
+.page-transition.done{transform:scaleY(0);transform-origin:bottom}
+
+.glass{background:rgba(9,16,26,.6);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(93,106,120,.18);border-radius:var(--r)}
+
+.hud-corner{position:absolute;width:28px;height:28px;border-color:rgba(93,106,120,.3);border-style:solid}
+.hud-corner.tl{top:16px;left:16px;border-width:1px 0 0 1px}
+.hud-corner.tr{top:16px;right:16px;border-width:1px 1px 0 0}
+.hud-corner.bl{bottom:16px;left:16px;border-width:0 0 1px 1px}
+.hud-corner.br{bottom:16px;right:16px;border-width:0 1px 1px 0}
+
+/* ─── FOOTER ─── */
+footer{background:#060d15;border-top:1px solid var(--line);padding:80px 0 40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:64px}
+.footer-brand .brand-mark{width:36px;height:40px;margin-bottom:16px}
+.footer-brand p{font-size:14px;color:var(--ink-mute);line-height:1.7;max-width:280px;margin-top:14px}
+.footer-col h5{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim);font-weight:600;margin-bottom:20px}
+.footer-col a{display:block;font-size:14px;color:var(--ink-mute);margin-bottom:12px;transition:color .25s var(--ease)}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid var(--line);padding-top:32px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.footer-bottom p{font-size:12px;color:var(--ink-mute);letter-spacing:.04em}
+.social-links{display:flex;gap:8px}
+.social-link{width:36px;height:36px;border-radius:8px;background:rgba(93,106,120,.08);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;transition:all .3s var(--ease)}
+.social-link:hover{background:rgba(93,106,120,.18);border-color:rgba(93,106,120,.4);transform:translateY(-2px)}
+.social-link svg{width:16px;height:16px;fill:var(--ink-dim)}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:40px}.footer-brand{grid-column:1/-1}}
+@media(max-width:600px){.footer-grid{grid-template-columns:1fr}.footer-bottom{flex-direction:column;text-align:center}}
+
+/* ─── PAGE HERO ─── */
+.page-hero{min-height:60vh;display:flex;align-items:flex-end;padding:140px 0 80px;position:relative;overflow:hidden}
+.page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 0%,rgba(42,90,138,.2) 0%,transparent 60%),radial-gradient(ellipse at 0% 100%,rgba(93,106,120,.08) 0%,transparent 50%);pointer-events:none}
+#hero-canvas{position:absolute;inset:0;z-index:0;pointer-events:none}
+.page-hero-content{position:relative;z-index:2}
+
+/* ─── FORM ELEMENTS ─── */
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px}
+.form-control{width:100%;background:rgba(93,106,120,.06);border:1px solid rgba(93,106,120,.22);border-radius:10px;padding:14px 18px;color:var(--ink);font-family:'Montserrat',sans-serif;font-size:14px;outline:none;transition:border-color .3s var(--ease),background .3s var(--ease),box-shadow .3s var(--ease)}
+.form-control:focus{border-color:rgba(93,106,120,.6);background:rgba(93,106,120,.1);box-shadow:0 0 0 3px rgba(42,90,138,.1)}
+.form-control::placeholder{color:var(--ink-mute)}
+textarea.form-control{resize:vertical;min-height:140px}
+select.form-control{cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234a6070' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+select.form-control option{background:#0c1828;color:#ededed}
+
+/* ─── CONTACT LAYOUT ─── */
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+@media(max-width:980px){.contact-layout{grid-template-columns:1fr;gap:60px}}
+
+/* ─── FORM CARD ─── */
+.form-card{background:rgba(9,16,26,.7);border:1px solid rgba(93,106,120,.2);border-radius:24px;padding:48px;position:relative;overflow:hidden}
+.form-card::before{content:"";position:absolute;top:0;left:40px;right:40px;height:1px;background:linear-gradient(90deg,transparent,rgba(93,106,120,.5),transparent)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.form-row{grid-template-columns:1fr}}
+
+/* ─── INFO PANEL ─── */
+.info-panel{display:flex;flex-direction:column;gap:28px}
+
+.booking-card{background:linear-gradient(135deg,rgba(42,90,138,.15),rgba(93,106,120,.06));border:1px solid rgba(93,106,120,.3);border-radius:24px;padding:40px;position:relative;overflow:hidden;text-align:center}
+.booking-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-blue-bright)}
+.booking-card .icon{width:60px;height:60px;border-radius:16px;background:rgba(42,90,138,.2);border:1px solid rgba(93,106,120,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:26px}
+.booking-card h3{font-size:22px;color:#fff;margin-bottom:10px}
+.booking-card p{font-size:14px;color:var(--ink-mute);line-height:1.65;margin-bottom:24px}
+.booking-card .perks{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;text-align:left}
+.booking-perk{display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--ink-dim)}
+.booking-perk::before{content:"✓";width:20px;height:20px;border-radius:50%;background:rgba(42,90,138,.2);border:1px solid rgba(93,106,120,.4);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--blue-light);flex-shrink:0;line-height:20px;text-align:center}
+
+/* ─── CONTACT INFO ITEMS ─── */
+.contact-info-grid{display:flex;flex-direction:column;gap:14px}
+.contact-info-item{display:flex;align-items:center;gap:16px;padding:16px 20px;border-radius:14px;background:rgba(93,106,120,.05);border:1px solid var(--line);transition:all .3s var(--ease)}
+.contact-info-item:hover{background:rgba(93,106,120,.1);border-color:rgba(93,106,120,.3)}
+.contact-info-icon{width:40px;height:40px;border-radius:10px;background:rgba(42,90,138,.15);border:1px solid rgba(93,106,120,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-info-icon svg{width:18px;height:18px;stroke:var(--blue-light);fill:none;stroke-width:1.8}
+.contact-info-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:3px;font-weight:600}
+.contact-info-value{font-size:14px;color:var(--ink);font-weight:500}
+
+/* ─── SOCIAL FOLLOW ─── */
+.follow-row{display:flex;gap:10px;flex-wrap:wrap}
+.follow-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:100px;border:1px solid rgba(93,106,120,.25);background:rgba(93,106,120,.06);font-size:12px;font-weight:600;color:var(--ink-dim);transition:all .3s var(--ease)}
+.follow-btn:hover{color:#fff;background:rgba(93,106,120,.15);border-color:rgba(93,106,120,.5);transform:translateY(-2px)}
+.follow-btn svg{width:14px;height:14px;fill:currentColor}
+
+/* ─── TESTIMONIALS STRIP ─── */
+.testi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:80px}
+@media(max-width:900px){.testi-row{grid-template-columns:1fr}}
+.testi-card{padding:36px;border-radius:20px;background:linear-gradient(160deg,rgba(42,90,138,.08),rgba(9,16,26,.95));border:1px solid rgba(93,106,120,.2);position:relative;transition:all .5s var(--ease-out)}
+.testi-card:hover{transform:translateY(-4px);border-color:rgba(93,106,120,.4);box-shadow:0 20px 40px rgba(0,0,0,.4)}
+.testi-card::before{content:open-quote;position:absolute;top:20px;left:28px;font-size:80px;line-height:1;color:rgba(93,106,120,.2);font-family:'Playfair Display',serif}
+.testi-text{font-size:15px;line-height:1.7;color:var(--ink-dim);padding-top:28px;margin-bottom:24px}
+.testi-author{display:flex;align-items:center;gap:14px}
+.testi-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#1e3a5a,#3d6a8a);border:2px solid rgba(93,106,120,.4);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
+.testi-name{font-weight:600;color:#fff;font-size:14px}
+.testi-role{font-size:12px;color:var(--ink-mute);letter-spacing:.05em;margin-top:2px}
+.stars{color:#4a8aaa;font-size:13px;letter-spacing:2px;margin-bottom:4px}
+
+/* ─── SUCCESS STATE ─── */
+.form-success{display:none;text-align:center;padding:48px 24px}
+.form-success.show{display:block}
+.success-icon{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#1e3a5a,#2a5a8a);border:2px solid rgba(93,106,120,.5);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;box-shadow:0 0 40px rgba(42,90,138,.4)}
+.success-icon svg{width:32px;height:32px;stroke:#4a8aaa;fill:none;stroke-width:2.5}
+.success-title{font-size:24px;font-weight:700;color:#fff;margin-bottom:12px}
+.success-text{font-size:15px;color:var(--ink-mute);line-height:1.65}
+
+/* ─── FAQ ─── */
+.faq-item{border-bottom:1px solid var(--line);overflow:hidden}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:22px 0;cursor:pointer;font-weight:600;color:#fff;font-size:16px;gap:20px;transition:color .3s var(--ease)}
+.faq-q:hover{color:var(--blue-bright)}
+.faq-icon{width:26px;height:26px;border-radius:50%;border:1px solid rgba(93,106,120,.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .4s var(--ease)}
+.faq-icon svg{width:12px;height:12px;stroke:var(--accent2);fill:none;stroke-width:2.5;transition:transform .4s var(--ease)}
+.faq-item.open .faq-icon{background:rgba(42,90,138,.2);border-color:rgba(93,106,120,.6)}
+.faq-item.open .faq-icon svg{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .5s var(--ease-out)}
+.faq-a p{padding:0 0 22px;font-size:15px;color:var(--ink-mute);line-height:1.7}
+.faq-item.open .faq-a{max-height:300px}
+
+/* ─── STAT GRID ─── */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:60px}
+.stat-cell{background:var(--bg);padding:32px 24px;text-align:center}
+.stat-cell .num{font-size:clamp(28px,3.5vw,44px);font-weight:700;letter-spacing:-.025em;background:var(--grad-blue-bright);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.stat-cell .lbl{font-size:12px;color:var(--ink-mute);letter-spacing:.1em;text-transform:uppercase;margin-top:8px}
+@media(max-width:768px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="scroll-bar"><i id="sb"></i></div>
+<div class="page-transition" id="pt"></div>
+
+<svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true">
+  <defs>
+    <linearGradient id="navGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4a8aaa"/>
+      <stop offset="50%" stop-color="#5d6a78"/>
+      <stop offset="100%" stop-color="#8aaabb"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 50 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 4 L5 50 Q5 64 30 68 Q16 64 16 50 L16 4 Z M32 18 Q38 4 44 18 L44 50 Q44 64 30 68 Q32 62 32 50 Z" fill="url(#navGrad)"/>
+        </svg>
+      </div>
+      <div class="brand-text">UHP<span>Ultimate Health Project</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html" class="active">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-outline btn-sm">Free Audit</a>
+      <a href="#contact-form" class="btn btn-primary">Get Started</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="blog.html">Blog</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <canvas id="hero-canvas"></canvas>
+  <div class="container page-hero-content">
+    <div class="eyebrow reveal"><span class="dot"></span>Let's Talk Performance</div>
+    <h1 class="display reveal" data-delay="1">Start Your<br><em class="it">Transformation</em></h1>
+    <p class="lead reveal" data-delay="2" style="margin-top:24px">Book a free 30-minute health audit. We'll identify the 3 biggest performance leaks in your current routine — and show you exactly how to fix them.</p>
+    <div class="reveal" data-delay="3" style="margin-top:36px;display:flex;gap:16px;flex-wrap:wrap">
+      <a href="#contact-form" class="btn btn-primary btn-lg">Book Free Audit <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <a href="#contact-form" class="btn btn-outline btn-lg">Send a Message</a>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTACT SECTION -->
+<section class="section" id="contact-form">
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- LEFT: Form -->
+      <div class="reveal-left">
+        <div class="form-card">
+          <div class="hud-corner tl"></div>
+          <div class="hud-corner tr"></div>
+          <div class="hud-corner bl"></div>
+          <div class="hud-corner br"></div>
+
+          <!-- Form default state -->
+          <div id="formWrap">
+            <div class="eyebrow" style="margin-bottom:16px"><span class="dot"></span>Get In Touch</div>
+            <h2 style="font-size:clamp(24px,2.8vw,34px);color:#fff;margin-bottom:8px;letter-spacing:-.02em">Tell Us About<br>Your Goals</h2>
+            <p style="font-size:14px;color:var(--ink-mute);line-height:1.6;margin-bottom:36px">We respond within 24 hours. Initial consultations are always free.</p>
+
+            <form id="contactForm" onsubmit="handleSubmit(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>First Name *</label>
+                  <input type="text" class="form-control" placeholder="Alex" required/>
+                </div>
+                <div class="form-group">
+                  <label>Last Name *</label>
+                  <input type="text" class="form-control" placeholder="Chen" required/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Email Address *</label>
+                <input type="email" class="form-control" placeholder="alex@company.com" required/>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Phone (Optional)</label>
+                  <input type="tel" class="form-control" placeholder="+1 (555) 000-0000"/>
+                </div>
+                <div class="form-group">
+                  <label>Company / Role</label>
+                  <input type="text" class="form-control" placeholder="Founder @ Acme"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Primary Goal *</label>
+                <select class="form-control" required>
+                  <option value="" disabled selected>Select your main goal...</option>
+                  <option>Lose body fat (10–20 kg)</option>
+                  <option>Increase energy & focus</option>
+                  <option>Build lean muscle</option>
+                  <option>Improve sleep quality</option>
+                  <option>Optimise hormones / biomarkers</option>
+                  <option>General health system overhaul</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>How Did You Hear About Us?</label>
+                <select class="form-control">
+                  <option value="" disabled selected>Select one...</option>
+                  <option>Instagram</option>
+                  <option>LinkedIn</option>
+                  <option>Referral from a friend</option>
+                  <option>Google Search</option>
+                  <option>Podcast / YouTube</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Tell Us More (Optional)</label>
+                <textarea class="form-control" placeholder="Share where you're at right now, what you've tried before, or any specific challenges you're facing..."></textarea>
+              </div>
+
+              <!-- Urgency note -->
+              <div style="display:flex;align-items:center;gap:10px;padding:14px 18px;border-radius:12px;background:rgba(42,90,138,.08);border:1px solid rgba(93,106,120,.2);margin-bottom:24px">
+                <span style="width:8px;height:8px;border-radius:50%;background:#4a8aaa;box-shadow:0 0 10px rgba(74,138,170,.8);flex-shrink:0;animation:pulse 2s infinite"></span>
+                <span style="font-size:12.5px;color:var(--ink-dim)">We currently have <strong style="color:#fff">3 spots</strong> available for new clients this month.</span>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;font-size:15px">
+                Submit & Book Free Audit
+                <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+              <p style="font-size:11.5px;color:var(--ink-mute);text-align:center;margin-top:14px;letter-spacing:.04em">No commitment required. 100% confidential.</p>
+            </form>
+          </div>
+
+          <!-- Success state -->
+          <div class="form-success" id="formSuccess">
+            <div class="success-icon">
+              <svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <h3 class="success-title">Message Received.</h3>
+            <p class="success-text">We'll be in touch within 24 hours to schedule your free health audit. Check your inbox — we'll send a calendar invite shortly.<br><br>
+            In the meantime, explore <a href="blog.html" style="color:var(--blue-light)">our latest insights</a>.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT: Info + Booking CTA -->
+      <div class="info-panel reveal-right">
+
+        <!-- Booking CTA -->
+        <div class="booking-card">
+          <div class="hud-corner tl"></div>
+          <div class="hud-corner br"></div>
+          <div class="icon">🔬</div>
+          <h3>Free Health Audit</h3>
+          <p>A 30-minute deep-dive into your current health routine. We identify exactly what's leaking your energy, blocking your fat loss, and killing your focus.</p>
+          <div class="perks">
+            <div class="booking-perk">Full lifestyle & nutrition review</div>
+            <div class="booking-perk">Biomarker & supplement gap analysis</div>
+            <div class="booking-perk">Personalised 3-step action plan</div>
+            <div class="booking-perk">No sales pressure — ever</div>
+          </div>
+          <a href="#contact-form" class="btn btn-primary" style="width:100%;justify-content:center">Claim Your Free Audit →</a>
+          <p style="font-size:11px;color:var(--ink-mute);margin-top:14px;letter-spacing:.05em">Available via Zoom, Google Meet, or phone.</p>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info-grid">
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="contact-info-label">Email Us</div>
+              <div class="contact-info-value">steven@uhphealth.com</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+            </div>
+            <div>
+              <div class="contact-info-label">Call / WhatsApp</div>
+              <div class="contact-info-value">+1 (888) UHP-HEALTH</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <div class="contact-info-label">Response Time</div>
+              <div class="contact-info-value">Within 24 hours</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div>
+              <div class="contact-info-label">Office Hours</div>
+              <div class="contact-info-value">Mon–Fri, 9am–6pm AEST</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Follow Us -->
+        <div>
+          <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;margin-bottom:14px">Follow the Journey</div>
+          <div class="follow-row">
+            <a href="#" class="follow-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              Instagram
+            </a>
+            <a href="#" class="follow-btn">
+              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              LinkedIn
+            </a>
+            <a href="#" class="follow-btn">
+              <svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+              YouTube
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Stat strip -->
+    <div class="stat-grid reveal" style="margin-top:80px">
+      <div class="stat-cell">
+        <div class="num" data-target="500">0</div>
+        <div class="lbl">Founders Transformed</div>
+      </div>
+      <div class="stat-cell">
+        <div class="num" data-target="94">0</div>
+        <div class="lbl">% See Results in 30 Days</div>
+      </div>
+      <div class="stat-cell">
+        <div class="num" data-target="12">0</div>
+        <div class="lbl">Avg kg Lost (12 Weeks)</div>
+      </div>
+      <div class="stat-cell">
+        <div class="num" data-target="8">0</div>
+        <div class="lbl">Years of Experience</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section-sm" style="padding-top:0">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:60px">
+      <div class="eyebrow reveal" style="margin:0 auto 16px"><span class="dot"></span>Client Results</div>
+      <h2 class="section-title reveal" style="margin:0 auto;text-align:center">What Founders <em class="it">Say</em></h2>
+    </div>
+    <div class="testi-row">
+      <div class="testi-card reveal" data-delay="1">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"I've been working with Steven for 8 months. Down 14 kg, sleeping 7+ hours consistently, and my focus during work hours is unrecognisable. This isn't just health coaching — it's performance engineering."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MB</div>
+          <div>
+            <div class="testi-name">Marcus B.</div>
+            <div class="testi-role">CEO · SaaS company, 120 employees</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" data-delay="2">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"I was convinced I didn't have time for any of this. Steven showed me I was wrong in the first session. 6 weeks in, I'm the highest-energy version of myself I've ever been. My team has noticed."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JS</div>
+          <div>
+            <div class="testi-name">James S.</div>
+            <div class="testi-role">Founder · Agency, 8-figure revenue</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" data-delay="3">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"The supplement protocol alone changed everything. I'd been wasting $400/mo on the wrong stack. Steven had me on 4 things that cost $60 and the difference was night and day within 3 weeks."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">AK</div>
+          <div>
+            <div class="testi-name">Anika K.</div>
+            <div class="testi-role">Executive Director · Investment Fund</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-sm">
+  <div class="container" style="max-width:800px">
+    <div style="text-align:center;margin-bottom:60px">
+      <div class="eyebrow reveal" style="margin:0 auto 16px"><span class="dot"></span>Common Questions</div>
+      <h2 class="section-title reveal" style="margin:0 auto;text-align:center;font-size:clamp(28px,3.5vw,48px)">Before You <em class="it">Reach Out</em></h2>
+    </div>
+    <div class="reveal" data-delay="1">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What happens in the free health audit?
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><p>It's a 30-minute Zoom call with Steven. We review your current eating patterns, sleep, exercise, energy levels, and any supplements you're taking. By the end of the call, you'll have a clear picture of your 3 biggest performance leaks and a practical next step — whether you work with us or not.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How quickly do people typically see results?
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><p>Most clients notice a meaningful shift in energy within the first 2 weeks — that's usually from optimising sleep and removing inflammatory foods. By week 4–6, the body composition changes become visible. 12-week results average 8–14 kg of fat loss while preserving lean mass, with 94% reporting significantly better focus.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Do I need to track calories or follow a strict plan?
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><p>No. We build flexible systems that work around your life and schedule — not the other way around. Calorie counting is one tool of many, and for most founders it creates more stress than it solves. We focus on food quality, meal timing, and simple principles that don't require obsessive tracking.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          I travel constantly and eat out most days. Can this still work?
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><p>Absolutely — this is our specialty. We design protocols specifically for high-travel schedules, restaurant eating, jet lag recovery, and inconsistent gym access. Many of our best results have come from clients who travel 3+ weeks per month. We build resilience into the system, not dependence on ideal conditions.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What does ongoing coaching actually look like?
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><p>Depending on your plan: weekly check-in calls, direct WhatsApp or Telegram access to Steven for real-time questions, protocol updates as your body adapts, and quarterly biomarker reviews if you choose to test. We're active coaches, not passive advice-givers — expect us to be genuinely engaged in your progress.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 50 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 4 L5 50 Q5 64 30 68 Q16 64 16 50 L16 4 Z M32 18 Q38 4 44 18 L44 50 Q44 64 30 68 Q32 62 32 50 Z" fill="url(#navGrad)"/>
+          </svg>
+        </div>
+        <p>Built for founders who refuse to let health be the thing that slows them down. Systems, not guesswork.</p>
+        <div class="social-links" style="margin-top:20px">
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <a href="services.html">Nutrition Systems</a>
+        <a href="services.html">Supplement Protocols</a>
+        <a href="services.html">Accountability</a>
+        <a href="services.html">Energy Optimization</a>
+        <a href="services.html">Fat Loss Programs</a>
+      </div>
+      <div class="footer-col">
+        <h5>Resources</h5>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Free Health Audit</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 UHP — Ultimate Health Project. All rights reserved.</p>
+      <p>Built for founders who refuse to slow down.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ── PAGE TRANSITION ──────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded',()=>{
+  const pt=document.getElementById('pt');
+  setTimeout(()=>pt.classList.add('done'),80);
+  document.querySelectorAll('a[href]').forEach(a=>{
+    const h=a.getAttribute('href');
+    if(!h||h.startsWith('#')||h.startsWith('mailto')||h.startsWith('tel'))return;
+    if(a.hostname&&a.hostname!==location.hostname)return;
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      pt.classList.remove('done');
+      pt.style.transformOrigin='top';
+      setTimeout(()=>location.href=h,650);
+    });
+  });
+});
+
+// ── NAV + SCROLL BAR ─────────────────────────────────────────────
+const nav=document.getElementById('nav');
+const sb=document.getElementById('sb');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>40);
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  sb.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+},{passive:true});
+
+// ── MOBILE MENU ──────────────────────────────────────────────────
+document.getElementById('menuBtn').addEventListener('click',function(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+
+// ── REVEAL OBSERVER ──────────────────────────────────────────────
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.1});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>observer.observe(el));
+
+// ── COUNTER ANIMATION ────────────────────────────────────────────
+const counterObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    const el=e.target;
+    const target=+el.dataset.target;
+    const suffix=target>100?'+':target>50?'%':'kg+';
+    let start=0;const dur=1600;const step=16;
+    const inc=target/(dur/step);
+    const timer=setInterval(()=>{
+      start=Math.min(start+inc,target);
+      el.textContent=Math.floor(start)+(start>=target?suffix:'');
+      if(start>=target)clearInterval(timer);
+    },step);
+    counterObs.unobserve(el);
+  });
+},{threshold:.5});
+document.querySelectorAll('.stat-cell .num[data-target]').forEach(el=>counterObs.observe(el));
+
+// ── FAQ TOGGLE ───────────────────────────────────────────────────
+function toggleFaq(btn){
+  const item=btn.parentElement;
+  const wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!wasOpen)item.classList.add('open');
+}
+
+// ── FORM SUBMIT ──────────────────────────────────────────────────
+function handleSubmit(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('[type="submit"]');
+  btn.textContent='Sending...';btn.disabled=true;
+  setTimeout(()=>{
+    document.getElementById('formWrap').style.display='none';
+    const suc=document.getElementById('formSuccess');
+    suc.classList.add('show');
+    suc.scrollIntoView({behavior:'smooth',block:'center'});
+  },1200);
+}
+
+// ── HERO CANVAS ──────────────────────────────────────────────────
+(function(){
+  if(typeof THREE==='undefined')return;
+  const canvas=document.getElementById('hero-canvas');
+  const W=window.innerWidth,H=window.innerHeight*0.65;
+  canvas.width=W;canvas.height=H;
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setSize(W,H);renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
+  const scene=new THREE.Scene();
+  const cam=new THREE.PerspectiveCamera(60,W/H,.1,200);
+  cam.position.set(0,0,6);
+
+  // Floating DNA-like double helix strands
+  const helixGeo=new THREE.SphereGeometry(.07,8,6);
+  const helixMat=new THREE.MeshStandardMaterial({color:0x2a5a8a,emissive:0x0a2040,emissiveIntensity:1.2,metalness:.5,roughness:.3});
+  const helixNodes=[];
+  for(let i=0;i<40;i++){
+    const t=i/40*Math.PI*4;
+    const n1=new THREE.Mesh(helixGeo,helixMat.clone());
+    n1.position.set(Math.cos(t)*1.8,t*0.5-4,Math.sin(t)*0.8);
+    const n2=new THREE.Mesh(helixGeo,helixMat.clone());
+    n2.position.set(Math.cos(t+Math.PI)*1.8,t*0.5-4,Math.sin(t+Math.PI)*0.8);
+    n1._t=t;n2._t=t+Math.PI;n1._i=i;n2._i=i;
+    scene.add(n1,n2);helixNodes.push(n1,n2);
+  }
+
+  // Particles
+  const pos=[];
+  for(let i=0;i<500;i++) pos.push((Math.random()-.5)*20,(Math.random()-.5)*10,(Math.random()-.5)*8);
+  const pGeo=new THREE.BufferGeometry();
+  pGeo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0x4a7aaa,size:.04,transparent:true,opacity:.5})));
+
+  scene.add(new THREE.AmbientLight(0x4a7aaa,.5));
+  const dl=new THREE.DirectionalLight(0x6aaaca,1.4);dl.position.set(4,6,3);scene.add(dl);
+  const pl=new THREE.PointLight(0x2a5a8a,3,14);pl.position.set(-4,2,2);scene.add(pl);
+
+  let t=0;
+  function animate(){requestAnimationFrame(animate);t+=0.008;
+    helixNodes.forEach(n=>{
+      const ang=n._t+t;
+      const y=n._i/20*Math.PI*0.5-4;
+      n.position.set(Math.cos(ang)*1.8,y+Math.sin(t*.5)*0.3,Math.sin(ang)*0.8);
+    });
+    cam.position.x=Math.sin(t*.15)*.3;
+    renderer.render(scene,cam);
+  }
+  animate();
+
+  window.addEventListener('resize',()=>{
+    const W2=window.innerWidth,H2=window.innerHeight*0.65;
+    cam.aspect=W2/H2;cam.updateProjectionMatrix();
+    renderer.setSize(W2,H2);
+  });
+})();
+
+// ── PULSE ANIMATION ──────────────────────────────────────────────
+const style=document.createElement('style');
+style.textContent='@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}';
+document.head.appendChild(style);
+document.querySelectorAll('[style*="animation:pulse"]').forEach(el=>{el.style.animation='pulse 2s ease-in-out infinite'});
+</script>
+</body>
+</html>
