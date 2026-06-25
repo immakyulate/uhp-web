@@ -22,8 +22,8 @@ button{font:inherit;cursor:none;border:none;background:none;color:inherit}
 .cur-f{position:fixed;width:36px;height:36px;border:1px solid rgba(255,255,255,.35);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .4s var(--ease-out),height .4s var(--ease-out),border-color .4s}
 body.hovering .cur-f{width:56px;height:56px;border-color:rgba(201,168,76,.5)}
 #loader{position:fixed;inset:0;z-index:9995;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px}
-.ld-logo{display:flex;flex-direction:column;align-items:center;gap:14px}
-.ld-mark{height:56px;width:auto;object-fit:contain}
+.ld-logo{display:flex;flex-direction:row;align-items:center;gap:16px}
+.ld-mark{height:44px;width:auto;object-fit:contain}
 .ld-wordmark{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--beige)}
 .ld-pct{font-size:clamp(60px,10vw,112px);font-weight:900;letter-spacing:-.04em;line-height:1;-webkit-text-stroke:1.5px rgba(255,255,255,.45);color:transparent;font-variant-numeric:tabular-nums}
 .ld-bar{width:200px;height:1px;background:rgba(255,255,255,.1);position:relative;overflow:hidden}
@@ -170,7 +170,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
 <div id="loader">
   <div class="ld-logo">
     <img src="uhplogo.png" alt="The Ultimate Health Project" class="ld-mark">
-    <span class="ld-wordmark">The Ultimate Health Project</span>
+    <div class="logo-wm"><span class="logo-wm-main">The Ultimate</span><span class="logo-wm-sub">Health Project</span></div>
   </div>
   <div class="ld-pct"><span id="ld-n">0</span></div>
   <div class="ld-bar"><div class="ld-prog" id="ld-p"></div></div>
