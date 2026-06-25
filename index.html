@@ -49,7 +49,7 @@ body.hovering .cur-f{width:56px;height:56px;border-color:rgba(201,168,76,.5)}
 .rv-r{opacity:0;transform:translateX(36px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}.rv-r.in{opacity:1;transform:none}
 [data-d="1"]{transition-delay:.1s}[data-d="2"]{transition-delay:.2s}[data-d="3"]{transition-delay:.3s}[data-d="4"]{transition-delay:.4s}[data-d="5"]{transition-delay:.5s}
 .split-line{overflow:hidden;display:block}.split-inner{display:block}
-.hero{position:relative;height:100vh;min-height:640px;overflow:hidden;display:flex;align-items:flex-end;padding-bottom:104px}
+.hero{position:relative;min-height:100vh;overflow:hidden;padding:clamp(130px,18vh,180px) 0 80px}
 .hero-bg{position:absolute;inset:0;z-index:0}.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 28%;filter:brightness(.45)}
 .hero-ov{position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(0,0,0,.88) 0%,rgba(0,0,0,.55) 50%,rgba(0,0,0,.08) 100%)}
 .hero-ov2{position:absolute;bottom:0;left:0;right:0;height:280px;z-index:1;background:linear-gradient(to top,rgba(0,0,0,1) 0%,transparent 100%)}
@@ -70,8 +70,8 @@ body.hovering .cur-f{width:56px;height:56px;border-color:rgba(201,168,76,.5)}
 .ht::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--beige);opacity:.6}
 .hero-sc{position:absolute;bottom:48px;right:52px;z-index:2;writing-mode:vertical-rl;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.24);display:flex;align-items:center;gap:14px;animation:hfadeflat .6s 1.4s both}
 .hero-sc-line{width:1px;height:56px;background:linear-gradient(to bottom,transparent,rgba(196,192,183,.45));animation:scl 2.4s ease-in-out infinite}
-@media(max-width:1024px){.hero{padding-bottom:80px}}
-@media(max-width:768px){.hero{align-items:center;padding-top:120px;padding-bottom:80px}.hero-sc{display:none}}
+@media(max-width:1024px){.hero{padding-top:clamp(110px,16vh,160px);padding-bottom:64px}}
+@media(max-width:768px){.hero{padding-top:100px;padding-bottom:56px}.hero-sc{display:none}}
 .mq{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:18px 0}
 .mq-track{display:flex;white-space:nowrap}
 .mq-item{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:0 28px;display:inline-flex;align-items:center;gap:28px;flex-shrink:0}
