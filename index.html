@@ -23,7 +23,7 @@ button{font:inherit;cursor:none;border:none;background:none;color:inherit}
 body.hovering .cur-f{width:56px;height:56px;border-color:rgba(201,168,76,.5)}
 #loader{position:fixed;inset:0;z-index:9995;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px}
 .ld-logo{display:flex;flex-direction:column;align-items:center;gap:14px}
-.ld-mark{width:44px;height:52px;color:var(--white)}
+.ld-mark{height:56px;width:auto;object-fit:contain}
 .ld-wordmark{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--beige)}
 .ld-pct{font-size:clamp(60px,10vw,112px);font-weight:900;letter-spacing:-.04em;line-height:1;-webkit-text-stroke:1.5px rgba(255,255,255,.45);color:transparent;font-variant-numeric:tabular-nums}
 .ld-bar{width:200px;height:1px;background:rgba(255,255,255,.1);position:relative;overflow:hidden}
@@ -169,10 +169,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
 <!-- LOADER -->
 <div id="loader">
   <div class="ld-logo">
-    <svg class="ld-mark" viewBox="0 0 56 66" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8 5 L8 42 Q8 58 28 63 Q48 58 48 42 L48 22" stroke="white" stroke-width="9" stroke-linecap="round" fill="none"/>
-      <path d="M48 22 Q58 13 53 5 Q47 -2 38 4 Q31 10 36 18 Q41 24 48 22Z" fill="white"/>
-    </svg>
+    <img src="uhplogo.png" alt="The Ultimate Health Project" class="ld-mark">
     <span class="ld-wordmark">The Ultimate Health Project</span>
   </div>
   <div class="ld-pct"><span id="ld-n">0</span></div>
@@ -184,6 +181,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   <div class="nav-in">
     <a href="index.html" class="nav-logo">
       <img src="uhplogo.png" alt="The Ultimate Health Project" class="logo-img">
+      <div class="logo-wm"><span class="logo-wm-main">The Ultimate</span><span class="logo-wm-sub">Health Project</span></div>
     </a>
     <nav class="nl">
       <a href="index.html" class="active">Home</a>
