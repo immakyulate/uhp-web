@@ -157,6 +157,23 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
 .ft-bot{border-top:1px solid var(--border);padding-top:28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.ft-bot p{font-size:12px;color:var(--dim);letter-spacing:.04em}
 .ft-social{display:flex;gap:8px;margin-top:20px}.fts{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:none;transition:all .3s}.fts:hover{background:var(--surface);border-color:var(--border2);transform:translateY(-2px)}.fts svg{width:15px;height:15px;fill:var(--muted);transition:fill .3s}.fts:hover svg{fill:var(--white)}
 @media(max-width:900px){.ft-g{grid-template-columns:1fr 1fr;gap:40px}.ft-bc{grid-column:1/-1}}@media(max-width:600px){.ft-g{grid-template-columns:1fr}.ft-bot{flex-direction:column;text-align:center}}
+/* ---------- SCROLL-SCRUB HERO (blueprint -> body) ---------- */
+.hero-scrub{position:relative;height:220vh}
+.hero-scrub.is-static{height:100vh}
+.hero-stage{position:sticky;top:0;height:100vh;overflow:hidden;background:radial-gradient(120% 90% at 50% 88%,rgba(201,168,76,.10),transparent 60%),radial-gradient(80% 70% at 50% 30%,rgba(201,168,76,.05),transparent 55%),linear-gradient(180deg,#050505 0%,#0b0b09 100%)}
+.hero-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero-overlay{position:absolute;inset:0;z-index:2;pointer-events:none;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(28px,5vw,72px) clamp(24px,5vw,52px) clamp(40px,7vh,80px);will-change:opacity}
+.ov-main{max-width:920px}
+.ov-eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--body);font-size:clamp(10px,1.1vw,12px);font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--beige);opacity:.92;margin-bottom:clamp(14px,2vw,22px)}
+.ov-eyebrow::before{content:'';width:28px;height:1px;background:var(--beige);opacity:.7;flex-shrink:0}
+.ov-headline{font-family:var(--font);font-weight:900;text-transform:uppercase;font-size:clamp(2.6rem,8.5vw,6.4rem);line-height:.9;letter-spacing:-.02em;color:var(--white)}
+.ov-headline em{font-style:italic;color:transparent;-webkit-text-stroke:1.5px var(--beige)}
+.ov-cue{margin-top:clamp(20px,3vw,32px);display:flex;align-items:center;gap:12px;font-family:var(--body);font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+.ov-cue .rule{width:44px;height:1px;background:currentColor;opacity:.5;animation:cueSlide 2.4s var(--ease-out) infinite}
+@keyframes cueSlide{0%,100%{transform:scaleX(1);opacity:.5}50%{transform:scaleX(1.6);opacity:.9}}
+.hero-scrub.is-static .ov-cue{display:none}
+.hero-scrub.is-static .hero-overlay::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 42%,rgba(0,0,0,.55) 78%,rgba(0,0,0,.82) 100%)}
+@media(prefers-reduced-motion:reduce){.hero-scrub{height:100vh}.ov-cue .rule{animation:none}}
 </style>
 </head>
 <body>
@@ -166,15 +183,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
 <div class="sprog"><div class="sprog-bar" id="sb"></div></div>
 <div class="pt" id="pt"></div>
 
-<!-- LOADER -->
-<div id="loader">
-  <div class="ld-logo">
-    <img src="uhplogo.png" alt="The Ultimate Health Project" class="ld-mark">
-    <div class="logo-wm"><span class="logo-wm-main">The Ultimate</span><span class="logo-wm-sub">Health Project</span></div>
-  </div>
-  <div class="ld-pct"><span id="ld-n">0</span></div>
-  <div class="ld-bar"><div class="ld-prog" id="ld-p"></div></div>
-</div>
+<!-- loader removed (audit: fake progress bar delayed first paint / gutted LCP) -->
 
 <!-- NAV -->
 <header class="nav" id="nav">
@@ -200,34 +209,18 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   <a href="contact.html" class="btn-w" style="margin-top:24px;font-size:16px">Book Free Consultation →</a>
 </div>
 
-<!-- HERO -->
-<section class="hero" id="hero">
-  <div class="hero-bg"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1920&q=80" alt="Fitness training" fetchpriority="high"></div>
-  <div class="hero-ov"></div>
-  <div class="hero-ov2"></div>
-  <div class="wrap">
-    <div class="hero-c">
-      <div class="hero-ey" id="hEy">Regents Park, NSW &nbsp;·&nbsp; Health Transformation</div>
-      <h1 class="hero-h1" id="hTitle">
-        <span class="lf split-line"><span class="split-inner">YOU'VE BUILT</span></span>
-        <span class="lf split-line"><span class="split-inner">THE CAREER.</span></span>
-        <span class="lo split-line"><span class="split-inner">NOW BUILD</span></span>
-        <span class="ls split-line"><span class="split-inner">the body that keeps up.</span></span>
-      </h1>
-      <p class="hero-sub" id="hSub">Personalised nutrition coaching and accountability systems for business owners and executives who want to lose weight, gain energy, and perform at their absolute best.</p>
-      <div class="hero-btns" id="hBtns">
-        <a href="contact.html" class="btn-w">Book Free Consultation →</a>
-        <a href="#how-it-works" class="btn-g">See How It Works</a>
-      </div>
-      <div class="hero-trust" id="hTrust">
-        <div class="ht">No Lock-In Contracts</div>
-        <div class="ht">100% Personalised</div>
-        <div class="ht">Results from Week One</div>
-        <div class="ht">Regents Park, NSW</div>
+<!-- HERO (scroll-scrub: blueprint -> body) -->
+<section class="hero-scrub" id="heroScrub">
+  <div class="hero-stage" id="heroStage">
+    <canvas class="hero-canvas" id="heroCanvas"></canvas>
+    <div class="hero-overlay" id="heroOverlay">
+      <div class="ov-main">
+        <div class="ov-eyebrow">Regents Park, NSW &nbsp;·&nbsp; Systems are what you build</div>
+        <h1 class="ov-headline">Now build the<br><em>body</em> that keeps up.</h1>
+        <div class="ov-cue"><span class="rule"></span>Scroll to assemble</div>
       </div>
     </div>
   </div>
-  <div class="hero-sc" id="hSc"><div class="hero-sc-line"></div>Scroll</div>
 </section>
 
 <!-- MARQUEE -->
@@ -416,27 +409,6 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   });
 })();
 
-/* === LOADER === */
-(function(){
-  let p=0;
-  const ldN=document.getElementById('ld-n'),ldP=document.getElementById('ld-p'),ld=document.getElementById('loader');
-  const iv=setInterval(()=>{
-    p+=Math.random()*13+3;
-    if(p>=100){p=100;clearInterval(iv);setTimeout(hideLoader,280);}
-    if(ldN)ldN.textContent=Math.floor(p);
-    if(ldP)ldP.style.width=p+'%';
-  },75);
-  function hideLoader(){
-    if(typeof gsap!=='undefined'){
-      gsap.to('#loader',{yPercent:-100,duration:1.1,ease:'power4.inOut',onComplete:()=>{if(ld)ld.style.display='none';initHero();}});
-    }else{
-      if(ld)ld.style.display='none';
-    }
-  }
-  /* Failsafe: if JS hangs or GSAP fails, remove loader after 4s */
-  setTimeout(()=>{if(ld&&ld.style.display!=='none'){ld.style.transition='opacity .4s';ld.style.opacity='0';setTimeout(()=>{ld.style.display='none';},400);}},4000);
-})();
-
 /* === NAV + SCROLL BAR === */
 (function(){
   const nav=document.getElementById('nav'),sb=document.getElementById('sb');
@@ -487,7 +459,696 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
 })();
 
 /* Hero content revealed by CSS animations — no JS override needed */
-function initHero(){}
+/* === SCROLL-SCRUB HERO ENGINE (ported verbatim from hero-proto.html) === */
+(function(){
+  "use strict";
+
+  /* =========================================================================
+     MATH / EASING HELPERS
+     ========================================================================= */
+  var GOLD = "201,168,76";        // #C9A84C
+  var GOLD_LT = "236,206,134";    // #E6CE86
+  var CORE = "255,242,208";       // warm-white particle core
+
+  function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+  function clamp01(v){ return v<0?0:(v>1?1:v); }
+  function lerp(a,b,t){ return a+(b-a)*t; }
+  function smoothstep(e0,e1,x){
+    var t = clamp01((x-e0)/(e1-e0||1e-6));
+    return t*t*(3-2*t);
+  }
+  function easeOutCubic(t){ var u=1-t; return 1-u*u*u; }
+  // Deterministic PRNG so scatter/geometry is stable across resizes.
+  function mulberry32(a){
+    return function(){
+      a|=0; a = a+0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a>>>15, 1|a);
+      t = t + Math.imul(t ^ t>>>7, 61|t) ^ t;
+      return ((t ^ t>>>14) >>> 0) / 4294967296;
+    };
+  }
+
+  /* =========================================================================
+     FrameSource interface (duck-typed):
+        preload() : Promise<void>
+        layout(w,h,dpr) : void       (optional; called on resize)
+        render(ctx,t,w,h,now) : void
+     ========================================================================= */
+
+  /* -------------------------------------------------------------------------
+     ProceduralFrameSource — USED NOW.
+     Draws blueprint grid -> converging particle constellation -> glowing
+     gold silhouette, purely as a function of t. No image files.
+     ------------------------------------------------------------------------- */
+  function ProceduralFrameSource(){
+    this.built = false;
+    this.bones = null;          // skeleton capsules, built once in _ensureBuilt
+    this.sprite = null;         // soft glow dot
+    this.buf = null;            // offscreen silhouette buffer (seamless union fill)
+    this.bctx = null;
+    this.bufDpr = 1;
+
+    this.local = [];            // particle target points in normalized figure space
+    this.scatter = [];          // scatter start, normalized viewport [0..1]
+    this.delay = [];            // per-particle convergence delay [0..1]
+    this.size = [];             // per-particle base size factor
+    this.phase = [];            // ambient twinkle/drift phase
+    this.edges = [];            // [i,j] near-neighbour connections (wireframe)
+
+    // reusable per-frame scratch (avoid GC churn)
+    this._px = [];
+    this._py = [];
+    this._pc = [];              // convergence 0..1 per particle
+  }
+
+  // Skeleton "bones": each is a capsule (segment a->b, radius r) in normalized
+  // figure space. x is half-width (0 = centre axis), y runs 0 (crown) -> ~1 (feet).
+  // A degenerate bone (a==b) renders as a circle (the head).
+  ProceduralFrameSource.prototype._bones = function(){
+    var B = [];
+    function bone(ax,ay,bx,by,r){ B.push({ax:ax,ay:ay,bx:bx,by:by,r:r}); }
+    bone( 0.000,0.070,  0.000,0.070, 0.058);   // head
+    bone( 0.000,0.120,  0.000,0.165, 0.026);   // neck
+    bone(-0.128,0.180,  0.128,0.180, 0.030);   // clavicle / shoulders
+    bone( 0.000,0.182,  0.000,0.520, 0.082);   // torso
+    bone(-0.055,0.520,  0.055,0.520, 0.045);   // hips
+    // right arm (upper + forearm, slight elbow bend)
+    bone( 0.132,0.196,  0.166,0.340, 0.027);
+    bone( 0.166,0.340,  0.150,0.508, 0.023);
+    // left arm (mirror)
+    bone(-0.132,0.196, -0.166,0.340, 0.027);
+    bone(-0.166,0.340, -0.150,0.508, 0.023);
+    // right leg (thigh + shin)
+    bone( 0.052,0.512,  0.060,0.735, 0.042);
+    bone( 0.060,0.735,  0.050,0.955, 0.030);
+    // left leg (mirror)
+    bone(-0.052,0.512, -0.060,0.735, 0.042);
+    bone(-0.060,0.735, -0.050,0.955, 0.030);
+    // feet
+    bone( 0.050,0.955,  0.104,0.980, 0.020);
+    bone(-0.050,0.955, -0.104,0.980, 0.020);
+    return B;
+  };
+
+  ProceduralFrameSource.prototype._buildSprite = function(){
+    var s = 64, c = document.createElement("canvas");
+    c.width = c.height = s;
+    var g = c.getContext("2d");
+    var grad = g.createRadialGradient(s/2,s/2,0, s/2,s/2,s/2);
+    grad.addColorStop(0.00, "rgba("+CORE+",1)");
+    grad.addColorStop(0.22, "rgba("+GOLD_LT+",0.85)");
+    grad.addColorStop(0.55, "rgba("+GOLD+",0.30)");
+    grad.addColorStop(1.00, "rgba("+GOLD+",0)");
+    g.fillStyle = grad;
+    g.fillRect(0,0,s,s);
+    this.sprite = c;
+  };
+
+  // Distance from point p to segment ab (all normalized).
+  function distToSeg(px,py, ax,ay, bx,by){
+    var dx=bx-ax, dy=by-ay, l2=dx*dx+dy*dy;
+    var t = l2>0 ? ((px-ax)*dx+(py-ay)*dy)/l2 : 0;
+    t = clamp01(t);
+    var cx=ax+dx*t, cy=ay+dy*t;
+    return Math.hypot(px-cx, py-cy);
+  }
+
+  ProceduralFrameSource.prototype._buildFigure = function(){
+    var rng = mulberry32(20260702);
+    var bones = this.bones;              // built once in _ensureBuilt (no per-call alloc)
+    var pts = [];
+
+    // 1) Sample points along each bone's two rails + caps => reads as a wireframe body.
+    for (var b=0; b<bones.length; b++){
+      var bn = bones[b];
+      var dx = bn.bx-bn.ax, dy = bn.by-bn.ay;
+      var len = Math.hypot(dx,dy);
+      if (len < 1e-4){
+        // circle (head): ring of points + a couple interior
+        var ring = 16;
+        for (var i=0;i<ring;i++){
+          var a = i/ring*Math.PI*2;
+          pts.push([bn.ax+Math.cos(a)*bn.r, bn.ay+Math.sin(a)*bn.r]);
+        }
+        pts.push([bn.ax, bn.ay-bn.r*0.35]);
+        continue;
+      }
+      var nx = -dy/len, ny = dx/len;          // unit normal
+      var steps = Math.max(2, Math.round(len/0.05));
+      for (var j=0;j<=steps;j++){
+        var u = j/steps;
+        var cx = bn.ax+dx*u, cy = bn.ay+dy*u;
+        pts.push([cx+nx*bn.r, cy+ny*bn.r]);
+        pts.push([cx-nx*bn.r, cy-ny*bn.r]);
+      }
+    }
+
+    // 2) Interior fill points (inside any capsule) for constellation density.
+    var added = 0, tries = 0;
+    while (added < 54 && tries < 4000){
+      tries++;
+      var rx = (rng()-0.5)*0.42;      // x in [-0.21,0.21]
+      var ry = rng()*1.02;            // y in [0,1.02]
+      var inside = false;
+      for (var k=0;k<bones.length;k++){
+        var bk = bones[k];
+        if (distToSeg(rx,ry, bk.ax,bk.ay, bk.bx,bk.by) < bk.r*0.85){ inside = true; break; }
+      }
+      if (inside){ pts.push([rx,ry]); added++; }
+    }
+
+    // Commit particle arrays.
+    this.local = pts;
+    var n = pts.length;
+    for (var p=0;p<n;p++){
+      this.scatter.push([ rng(), rng() ]);                 // viewport-normalized start
+      this.delay.push( rng() );                            // convergence stagger
+      this.size.push( 0.7 + rng()*0.9 );                   // size variety
+      this.phase.push( rng()*Math.PI*2 );                  // ambient phase
+    }
+
+    // 3) Precompute near-neighbour edges (once) from the fixed target geometry.
+    var THRESH = 0.058, MAXDEG = 3;
+    var deg = new Int32Array(n);
+    for (var a1=0; a1<n; a1++){
+      if (deg[a1] >= MAXDEG) continue;
+      // collect candidates within threshold, keep the closest few
+      var cand = [];
+      for (var a2=a1+1; a2<n; a2++){
+        var d = Math.hypot(pts[a1][0]-pts[a2][0], pts[a1][1]-pts[a2][1]);
+        if (d < THRESH) cand.push([d,a2]);
+      }
+      cand.sort(function(u,v){ return u[0]-v[0]; });
+      for (var ci=0; ci<cand.length && deg[a1]<MAXDEG; ci++){
+        var jj = cand[ci][1];
+        if (deg[jj] >= MAXDEG) continue;
+        this.edges.push(a1, jj);
+        deg[a1]++; deg[jj]++;
+      }
+    }
+
+    this.built = true;
+  };
+
+  ProceduralFrameSource.prototype._ensureBuilt = function(){
+    if (this.built) return;
+    if (!this.sprite) this._buildSprite();
+    this.bones = this._bones();          // build the skeleton ONCE and reuse everywhere
+    this._buildFigure();
+  };
+
+  ProceduralFrameSource.prototype.preload = function(){
+    this._ensureBuilt();
+    return Promise.resolve();
+  };
+
+  ProceduralFrameSource.prototype.layout = function(w,h,dpr){
+    // (Re)create the seamless silhouette buffer at device resolution.
+    this.bufDpr = dpr;
+    if (!this.buf){
+      this.buf = document.createElement("canvas");
+      this.bctx = this.buf.getContext("2d");
+    }
+    this.buf.width  = Math.max(1, Math.round(w*dpr));
+    this.buf.height = Math.max(1, Math.round(h*dpr));
+  };
+
+  // Figure->canvas mapping for a given viewport.
+  ProceduralFrameSource.prototype._frame = function(w,h){
+    var figH = Math.min(h*0.80, w*1.55);
+    var ox = w*0.5;
+    var oy = (h - figH)*0.5;
+    return { figH:figH, ox:ox, oy:oy };
+  };
+
+  ProceduralFrameSource.prototype._drawBackground = function(ctx,w,h,res){
+    var g = ctx.createLinearGradient(0,0,0,h);
+    g.addColorStop(0,"#060606");
+    g.addColorStop(1,"#0b0b09");
+    ctx.fillStyle = g;
+    ctx.fillRect(0,0,w,h);
+    // faint ambient warmth low-centre, independent of the figure glow
+    var rg = ctx.createRadialGradient(w*0.5,h*0.9,0, w*0.5,h*0.9, Math.max(w,h)*0.7);
+    rg.addColorStop(0,"rgba("+GOLD+","+(0.05+0.03*res)+")");
+    rg.addColorStop(1,"rgba("+GOLD+",0)");
+    ctx.fillStyle = rg;
+    ctx.fillRect(0,0,w,h);
+  };
+
+  ProceduralFrameSource.prototype._drawGrid = function(ctx,t,w,h,fr){
+    // Small floor at t=0 so the blueprint is faintly present on first paint,
+    // then ramps in and recedes during resolve.
+    var gridA = (0.18 + 0.82*smoothstep(0,0.28,t)) * (1 - smoothstep(0.68,0.96,t));
+    if (gridA <= 0.002) return;
+    ctx.save();
+    var sp = Math.max(38, Math.round(w/26));
+    // minor lattice
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "rgba("+GOLD+","+(0.05*gridA)+")";
+    ctx.beginPath();
+    for (var x=sp; x<w; x+=sp){ ctx.moveTo(Math.round(x)+0.5,0); ctx.lineTo(Math.round(x)+0.5,h); }
+    for (var y=sp; y<h; y+=sp){ ctx.moveTo(0,Math.round(y)+0.5); ctx.lineTo(w,Math.round(y)+0.5); }
+    ctx.stroke();
+
+    // centre vertical axis (brighter)
+    ctx.strokeStyle = "rgba("+GOLD+","+(0.22*gridA)+")";
+    ctx.beginPath();
+    ctx.moveTo(Math.round(w*0.5)+0.5,0);
+    ctx.lineTo(Math.round(w*0.5)+0.5,h);
+    ctx.stroke();
+
+    // registration lines at shoulders / hips / feet (architectural feel)
+    var reg = [0.180, 0.520, 0.980];
+    ctx.strokeStyle = "rgba("+GOLD+","+(0.10*gridA)+")";
+    ctx.beginPath();
+    for (var i=0;i<reg.length;i++){
+      var yy = Math.round(fr.oy + reg[i]*fr.figH)+0.5;
+      ctx.moveTo(0,yy); ctx.lineTo(w,yy);
+    }
+    ctx.stroke();
+
+    // measurement ticks down the axis
+    ctx.strokeStyle = "rgba("+GOLD+","+(0.16*gridA)+")";
+    ctx.beginPath();
+    for (var ty=sp; ty<h; ty+=sp){
+      ctx.moveTo(w*0.5-4, Math.round(ty)+0.5);
+      ctx.lineTo(w*0.5+4, Math.round(ty)+0.5);
+    }
+    ctx.stroke();
+
+    // corner registration brackets
+    var m = Math.max(18, Math.round(Math.min(w,h)*0.035)), L = 26;
+    ctx.strokeStyle = "rgba("+GOLD+","+(0.45*gridA)+")";
+    ctx.lineWidth = 1.2;
+    var corners = [[m,m,1,1],[w-m,m,-1,1],[m,h-m,1,-1],[w-m,h-m,-1,-1]];
+    ctx.beginPath();
+    for (var c=0;c<corners.length;c++){
+      var cc = corners[c];
+      ctx.moveTo(cc[0], cc[1]+cc[3]*L); ctx.lineTo(cc[0], cc[1]); ctx.lineTo(cc[0]+cc[2]*L, cc[1]);
+    }
+    ctx.stroke();
+    ctx.restore();
+  };
+
+  // Rebuild the seamless silhouette into the offscreen buffer, then composite.
+  ProceduralFrameSource.prototype._drawSilhouette = function(ctx,res,w,h,fr,now){
+    if (res <= 0.002 || !this.bctx) return;
+    var bones = this.bones;              // reuse the prebuilt skeleton (no per-frame alloc)
+    var b = this.bctx, dpr = this.bufDpr, S = fr.figH;
+
+    b.setTransform(dpr,0,0,dpr,0,0);
+    b.clearRect(0,0,w,h);
+    b.lineJoin = "round"; b.lineCap = "round";
+
+    // subtle breathing so the finished figure feels alive (still one frame when static)
+    var breathe = 1 + Math.sin(now*0.0011)*0.006;
+
+    function strokeBones(scaleR){
+      b.beginPath();
+      for (var i=0;i<bones.length;i++){
+        var bn = bones[i];
+        var ax = fr.ox + bn.ax*S, ay = fr.oy + bn.ay*S;
+        var bx = fr.ox + bn.bx*S, by = fr.oy + bn.by*S;
+        b.moveTo(ax,ay); b.lineTo(bx,by);
+        b.lineWidth = Math.max(1, 2*bn.r*S*scaleR);
+        b.stroke();
+        b.beginPath();
+      }
+    }
+
+    // core body gradient (top-lit gold)
+    var grad = b.createLinearGradient(0, fr.oy, 0, fr.oy+S);
+    grad.addColorStop(0.00,"rgba("+GOLD_LT+",1)");
+    grad.addColorStop(0.42,"rgba("+GOLD+",1)");
+    grad.addColorStop(1.00,"rgba(150,120,52,1)");
+    b.strokeStyle = grad;
+    strokeBones(breathe);
+
+    // luminous centre-line highlight
+    b.strokeStyle = "rgba("+CORE+",0.42)";
+    strokeBones(0.5*breathe);
+
+    // ---- composite buffer onto main canvas ----
+    // soft bloom pass (blur if supported; harmless no-op otherwise)
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    var canBlur = false;
+    try { ctx.filter = "blur("+(S*0.02)+"px)"; canBlur = (ctx.filter !== "none"); } catch(e){ canBlur=false; }
+    if (canBlur){
+      ctx.globalAlpha = res*0.55;
+      ctx.drawImage(this.buf, 0,0, w,h);
+      ctx.filter = "none";
+    }
+    ctx.restore();
+
+    // ambient radial glow around the figure core
+    var tc_x = fr.ox, tc_y = fr.oy + 0.34*S;
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    var rg = ctx.createRadialGradient(tc_x,tc_y,0, tc_x,tc_y, S*0.72);
+    rg.addColorStop(0,"rgba("+GOLD+","+(res*0.20)+")");
+    rg.addColorStop(1,"rgba("+GOLD+",0)");
+    ctx.fillStyle = rg;
+    ctx.fillRect(0,0,w,h);
+    ctx.restore();
+
+    // sharp body
+    ctx.save();
+    ctx.globalAlpha = res;
+    ctx.drawImage(this.buf, 0,0, w,h);
+    ctx.restore();
+  };
+
+  ProceduralFrameSource.prototype.render = function(ctx,t,w,h,now){
+    this._ensureBuilt();
+    if (typeof now !== "number") now = 0;
+    var fr = this._frame(w,h);
+    var S = fr.figH;
+
+    var res    = smoothstep(0.70,0.985,t);
+    var appear = smoothstep(0.30,0.46,t);
+    var edgeA  = smoothstep(0.42,0.64,t) * (1 - 0.6*res);
+    var settle = smoothstep(0.70,0.82,t);
+
+    // convergence timing (staggered scatter -> target)
+    var C0=0.34, C1=0.70, SPREAD=0.55;
+    var raw = clamp01((t-C0)/(C1-C0));
+
+    // ---- background + blueprint ----
+    this._drawBackground(ctx,w,h,res);
+    this._drawGrid(ctx,t,w,h,fr);
+
+    // ---- compute particle positions once ----
+    var n = this.local.length;
+    var px=this._px, py=this._py, pc=this._pc;
+    for (var i=0;i<n;i++){
+      var conv = clamp01(raw*(1+SPREAD) - this.delay[i]*SPREAD);
+      var e = easeOutCubic(conv);
+      var lx = this.local[i][0], ly = this.local[i][1];
+      var tx = fr.ox + lx*S, ty = fr.oy + ly*S;
+      var sx = this.scatter[i][0]*w, sy = this.scatter[i][1]*h;
+      var x = lerp(sx,tx,e), y = lerp(sy,ty,e);
+      // gentle ambient drift once settled
+      if (settle>0){
+        var ph = this.phase[i];
+        x += Math.sin(now*0.0009 + ph) * S*0.004 * settle;
+        y += Math.cos(now*0.0011 + ph*1.3) * S*0.004 * settle;
+      }
+      px[i]=x; py[i]=y; pc[i]=conv;
+    }
+
+    // ---- wireframe edges (near-neighbour constellation) ----
+    if (edgeA > 0.004){
+      ctx.save();
+      ctx.globalCompositeOperation = "lighter";
+      ctx.lineWidth = Math.max(0.6, S*0.0016);
+      var ed = this.edges;
+      for (var k=0;k<ed.length;k+=2){
+        var a=ed[k], c=ed[k+1];
+        var la = Math.min(pc[a],pc[c]);
+        if (la <= 0.02) continue;
+        ctx.strokeStyle = "rgba("+GOLD+","+(edgeA*la*0.55)+")";
+        ctx.beginPath();
+        ctx.moveTo(px[a],py[a]);
+        ctx.lineTo(px[c],py[c]);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // ---- silhouette fill (resolve) ----
+    this._drawSilhouette(ctx,res,w,h,fr,now);
+
+    // ---- particles (sparkle on top) ----
+    if (appear > 0.004 && this.sprite){
+      ctx.save();
+      ctx.globalCompositeOperation = "lighter";
+      for (var p=0;p<n;p++){
+        var pa = appear * (1 - 0.22*res);
+        if (pa <= 0.01) continue;
+        var sz = S * 0.011 * this.size[p] * (0.65 + 0.55*pc[p]);
+        ctx.globalAlpha = pa;
+        ctx.drawImage(this.sprite, px[p]-sz, py[p]-sz, sz*2, sz*2);
+      }
+      ctx.restore();
+      ctx.globalAlpha = 1;
+    }
+  };
+
+  /* -------------------------------------------------------------------------
+     ImageSequenceFrameSource — STUB FOR LATER (present + functional).
+     Loads `count` frames named f_001.webp .. f_NNN.webp from basePath and
+     draws the frame nearest to t, letterboxed to cover the viewport.
+
+     ONE-LINE SWAP: in HeroScrubber construction below, replace
+        new ProceduralFrameSource()
+     with
+        new ImageSequenceFrameSource('frames/', 72)
+     ------------------------------------------------------------------------- */
+  function ImageSequenceFrameSource(basePath, count, ext){
+    this.basePath = basePath || "frames/";
+    this.count = count || 0;
+    this.ext = ext || "webp";
+    this.frames = [];
+    this.ready = false;
+  }
+  ImageSequenceFrameSource.prototype.preload = function(){
+    var self = this;
+    var jobs = [];
+    for (var i=0;i<this.count;i++){
+      (function(i){
+        var num = String(i+1);
+        while (num.length < 3) num = "0"+num;      // f_001 .. f_NNN
+        var img = new Image();
+        var pr = new Promise(function(resolve){
+          img.onload = function(){ resolve(); };
+          img.onerror = function(){ resolve(); };  // never block on a missing frame
+        });
+        img.src = self.basePath + "f_" + num + "." + self.ext;
+        self.frames[i] = img;
+        jobs.push(pr);
+      })(i);
+    }
+    return Promise.all(jobs).then(function(){ self.ready = true; });
+  };
+  ImageSequenceFrameSource.prototype.layout = function(){ /* nothing to size */ };
+  ImageSequenceFrameSource.prototype.render = function(ctx,t,w,h){
+    ctx.fillStyle = "#060606";
+    ctx.fillRect(0,0,w,h);
+    if (!this.frames.length) return;
+    var idx = Math.round(t*(this.count-1));
+    idx = clamp(idx,0,this.count-1);
+    var img = this.frames[idx];
+    if (!img || !img.complete || !img.naturalWidth) return;
+    // cover
+    var ir = img.naturalWidth/img.naturalHeight, vr = w/h, dw,dh;
+    if (ir > vr){ dh = h; dw = h*ir; } else { dw = w; dh = w/ir; }
+    ctx.drawImage(img, (w-dw)/2, (h-dh)/2, dw, dh);
+  };
+
+  /* =========================================================================
+     HeroScrubber — pins the hero, maps scroll -> t, rAF-throttled, DPR-capped,
+     paused when hidden or off-screen. Handles static/reduced fallbacks.
+     ========================================================================= */
+  function HeroScrubber(opts){
+    this.section = opts.section;
+    this.stage   = opts.stage;
+    this.canvas  = opts.canvas;
+    this.overlay = opts.overlay;
+    this.source  = opts.source;
+
+    this.ctx = this.canvas ? this.canvas.getContext("2d") : null;
+    this.cssW = 0; this.cssH = 0; this.dpr = 1;
+
+    this.rafId = 0;
+    this.active = false;
+    this.visible = true;
+    this.inView = true;
+    this.staticMode = false;
+
+    // Draw gating: only repaint when the scroll position changed (needsDraw)
+    // or while time-based ambient motion is live (t in the resolve range).
+    this.needsDraw = true;      // paint the first frame
+    this.lastT = -1;
+    this.ambient = true;        // breathing/drift in the resolve phase; off under reduced motion
+    this._sectionH = 0;         // cached section.offsetHeight (recomputed on resize only)
+
+    this._loop = this._loop.bind(this);
+    this._onResize = this._onResize.bind(this);
+    this._resizeQueued = false;
+  }
+
+  // Above this t the finished figure has continuous ambient motion, so the
+  // loop must keep repainting even when the user is idle.
+  var AMBIENT_START = 0.70;
+
+  HeroScrubber.prototype.init = function(){
+    if (!this.section || !this.stage || !this.canvas || !this.ctx) return; // guard
+
+    var reduce = false, coarse = false;
+    try { reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e){}
+    try { coarse = window.matchMedia("(pointer: coarse)").matches; } catch(e){}
+    var small = window.innerWidth <= 768;
+    this.staticMode = reduce || coarse || small;
+    this.ambient = !reduce;   // no time-based motion under prefers-reduced-motion
+
+    var self = this;
+
+    this.source.preload().then(function(){
+      self._sizeCanvas();
+      if (self.staticMode){
+        self.section.classList.add("is-static");
+        self._renderStatic();
+        // keep the poster crisp on rotate/resize (single render, never a loop)
+        window.addEventListener("resize", function(){
+          self._sizeCanvas();
+          self._renderStatic();
+        }, {passive:true});
+        return;
+      }
+      self._bindDynamic();
+    });
+  };
+
+  HeroScrubber.prototype._sizeCanvas = function(){
+    var r = this.stage.getBoundingClientRect();
+    this.cssW = Math.max(1, r.width);
+    this.cssH = Math.max(1, r.height || window.innerHeight);
+    this.dpr = Math.min(2, window.devicePixelRatio || 1);
+    this.canvas.width  = Math.round(this.cssW*this.dpr);
+    this.canvas.height = Math.round(this.cssH*this.dpr);
+    this.ctx.setTransform(this.dpr,0,0,this.dpr,0,0);
+    // Cache the section height so the per-frame _computeT reads only ONE layout
+    // property (getBoundingClientRect().top), never offsetHeight too.
+    this._sectionH = this.section.offsetHeight;
+    if (this.source.layout) this.source.layout(this.cssW, this.cssH, this.dpr);
+  };
+
+  HeroScrubber.prototype._computeT = function(){
+    var denom = this._sectionH - window.innerHeight;
+    if (denom <= 0) return 0;
+    var top = this.section.getBoundingClientRect().top;   // read ONCE per frame
+    return clamp01(-top/denom);
+  };
+
+  HeroScrubber.prototype._renderStatic = function(){
+    // Final frame, once. Overlay stays legible (no scroll to reveal the figure).
+    this.source.render(this.ctx, 1, this.cssW, this.cssH, 0);
+    if (this.overlay) this.overlay.style.opacity = "1";
+  };
+
+  // Render one frame at an already-computed t (no layout read here).
+  HeroScrubber.prototype._drawAt = function(t, now){
+    this.lastT = t;
+    this.source.render(this.ctx, t, this.cssW, this.cssH, now);
+    if (this.overlay){
+      this.overlay.style.opacity = String(1 - smoothstep(0.55,0.92,t));
+    }
+  };
+
+  // Convenience: compute t then draw (used for the first paint + resize).
+  HeroScrubber.prototype._draw = function(now){
+    this.needsDraw = false;
+    this._drawAt(this._computeT(), now);
+  };
+
+  HeroScrubber.prototype._loop = function(now){
+    if (!this.active) return;
+    var t = this._computeT();                 // ONE getBoundingClientRect read/frame
+    var ambientActive = this.ambient && t >= AMBIENT_START;
+    // Repaint only when the scroll position changed (needsDraw) or while the
+    // finished figure has live ambient motion; otherwise idle the loop cheaply.
+    if (this.needsDraw || ambientActive){
+      this.needsDraw = false;
+      this._drawAt(t, now || 0);
+    }
+    this.rafId = requestAnimationFrame(this._loop);
+  };
+
+  HeroScrubber.prototype._activate = function(){
+    if (this.active || this.staticMode) return;
+    if (!(this.visible && this.inView)) return;
+    this.active = true;
+    this.needsDraw = true;      // guarantee at least one paint on (re)activation
+    this.rafId = requestAnimationFrame(this._loop);
+  };
+
+  HeroScrubber.prototype._deactivate = function(){
+    this.active = false;
+    if (this.rafId){ cancelAnimationFrame(this.rafId); this.rafId = 0; }
+  };
+
+  HeroScrubber.prototype._onResize = function(){
+    if (this._resizeQueued) return;
+    this._resizeQueued = true;
+    var self = this;
+    requestAnimationFrame(function(){
+      self._resizeQueued = false;
+      self._sizeCanvas();
+      self.needsDraw = true;                    // geometry changed -> force a repaint
+      if (self.active) self._draw(performance.now());
+    });
+  };
+
+  HeroScrubber.prototype._bindDynamic = function(){
+    var self = this;
+
+    // Scroll only flags work; the actual draw happens in the rAF loop.
+    window.addEventListener("scroll", function(){ self.needsDraw = true; }, {passive:true});
+    window.addEventListener("resize", this._onResize, {passive:true});
+
+    // Pause when tab hidden.
+    document.addEventListener("visibilitychange", function(){
+      self.visible = !document.hidden;
+      if (self.visible) self._activate(); else self._deactivate();
+    });
+
+    // Pause when the hero scrolls out of view.
+    if ("IntersectionObserver" in window){
+      var io = new IntersectionObserver(function(entries){
+        for (var i=0;i<entries.length;i++){
+          self.inView = entries[i].isIntersecting;
+        }
+        if (self.inView) self._activate(); else self._deactivate();
+      }, {threshold:0});
+      io.observe(this.section);
+    } else {
+      this.inView = true;
+    }
+
+    // First paint immediately (blueprint at current t) — no loader, no opacity gate.
+    this._draw(performance.now());
+    this._activate();
+  };
+
+  /* =========================================================================
+     BOOT
+     ========================================================================= */
+  function boot(){
+    var section = document.getElementById("heroScrub");
+    var stage   = document.getElementById("heroStage");
+    var canvas  = document.getElementById("heroCanvas");
+    var overlay = document.getElementById("heroOverlay");
+    if (!section || !stage || !canvas) return;   // guard every lookup
+
+    var scrubber = new HeroScrubber({
+      section: section,
+      stage: stage,
+      canvas: canvas,
+      overlay: overlay,
+      // ---- ONE-LINE SWAP to pre-rendered frames later: ----
+      //   source: new ImageSequenceFrameSource('frames/', 72)
+      source: new ProceduralFrameSource()
+    });
+    scrubber.init();
+  }
+
+  if (document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();
 </script>
 </body>
 </html>
