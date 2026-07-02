@@ -496,34 +496,42 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
      ========================================================================= */
 
   /* -------------------------------------------------------------------------
-     ProceduralFrameSource — USED NOW.
-     Draws blueprint grid -> converging particle constellation -> glowing
-     gold silhouette, purely as a function of t. No image files.
+     ProceduralFrameSource — USED NOW.  (faux-3D volumetric)
+     A blueprint floor in perspective assembles a VOLUMETRIC point-cloud human
+     that rotates in 3D and resolves into a glowing figure. Pure Canvas 2D:
+     every point carries (x,y,z), is spun on the vertical axis by t, tilted by a
+     fixed scene pitch, then perspective-projected. Depth drives point size + a
+     front/back fog so the body reads as solid, not a flat constellation.
+     No image files.
      ------------------------------------------------------------------------- */
+
+  // Camera / scene constants (normalized figure units).
+  var CAM_D0 = 1.80, CAM_D1 = 1.52;   // camera distance: eases in (dolly) toward resolve
+  var PITCH  = 0.15;                   // scene tilt (rad) so the floor plane is visible
+  var GROUND_Y = 0.54;                 // ground plane height (centered coords; feet ~0.48)
+
   function ProceduralFrameSource(){
     this.built = false;
     this.bones = null;          // skeleton capsules, built once in _ensureBuilt
     this.sprite = null;         // soft glow dot
-    this.buf = null;            // offscreen silhouette buffer (seamless union fill)
+    this.buf = null;            // offscreen accumulation buffer (volumetric glow)
     this.bctx = null;
     this.bufDpr = 1;
 
-    this.local = [];            // particle target points in normalized figure space
-    this.scatter = [];          // scatter start, normalized viewport [0..1]
-    this.delay = [];            // per-particle convergence delay [0..1]
-    this.size = [];             // per-particle base size factor
-    this.phase = [];            // ambient twinkle/drift phase
-    this.edges = [];            // [i,j] near-neighbour connections (wireframe)
+    this.local = [];            // [x,y,z] target points, centered (y ~ [-0.43, 0.48])
+    this.scatter = [];          // [x,y,z] scatter origins (wide 3D box)
+    this.delay = [];            // per-point convergence stagger [0..1]
+    this.size = [];             // per-point base size factor
+    this.phase = [];            // ambient drift phase
+    this.edges = [];            // [i,j,...] near-neighbour links (3D wireframe)
 
-    // reusable per-frame scratch (avoid GC churn)
-    this._px = [];
-    this._py = [];
-    this._pc = [];              // convergence 0..1 per particle
+    // reusable per-frame projected scratch (avoid GC churn)
+    this._sx = []; this._sy = []; this._dep = []; this._scl = []; this._pc = [];
   }
 
   // Skeleton "bones": each is a capsule (segment a->b, radius r) in normalized
   // figure space. x is half-width (0 = centre axis), y runs 0 (crown) -> ~1 (feet).
-  // A degenerate bone (a==b) renders as a circle (the head).
+  // A degenerate bone (a==b) renders as the head sphere.
   ProceduralFrameSource.prototype._bones = function(){
     var B = [];
     function bone(ax,ay,bx,by,r){ B.push({ax:ax,ay:ay,bx:bx,by:by,r:r}); }
@@ -564,7 +572,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
     this.sprite = c;
   };
 
-  // Distance from point p to segment ab (all normalized).
+  // Distance from point p to segment ab (2D, figure x-y plane).
   function distToSeg(px,py, ax,ay, bx,by){
     var dx=bx-ax, dy=by-ay, l2=dx*dx+dy*dy;
     var t = l2>0 ? ((px-ax)*dx+(py-ay)*dy)/l2 : 0;
@@ -573,88 +581,93 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
     return Math.hypot(px-cx, py-cy);
   }
 
-  ProceduralFrameSource.prototype._buildFigure = function(){
+  // Build the VOLUMETRIC point cloud: bones -> 3D tubes (rings around each
+  // segment axis) + a head sphere + interior fill. Points are centered in y so
+  // the figure spins about its own vertical axis.
+  ProceduralFrameSource.prototype._buildVolume = function(){
     var rng = mulberry32(20260702);
-    var bones = this.bones;              // built once in _ensureBuilt (no per-call alloc)
+    var bones = this.bones;
     var pts = [];
 
-    // 1) Sample points along each bone's two rails + caps => reads as a wireframe body.
-    for (var b=0; b<bones.length; b++){
+    // 1) Wrap each bone into a 3D tube: a ring of points around the segment axis
+    //    gives front (z>0) + back (z<0) shells => real volume when rotated.
+    for (var b=0;b<bones.length;b++){
       var bn = bones[b];
       var dx = bn.bx-bn.ax, dy = bn.by-bn.ay;
       var len = Math.hypot(dx,dy);
       if (len < 1e-4){
-        // circle (head): ring of points + a couple interior
-        var ring = 16;
-        for (var i=0;i<ring;i++){
-          var a = i/ring*Math.PI*2;
-          pts.push([bn.ax+Math.cos(a)*bn.r, bn.ay+Math.sin(a)*bn.r]);
+        // head: fibonacci sphere of points around (0, head, 0)
+        var N=34, off=2/N, inc=Math.PI*(3-Math.sqrt(5));
+        for (var s=0;s<N;s++){
+          var yy=((s*off)-1)+off/2, rr=Math.sqrt(Math.max(0,1-yy*yy)), ph=s*inc;
+          pts.push([ bn.ax+Math.cos(ph)*rr*bn.r, (bn.ay-0.5)+yy*bn.r, Math.sin(ph)*rr*bn.r ]);
         }
-        pts.push([bn.ax, bn.ay-bn.r*0.35]);
         continue;
       }
-      var nx = -dy/len, ny = dx/len;          // unit normal
-      var steps = Math.max(2, Math.round(len/0.05));
+      var nx=-dy/len, ny=dx/len;                    // 2D normal in the x-y plane
+      var steps=Math.max(2,Math.round(len/0.055));
+      var ring=6;
       for (var j=0;j<=steps;j++){
-        var u = j/steps;
-        var cx = bn.ax+dx*u, cy = bn.ay+dy*u;
-        pts.push([cx+nx*bn.r, cy+ny*bn.r]);
-        pts.push([cx-nx*bn.r, cy-ny*bn.r]);
+        var u=j/steps, cx=bn.ax+dx*u, cyy=bn.ay+dy*u;
+        for (var k=0;k<ring;k++){
+          var a=(k/ring)*Math.PI*2 + j*0.7;      // stagger rings so tubes read smooth, not beaded
+          var rc=Math.cos(a)*bn.r, rz=Math.sin(a)*bn.r;
+          pts.push([ cx+nx*rc, (cyy-0.5)+ny*rc, rz ]);
+        }
       }
     }
 
-    // 2) Interior fill points (inside any capsule) for constellation density.
-    var added = 0, tries = 0;
-    while (added < 54 && tries < 4000){
+    // 2) Interior volume fill (inside any capsule, in 3D) for a solid glow core.
+    var added=0, tries=0;
+    while (added<60 && tries<6000){
       tries++;
-      var rx = (rng()-0.5)*0.42;      // x in [-0.21,0.21]
-      var ry = rng()*1.02;            // y in [0,1.02]
-      var inside = false;
-      for (var k=0;k<bones.length;k++){
-        var bk = bones[k];
-        if (distToSeg(rx,ry, bk.ax,bk.ay, bk.bx,bk.by) < bk.r*0.85){ inside = true; break; }
+      var rx=(rng()-0.5)*0.40, ry=rng()*1.0, rz2=(rng()-0.5)*0.34;
+      var inside=false;
+      for (var m=0;m<bones.length;m++){
+        var bk=bones[m];
+        var d2=distToSeg(rx,ry, bk.ax,bk.ay, bk.bx,bk.by);
+        if (Math.hypot(d2,rz2) < bk.r*0.8){ inside=true; break; }
       }
-      if (inside){ pts.push([rx,ry]); added++; }
+      if (inside){ pts.push([ rx, ry-0.5, rz2 ]); added++; }
     }
 
-    // Commit particle arrays.
+    // Commit point arrays.
     this.local = pts;
-    var n = pts.length;
+    var n=pts.length;
     for (var p=0;p<n;p++){
-      this.scatter.push([ rng(), rng() ]);                 // viewport-normalized start
-      this.delay.push( rng() );                            // convergence stagger
-      this.size.push( 0.7 + rng()*0.9 );                   // size variety
-      this.phase.push( rng()*Math.PI*2 );                  // ambient phase
+      this.scatter.push([ (rng()-0.5)*2.2, (rng()-0.5)*1.9, (rng()-0.5)*1.0 ]);
+      this.delay.push( rng() );
+      this.size.push( 0.7 + rng()*0.9 );
+      this.phase.push( rng()*Math.PI*2 );
     }
 
-    // 3) Precompute near-neighbour edges (once) from the fixed target geometry.
-    var THRESH = 0.058, MAXDEG = 3;
-    var deg = new Int32Array(n);
-    for (var a1=0; a1<n; a1++){
-      if (deg[a1] >= MAXDEG) continue;
-      // collect candidates within threshold, keep the closest few
-      var cand = [];
-      for (var a2=a1+1; a2<n; a2++){
-        var d = Math.hypot(pts[a1][0]-pts[a2][0], pts[a1][1]-pts[a2][1]);
-        if (d < THRESH) cand.push([d,a2]);
+    // 3) Near-neighbour edges in 3D (wireframe), degree-capped.
+    var THRESH=0.072, MAXDEG=3;
+    var deg=new Int32Array(n);
+    for (var a1=0;a1<n;a1++){
+      if (deg[a1]>=MAXDEG) continue;
+      var cand=[];
+      for (var a2=a1+1;a2<n;a2++){
+        var ex=pts[a1][0]-pts[a2][0], ey=pts[a1][1]-pts[a2][1], ez=pts[a1][2]-pts[a2][2];
+        var dd=Math.sqrt(ex*ex+ey*ey+ez*ez);
+        if (dd<THRESH) cand.push([dd,a2]);
       }
       cand.sort(function(u,v){ return u[0]-v[0]; });
-      for (var ci=0; ci<cand.length && deg[a1]<MAXDEG; ci++){
-        var jj = cand[ci][1];
-        if (deg[jj] >= MAXDEG) continue;
-        this.edges.push(a1, jj);
-        deg[a1]++; deg[jj]++;
+      for (var ci=0;ci<cand.length && deg[a1]<MAXDEG;ci++){
+        var jj=cand[ci][1];
+        if (deg[jj]>=MAXDEG) continue;
+        this.edges.push(a1,jj); deg[a1]++; deg[jj]++;
       }
     }
 
-    this.built = true;
+    this.built=true;
   };
 
   ProceduralFrameSource.prototype._ensureBuilt = function(){
     if (this.built) return;
     if (!this.sprite) this._buildSprite();
     this.bones = this._bones();          // build the skeleton ONCE and reuse everywhere
-    this._buildFigure();
+    this._buildVolume();
   };
 
   ProceduralFrameSource.prototype.preload = function(){
@@ -663,7 +676,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   };
 
   ProceduralFrameSource.prototype.layout = function(w,h,dpr){
-    // (Re)create the seamless silhouette buffer at device resolution.
+    // (Re)create the accumulation buffer at device resolution.
     this.bufDpr = dpr;
     if (!this.buf){
       this.buf = document.createElement("canvas");
@@ -673,12 +686,10 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
     this.buf.height = Math.max(1, Math.round(h*dpr));
   };
 
-  // Figure->canvas mapping for a given viewport.
+  // Figure->canvas mapping for a given viewport (S = figure pixel height).
   ProceduralFrameSource.prototype._frame = function(w,h){
     var figH = Math.min(h*0.80, w*1.55);
-    var ox = w*0.5;
-    var oy = (h - figH)*0.5;
-    return { figH:figH, ox:ox, oy:oy };
+    return { figH:figH };
   };
 
   ProceduralFrameSource.prototype._drawBackground = function(ctx,w,h,res){
@@ -695,127 +706,44 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
     ctx.fillRect(0,0,w,h);
   };
 
-  ProceduralFrameSource.prototype._drawGrid = function(ctx,t,w,h,fr){
-    // Small floor at t=0 so the blueprint is faintly present on first paint,
-    // then ramps in and recedes during resolve.
-    var gridA = (0.18 + 0.82*smoothstep(0,0.28,t)) * (1 - smoothstep(0.68,0.96,t));
-    if (gridA <= 0.002) return;
+  // Perspective floor grid on the ground plane, receding to a vanishing point.
+  ProceduralFrameSource.prototype._drawFloor = function(ctx,t,w,h,proj){
+    var floorA = (0.42 + 0.58*smoothstep(0,0.26,t)) * (1 - 0.68*smoothstep(0.72,0.98,t));
+    if (floorA<=0.003) return;
     ctx.save();
-    var sp = Math.max(38, Math.round(w/26));
-    // minor lattice
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = "rgba("+GOLD+","+(0.05*gridA)+")";
-    ctx.beginPath();
-    for (var x=sp; x<w; x+=sp){ ctx.moveTo(Math.round(x)+0.5,0); ctx.lineTo(Math.round(x)+0.5,h); }
-    for (var y=sp; y<h; y+=sp){ ctx.moveTo(0,Math.round(y)+0.5); ctx.lineTo(w,Math.round(y)+0.5); }
-    ctx.stroke();
-
-    // centre vertical axis (brighter)
-    ctx.strokeStyle = "rgba("+GOLD+","+(0.22*gridA)+")";
-    ctx.beginPath();
-    ctx.moveTo(Math.round(w*0.5)+0.5,0);
-    ctx.lineTo(Math.round(w*0.5)+0.5,h);
-    ctx.stroke();
-
-    // registration lines at shoulders / hips / feet (architectural feel)
-    var reg = [0.180, 0.520, 0.980];
-    ctx.strokeStyle = "rgba("+GOLD+","+(0.10*gridA)+")";
-    ctx.beginPath();
-    for (var i=0;i<reg.length;i++){
-      var yy = Math.round(fr.oy + reg[i]*fr.figH)+0.5;
-      ctx.moveTo(0,yy); ctx.lineTo(w,yy);
+    ctx.lineWidth=1;
+    var GX=1.7, ZF=0.7, ZB=-2.4, STEP=0.24;
+    // lines of constant z (run across x), fading toward the far field
+    for (var z=ZB; z<=ZF+1e-6; z+=STEP){
+      var pa=proj(-GX,GROUND_Y,z), pb=proj(GX,GROUND_Y,z);
+      var fog=clamp01((z-ZB)/(ZF-ZB));          // near = 1
+      ctx.strokeStyle="rgba("+GOLD+","+(floorA*(0.05+0.16*fog))+")";
+      ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(pb.x,pb.y); ctx.stroke();
     }
-    ctx.stroke();
-
-    // measurement ticks down the axis
-    ctx.strokeStyle = "rgba("+GOLD+","+(0.16*gridA)+")";
-    ctx.beginPath();
-    for (var ty=sp; ty<h; ty+=sp){
-      ctx.moveTo(w*0.5-4, Math.round(ty)+0.5);
-      ctx.lineTo(w*0.5+4, Math.round(ty)+0.5);
+    // lines of constant x (run into depth), converging to the vanishing point
+    for (var x=-GX; x<=GX+1e-6; x+=STEP){
+      var qa=proj(x,GROUND_Y,ZF), qb=proj(x,GROUND_Y,ZB);
+      var cxn=Math.abs(x)/GX;                    // centre brighter
+      ctx.strokeStyle="rgba("+GOLD+","+(floorA*(0.12*(1-cxn)+0.03))+")";
+      ctx.beginPath(); ctx.moveTo(qa.x,qa.y); ctx.lineTo(qb.x,qb.y); ctx.stroke();
     }
-    ctx.stroke();
-
-    // corner registration brackets
-    var m = Math.max(18, Math.round(Math.min(w,h)*0.035)), L = 26;
-    ctx.strokeStyle = "rgba("+GOLD+","+(0.45*gridA)+")";
-    ctx.lineWidth = 1.2;
-    var corners = [[m,m,1,1],[w-m,m,-1,1],[m,h-m,1,-1],[w-m,h-m,-1,-1]];
-    ctx.beginPath();
-    for (var c=0;c<corners.length;c++){
-      var cc = corners[c];
-      ctx.moveTo(cc[0], cc[1]+cc[3]*L); ctx.lineTo(cc[0], cc[1]); ctx.lineTo(cc[0]+cc[2]*L, cc[1]);
-    }
-    ctx.stroke();
     ctx.restore();
   };
 
-  // Rebuild the seamless silhouette into the offscreen buffer, then composite.
-  ProceduralFrameSource.prototype._drawSilhouette = function(ctx,res,w,h,fr,now){
-    if (res <= 0.002 || !this.bctx) return;
-    var bones = this.bones;              // reuse the prebuilt skeleton (no per-frame alloc)
-    var b = this.bctx, dpr = this.bufDpr, S = fr.figH;
-
-    b.setTransform(dpr,0,0,dpr,0,0);
-    b.clearRect(0,0,w,h);
-    b.lineJoin = "round"; b.lineCap = "round";
-
-    // subtle breathing so the finished figure feels alive (still one frame when static)
-    var breathe = 1 + Math.sin(now*0.0011)*0.006;
-
-    function strokeBones(scaleR){
-      b.beginPath();
-      for (var i=0;i<bones.length;i++){
-        var bn = bones[i];
-        var ax = fr.ox + bn.ax*S, ay = fr.oy + bn.ay*S;
-        var bx = fr.ox + bn.bx*S, by = fr.oy + bn.by*S;
-        b.moveTo(ax,ay); b.lineTo(bx,by);
-        b.lineWidth = Math.max(1, 2*bn.r*S*scaleR);
-        b.stroke();
-        b.beginPath();
-      }
+  // Screen-space architectural HUD (corner registration brackets).
+  ProceduralFrameSource.prototype._drawHud = function(ctx,t,w,h){
+    var a = (0.2+0.8*smoothstep(0,0.26,t)) * (1-smoothstep(0.70,0.97,t));
+    if (a<=0.003) return;
+    ctx.save();
+    var m=Math.max(18,Math.round(Math.min(w,h)*0.035)), L=26;
+    ctx.strokeStyle="rgba("+GOLD+","+(0.45*a)+")"; ctx.lineWidth=1.2;
+    var C=[[m,m,1,1],[w-m,m,-1,1],[m,h-m,1,-1],[w-m,h-m,-1,-1]];
+    ctx.beginPath();
+    for (var c=0;c<C.length;c++){
+      var cc=C[c];
+      ctx.moveTo(cc[0], cc[1]+cc[3]*L); ctx.lineTo(cc[0], cc[1]); ctx.lineTo(cc[0]+cc[2]*L, cc[1]);
     }
-
-    // core body gradient (top-lit gold)
-    var grad = b.createLinearGradient(0, fr.oy, 0, fr.oy+S);
-    grad.addColorStop(0.00,"rgba("+GOLD_LT+",1)");
-    grad.addColorStop(0.42,"rgba("+GOLD+",1)");
-    grad.addColorStop(1.00,"rgba(150,120,52,1)");
-    b.strokeStyle = grad;
-    strokeBones(breathe);
-
-    // luminous centre-line highlight
-    b.strokeStyle = "rgba("+CORE+",0.42)";
-    strokeBones(0.5*breathe);
-
-    // ---- composite buffer onto main canvas ----
-    // soft bloom pass (blur if supported; harmless no-op otherwise)
-    ctx.save();
-    ctx.globalCompositeOperation = "lighter";
-    var canBlur = false;
-    try { ctx.filter = "blur("+(S*0.02)+"px)"; canBlur = (ctx.filter !== "none"); } catch(e){ canBlur=false; }
-    if (canBlur){
-      ctx.globalAlpha = res*0.55;
-      ctx.drawImage(this.buf, 0,0, w,h);
-      ctx.filter = "none";
-    }
-    ctx.restore();
-
-    // ambient radial glow around the figure core
-    var tc_x = fr.ox, tc_y = fr.oy + 0.34*S;
-    ctx.save();
-    ctx.globalCompositeOperation = "lighter";
-    var rg = ctx.createRadialGradient(tc_x,tc_y,0, tc_x,tc_y, S*0.72);
-    rg.addColorStop(0,"rgba("+GOLD+","+(res*0.20)+")");
-    rg.addColorStop(1,"rgba("+GOLD+",0)");
-    ctx.fillStyle = rg;
-    ctx.fillRect(0,0,w,h);
-    ctx.restore();
-
-    // sharp body
-    ctx.save();
-    ctx.globalAlpha = res;
-    ctx.drawImage(this.buf, 0,0, w,h);
+    ctx.stroke();
     ctx.restore();
   };
 
@@ -823,75 +751,102 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
     this._ensureBuilt();
     if (typeof now !== "number") now = 0;
     var fr = this._frame(w,h);
-    var S = fr.figH;
+    var S = fr.figH, cx = w*0.5, cy = h*0.5;
 
-    var res    = smoothstep(0.70,0.985,t);
-    var appear = smoothstep(0.30,0.46,t);
-    var edgeA  = smoothstep(0.42,0.64,t) * (1 - 0.6*res);
-    var settle = smoothstep(0.70,0.82,t);
+    var res    = smoothstep(0.68,0.99,t);
+    var appear = smoothstep(0.30,0.48,t);
+    var edgeA  = smoothstep(0.40,0.62,t) * (1 - 0.55*res);
 
-    // convergence timing (staggered scatter -> target)
-    var C0=0.34, C1=0.70, SPREAD=0.55;
-    var raw = clamp01((t-C0)/(C1-C0));
+    // spin on the vertical axis + subtle dolly-in
+    var spin = smoothstep(0.30,0.86,t);
+    var yaw  = lerp(-0.52,0.14,spin) + (res>0 ? Math.sin(now*0.00022)*0.10*res : 0);
+    var cyw=Math.cos(yaw), syw=Math.sin(yaw);
+    var cp=Math.cos(PITCH), sp=Math.sin(PITCH);
+    var camD=lerp(CAM_D0,CAM_D1,res);
 
-    // ---- background + blueprint ----
-    this._drawBackground(ctx,w,h,res);
-    this._drawGrid(ctx,t,w,h,fr);
-
-    // ---- compute particle positions once ----
-    var n = this.local.length;
-    var px=this._px, py=this._py, pc=this._pc;
-    for (var i=0;i<n;i++){
-      var conv = clamp01(raw*(1+SPREAD) - this.delay[i]*SPREAD);
-      var e = easeOutCubic(conv);
-      var lx = this.local[i][0], ly = this.local[i][1];
-      var tx = fr.ox + lx*S, ty = fr.oy + ly*S;
-      var sx = this.scatter[i][0]*w, sy = this.scatter[i][1]*h;
-      var x = lerp(sx,tx,e), y = lerp(sy,ty,e);
-      // gentle ambient drift once settled
-      if (settle>0){
-        var ph = this.phase[i];
-        x += Math.sin(now*0.0009 + ph) * S*0.004 * settle;
-        y += Math.cos(now*0.0011 + ph*1.3) * S*0.004 * settle;
-      }
-      px[i]=x; py[i]=y; pc[i]=conv;
+    // (x,y,z) -> screen: yaw about vertical, pitch about horizontal, perspective.
+    function proj(x,y,z){
+      var x1 = x*cyw + z*syw, z1 = -x*syw + z*cyw;
+      var y2 = y*cp - z1*sp,  z2 = y*sp + z1*cp;
+      var per = camD/(camD - z2);
+      return { x: cx + x1*per*S, y: cy + y2*per*S, d: z2, s: per };
     }
 
-    // ---- wireframe edges (near-neighbour constellation) ----
-    if (edgeA > 0.004){
-      ctx.save();
-      ctx.globalCompositeOperation = "lighter";
-      ctx.lineWidth = Math.max(0.6, S*0.0016);
-      var ed = this.edges;
+    // ---- background + blueprint floor + HUD ----
+    this._drawBackground(ctx,w,h,res);
+    this._drawFloor(ctx,t,w,h,proj);
+    this._drawHud(ctx,t,w,h);
+
+    // ---- compute 3D positions + projections once ----
+    var C0=0.30, C1=0.70, SPREAD=0.5;
+    var raw=clamp01((t-C0)/(C1-C0));
+    var settle=smoothstep(0.70,0.84,t);
+    var n=this.local.length;
+    var SX=this._sx, SY=this._sy, DE=this._dep, SC=this._scl, PC=this._pc;
+    for (var i=0;i<n;i++){
+      var conv=clamp01(raw*(1+SPREAD)-this.delay[i]*SPREAD);
+      var e=easeOutCubic(conv);
+      var lx=this.local[i][0], ly=this.local[i][1], lz=this.local[i][2];
+      var s0=this.scatter[i];
+      var x=lerp(s0[0],lx,e), y=lerp(s0[1],ly,e), z=lerp(s0[2],lz,e);
+      if (settle>0){
+        var ph=this.phase[i];
+        x+=Math.sin(now*0.0009+ph)*0.004*settle;
+        y+=Math.cos(now*0.0011+ph*1.3)*0.004*settle;
+      }
+      var pj=proj(x,y,z);
+      SX[i]=pj.x; SY[i]=pj.y; DE[i]=pj.d; SC[i]=pj.s; PC[i]=conv;
+    }
+
+    // ---- wireframe edges (near-neighbour, depth-fogged) ----
+    if (edgeA>0.004){
+      ctx.save(); ctx.globalCompositeOperation="lighter";
+      ctx.lineWidth=Math.max(0.6, S*0.0015);
+      var ed=this.edges;
       for (var k=0;k<ed.length;k+=2){
         var a=ed[k], c=ed[k+1];
-        var la = Math.min(pc[a],pc[c]);
-        if (la <= 0.02) continue;
-        ctx.strokeStyle = "rgba("+GOLD+","+(edgeA*la*0.55)+")";
-        ctx.beginPath();
-        ctx.moveTo(px[a],py[a]);
-        ctx.lineTo(px[c],py[c]);
-        ctx.stroke();
+        var la=Math.min(PC[a],PC[c]); if (la<=0.02) continue;
+        var fog=clamp01((DE[a]+0.28)/0.56);
+        ctx.strokeStyle="rgba("+GOLD+","+(edgeA*la*(0.25+0.45*fog))+")";
+        ctx.beginPath(); ctx.moveTo(SX[a],SY[a]); ctx.lineTo(SX[c],SY[c]); ctx.stroke();
       }
       ctx.restore();
     }
 
-    // ---- silhouette fill (resolve) ----
-    this._drawSilhouette(ctx,res,w,h,fr,now);
-
-    // ---- particles (sparkle on top) ----
-    if (appear > 0.004 && this.sprite){
-      ctx.save();
-      ctx.globalCompositeOperation = "lighter";
+    // ---- volumetric points -> accumulation buffer -> bloom + sharp ----
+    if (appear>0.004 && this.sprite && this.bctx){
+      var b=this.bctx, dpr=this.bufDpr;
+      b.setTransform(dpr,0,0,dpr,0,0);
+      b.clearRect(0,0,w,h);
+      b.globalCompositeOperation="lighter";
       for (var p=0;p<n;p++){
-        var pa = appear * (1 - 0.22*res);
-        if (pa <= 0.01) continue;
-        var sz = S * 0.011 * this.size[p] * (0.65 + 0.55*pc[p]);
-        ctx.globalAlpha = pa;
-        ctx.drawImage(this.sprite, px[p]-sz, py[p]-sz, sz*2, sz*2);
+        var fog2=clamp01((DE[p]+0.28)/0.56);
+        var sz=S*0.0092*this.size[p]*(0.55+0.6*SC[p])*(1+0.5*res);
+        var al=clamp01(PC[p])*(0.30+0.6*fog2)*(0.5+0.6*appear)*0.9;
+        if (al<=0.01) continue;
+        b.globalAlpha=al;
+        b.drawImage(this.sprite, SX[p]-sz, SY[p]-sz, sz*2, sz*2);
       }
+      b.globalAlpha=1;
+
+      ctx.save(); ctx.globalCompositeOperation="lighter";
+      var canBlur=false;
+      try { ctx.filter="blur("+(S*0.018)+"px)"; canBlur=(ctx.filter!=="none"); } catch(e){ canBlur=false; }
+      if (canBlur){ ctx.globalAlpha=0.38+0.34*res; ctx.drawImage(this.buf,0,0,w,h); ctx.filter="none"; }
+      ctx.globalAlpha=0.50+0.40*res; ctx.drawImage(this.buf,0,0,w,h);
       ctx.restore();
-      ctx.globalAlpha = 1;
+      ctx.globalAlpha=1;
+    }
+
+    // ---- ambient core aura at resolve ----
+    if (res>0.01){
+      ctx.save(); ctx.globalCompositeOperation="lighter";
+      var aur=proj(0,0.02,0);
+      var rg=ctx.createRadialGradient(aur.x,aur.y,0, aur.x,aur.y, S*0.70);
+      rg.addColorStop(0,"rgba("+GOLD+","+(res*0.11)+")");
+      rg.addColorStop(1,"rgba("+GOLD+",0)");
+      ctx.fillStyle=rg; ctx.fillRect(0,0,w,h);
+      ctx.restore();
     }
   };
 
