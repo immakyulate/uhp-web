@@ -1,0 +1,103 @@
+:root {
+  /* Colors */
+  --color-background-base: #000000;
+  --color-surface-raised: #111111;
+  --color-surface-secondary: #080808;
+  --color-text-primary: #f0f0ee;
+  --color-text-white: #ffffff;
+  --color-text-muted: #777770;
+  --color-text-dim: #444440;
+  --color-beige-accent: #c4c0b7;
+  --color-gold-primary: #c9a84c;
+  --color-border-subtle: #ffffff;
+
+  /* Typography */
+  --font-hero-display-xl-family: Barlow Condensed;
+  --font-hero-display-xl-size: 102.4px;
+  --font-hero-display-xl-weight: 900;
+  --font-hero-display-xl-line-height: 92.16px;
+  --font-hero-display-xl-letter-spacing: -2.048px;
+  --font-hero-display-l-family: Barlow Condensed;
+  --font-hero-display-l-size: 83.2px;
+  --font-hero-display-l-weight: 900;
+  --font-hero-display-l-line-height: 74.88px;
+  --font-hero-display-l-letter-spacing: -2.08px;
+  --font-section-headline-family: Barlow Condensed;
+  --font-section-headline-size: 64px;
+  --font-section-headline-weight: 900;
+  --font-section-headline-line-height: 58.88px;
+  --font-section-headline-letter-spacing: -1.28px;
+  --font-section-headline-alt-family: Barlow Condensed;
+  --font-section-headline-alt-size: 62px;
+  --font-section-headline-alt-weight: 900;
+  --font-section-headline-alt-line-height: 57.66px;
+  --font-section-headline-alt-letter-spacing: -1.24px;
+  --font-card-headline-family: Barlow Condensed;
+  --font-card-headline-size: 52px;
+  --font-card-headline-weight: 900;
+  --font-card-headline-line-height: 62.4px;
+  --font-card-headline-letter-spacing: 2.08px;
+  --font-display-inter-family: Inter;
+  --font-display-inter-size: 61.44px;
+  --font-display-inter-weight: 900;
+  --font-display-inter-line-height: 61.44px;
+  --font-display-inter-letter-spacing: -1.8432px;
+  --font-subheading-inter-family: Inter;
+  --font-subheading-inter-size: 26px;
+  --font-subheading-inter-weight: 900;
+  --font-subheading-inter-line-height: normal;
+  --font-subheading-inter-letter-spacing: undefined;
+  --font-label-caps-family: Inter;
+  --font-label-caps-size: 13px;
+  --font-label-caps-weight: 700;
+  --font-label-caps-line-height: normal;
+  --font-label-caps-letter-spacing: 2.34px;
+  --font-label-caps-small-family: Inter;
+  --font-label-caps-small-size: 11px;
+  --font-label-caps-small-weight: 700;
+  --font-label-caps-small-line-height: normal;
+  --font-label-caps-small-letter-spacing: 2.42px;
+  --font-nav-label-family: Barlow Condensed;
+  --font-nav-label-size: 12.5px;
+  --font-nav-label-weight: 700;
+  --font-nav-label-line-height: normal;
+  --font-nav-label-letter-spacing: 1px;
+  --font-body-regular-family: Inter;
+  --font-body-regular-size: 16px;
+  --font-body-regular-weight: 400;
+  --font-body-regular-line-height: normal;
+  --font-body-regular-letter-spacing: undefined;
+  --font-body-small-family: Inter;
+  --font-body-small-size: 14px;
+  --font-body-small-weight: 400;
+  --font-body-small-line-height: 23.8px;
+  --font-body-small-letter-spacing: undefined;
+  --font-caption-family: Inter;
+  --font-caption-size: 13.5px;
+  --font-caption-weight: 400;
+  --font-caption-line-height: 22.95px;
+  --font-caption-letter-spacing: undefined;
+  --font-button-label-family: Inter;
+  --font-button-label-size: 12px;
+  --font-button-label-weight: 600;
+  --font-button-label-line-height: 16.8px;
+  --font-button-label-letter-spacing: 1.2px;
+
+  /* Spacing */
+  --spacing-space-1: 4px;
+  --spacing-space-2: 8px;
+  --spacing-space-3: 12px;
+  --spacing-space-4: 16px;
+  --spacing-space-5: 20px;
+  --spacing-space-6: 24px;
+  --spacing-space-7: 28px;
+  --spacing-space-8: 32px;
+  --spacing-space-9: 36px;
+  --spacing-space-10: 40px;
+  --spacing-space-13: 52px;
+  --spacing-space-32: 128px;
+
+  /* Border Radius */
+  --radius-radius-sharp: 1px;
+
+}
