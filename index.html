@@ -502,6 +502,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   text-transform:uppercase;background:var(--gold);color:#000;border:none;
   padding:15px 30px;border-radius:1px;cursor:none;text-decoration:none;
   display:inline-block;transition:background .2s,transform .15s;
+  pointer-events:auto;
 }
 .ph-btn-primary:hover{background:#e6ce86;transform:translateY(-2px);}
 .ph-btn-ghost{
@@ -510,6 +511,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   border:1px solid rgba(255,255,255,.18);
   padding:15px 30px;border-radius:1px;cursor:none;text-decoration:none;
   display:inline-block;transition:border-color .2s,color .2s,transform .15s;
+  pointer-events:auto;
 }
 .ph-btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
 /* scroll cue */
@@ -1942,6 +1944,10 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
       var chromeA = 1 - iLerp(p3, 0.0, 0.3);
       dIsland.style.opacity = chromeA;
       phoneSb.style.opacity = chromeA;
+      var chatWrap = phone.querySelector('.ph-chat-wrap');
+      if (chatWrap) {
+        chatWrap.style.paddingTop = lerp(0, 72, p3e) + 'px';
+      }
     } else {
       phone.style.width        = PHONE_W + 'px';
       phone.style.height       = PHONE_H + 'px';
@@ -1949,6 +1955,10 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
       phone.style.borderWidth  = PHONE_B + 'px';
       dIsland.style.opacity = 1;
       phoneSb.style.opacity = 1;
+      var chatWrap = phone.querySelector('.ph-chat-wrap');
+      if (chatWrap) {
+        chatWrap.style.paddingTop = '0px';
+      }
     }
 
     rings.style.opacity = Math.min(p1e * 1.5, 1) * (1 - p3);
