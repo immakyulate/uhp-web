@@ -682,6 +682,98 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   background:var(--gold);display:flex;align-items:center;justify-content:center;
   flex-shrink:0;
 }
+/* interactive chat and ambient particle classes */
+.ph-quick-replies {
+  display: flex;
+  gap: 8px;
+  padding: 10px 14px;
+  overflow-x: auto;
+  border-top: 1px solid rgba(255,255,255,.04);
+  background: rgba(6,6,6,.95);
+  z-index: 5;
+}
+.ph-quick-replies::-webkit-scrollbar { display: none; }
+.ph-qr-chip {
+  font-family: var(--body);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  background: rgba(201,168,76,.08);
+  border: 1px solid rgba(201,168,76,.18);
+  padding: 6px 12px;
+  border-radius: 14px;
+  white-space: nowrap;
+  cursor: none;
+  pointer-events: auto;
+  transition: all .25s var(--ease);
+}
+.ph-qr-chip:hover {
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold);
+}
+.ph-stat-pill {
+  cursor: none;
+  pointer-events: auto;
+  transition: background .25s var(--ease), border-color .25s var(--ease);
+}
+.ph-stat-pill:hover {
+  background: rgba(255,255,255,.03);
+}
+.ph-stat-pill.active {
+  background: rgba(201,168,76,.05);
+  border-bottom: 2px solid var(--gold);
+}
+.ph-notification {
+  position: absolute;
+  top: 92px;
+  left: 12px;
+  right: 12px;
+  background: rgba(17, 17, 17, 0.95);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  padding: 12px 16px;
+  border-radius: 8px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity .35s var(--ease), transform .35s var(--ease);
+  pointer-events: none;
+}
+.ph-notification.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.ph-notif-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.ph-notif-txt {
+  font-size: 11.5px;
+  color: var(--text);
+  line-height: 1.4;
+  font-weight: 500;
+}
+.ambient-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--gold);
+  filter: blur(1.5px);
+  pointer-events: none;
+  z-index: 2;
+  will-change: transform, opacity;
+  animation: floatParticle 10s ease-in-out infinite alternate;
+}
+@keyframes floatParticle {
+  0% { transform: translateY(0) translateX(0) translateZ(-80px); }
+  100% { transform: translateY(-50px) translateX(25px) translateZ(80px); }
+}
 /* hero keyframes */
 @keyframes phFadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 @keyframes phSPulse{0%,100%{opacity:.25;transform:scaleY(.7)}50%{opacity:1;transform:scaleY(1)}}
@@ -777,10 +869,14 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
         </div>
         <svg style="margin-left:auto;opacity:.35" width="20" height="5" viewBox="0 0 20 5" fill="white"><circle cx="2.5" cy="2.5" r="2.5"/><circle cx="10" cy="2.5" r="2.5"/><circle cx="17.5" cy="2.5" r="2.5"/></svg>
       </div>
+      <div class="ph-notification" id="ph-notification">
+        <div class="ph-notif-dot"></div>
+        <div class="ph-notif-txt" id="ph-notif-txt">Notification details...</div>
+      </div>
       <div class="ph-stats-strip">
-        <div class="ph-stat-pill"><div class="ph-stat-n">73</div><div class="ph-stat-l">Score</div></div>
-        <div class="ph-stat-pill"><div class="ph-stat-n">5<span>d</span></div><div class="ph-stat-l">Streak</div></div>
-        <div class="ph-stat-pill"><div class="ph-stat-n">2.1<span>L</span></div><div class="ph-stat-l">Water</div></div>
+        <div class="ph-stat-pill" id="ph-pill-score"><div class="ph-stat-n">73</div><div class="ph-stat-l">Score</div></div>
+        <div class="ph-stat-pill" id="ph-pill-streak"><div class="ph-stat-n">5<span>d</span></div><div class="ph-stat-l">Streak</div></div>
+        <div class="ph-stat-pill" id="ph-pill-water"><div class="ph-stat-n">2.1<span>L</span></div><div class="ph-stat-l">Water</div></div>
       </div>
       <div class="ph-chat-msgs" id="ph-chat-msgs">
         <div class="ph-msg-row">
@@ -818,6 +914,11 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
           <div class="ph-msg-av"><svg width="12" height="15" viewBox="0 0 12 15" fill="none"><path d="M7 1L0.5 9h5.5L5 14 11.5 6H6L7 1z" fill="#000"/></svg></div>
           <div class="ph-typing-dots"><span></span><span></span><span></span></div>
         </div>
+      </div>
+      <div class="ph-quick-replies" id="ph-quick-replies">
+        <button class="ph-qr-chip" data-reply="dinner">Client Dinner</button>
+        <button class="ph-qr-chip" data-reply="travel">Travel Routine</button>
+        <button class="ph-qr-chip" data-reply="water">Log 1L Water</button>
       </div>
       <div class="ph-chat-input">
         <div class="ph-input-field"><span class="ph-input-ph">Message UHP Coach…</span></div>
@@ -1854,6 +1955,8 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   var phoneSb    = document.getElementById('ph-sb');
   var typingRow  = document.getElementById('ph-typing-row');
   var bubbles    = document.querySelectorAll('[data-ph-trigger]');
+  var glow       = document.getElementById('hero-glow');
+  var stage      = document.getElementById('hero-stage');
   if (!heroScroll || !phone) return;
 
   var PHONE_W = 290, PHONE_H = 580, PHONE_R = 46, PHONE_B = 12;
@@ -1865,11 +1968,28 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   function lerp(a,b,t)  { return a+(b-a)*t; }
   function iLerp(v,a,b) { return clamp((v-a)/(b-a),0,1); }
 
-  var mx=0, my=0, smRx=0, smRy=0;
+  // Ambient Particles
+  if (stage) {
+    for (var i = 0; i < 18; i++) {
+      var p = document.createElement('div');
+      p.className = 'ambient-particle';
+      p.style.width = lerp(3, 7, Math.random()) + 'px';
+      p.style.height = p.style.width;
+      p.style.opacity = lerp(0.04, 0.18, Math.random());
+      p.style.left = lerp(5, 95, Math.random()) + '%';
+      p.style.top = lerp(5, 95, Math.random()) + '%';
+      p.style.transform = 'translateZ(' + lerp(-250, 250, Math.random()) + 'px)';
+      p.style.animationDelay = (Math.random() * -10) + 's';
+      stage.appendChild(p);
+    }
+  }
+
+  var mx=0, my=0, smRx=0, smRy=0, smoothP=0;
   document.addEventListener('mousemove', function(e) {
     mx = (e.clientX - innerWidth  * .5) / (innerWidth  * .5);
     my = (e.clientY - innerHeight * .5) / (innerHeight * .5);
   });
+
   var vw = innerWidth, vh = innerHeight;
   window.addEventListener('resize', function() { vw=innerWidth; vh=innerHeight; });
 
@@ -1879,7 +1999,9 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   }
 
   function frame(ts) {
-    var p = getP();
+    var rawP = getP();
+    smoothP = lerp(smoothP, rawP, 0.08); // Inertial Scroll
+    var p = smoothP;
     var t = ts / 1000;
 
     /* text fade */
@@ -1905,7 +2027,8 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
     var p3  = iLerp(p, 0.58, 1.0);
     var p3e = easeInOutQuart(p3);
 
-    var parStr = p2e * (1-p3) * 9;
+    // Mouse Parallax Active throughout the scroll process until fully expanded
+    var parStr = (1 - p3e) * 12;
     smRx = lerp(smRx, my * -parStr, 0.06);
     smRy = lerp(smRy, mx *  parStr, 0.06);
 
@@ -1973,6 +2096,115 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   }
 
   requestAnimationFrame(frame);
+
+  // Quick replies sandbox logic
+  var chatMsgs = document.getElementById('ph-chat-msgs');
+  var quickReplies = document.getElementById('ph-quick-replies');
+  if (quickReplies && chatMsgs) {
+    quickReplies.addEventListener('click', function(e) {
+      var chip = e.target.closest('.ph-qr-chip');
+      if (!chip) return;
+      var type = chip.dataset.reply;
+      
+      // User message
+      var uText = chip.textContent;
+      appendBubble(uText, 'user');
+      
+      // Disable chips temporarily
+      quickReplies.style.pointerEvents = 'none';
+      quickReplies.style.opacity = '0.4';
+      
+      // Show bot typing
+      typingRow.classList.add('in');
+      typingRow.style.opacity = '1';
+      scrollChat();
+      
+      setTimeout(function() {
+        typingRow.classList.remove('in');
+        typingRow.style.opacity = '0';
+        
+        var botResponse = '';
+        if (type === 'dinner') {
+          botResponse = 'Rule for dinners: Go high protein + green veg, skip the bread, and limit alcohol to gin/soda. Water before eating.';
+        } else if (type === 'travel') {
+          botResponse = 'Travel Checklist: Prep travel protein snacks, stay hydrated (1L pre-flight), and map restaurant options beforehand.';
+        } else if (type === 'water') {
+          botResponse = 'Hydration Anchor Logged: +1.0L water. Total today is now 3.1L. Anchor target complete! 💧';
+          // Update water indicator
+          var waterVal = document.querySelector('#ph-pill-water .ph-stat-n');
+          if (waterVal) waterVal.innerHTML = '3.1<span>L</span>';
+        }
+        
+        appendBubble(botResponse, 'bot');
+        scrollChat();
+        
+        // Re-enable chips
+        quickReplies.style.pointerEvents = 'auto';
+        quickReplies.style.opacity = '1';
+      }, 1500);
+    });
+  }
+
+  function appendBubble(text, sender) {
+    var bubbleRow = document.createElement('div');
+    bubbleRow.className = 'ph-msg-row';
+    
+    var time = new Date().toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' });
+    
+    if (sender === 'bot') {
+      bubbleRow.innerHTML = 
+        '<div class="ph-msg-av"><svg width="12" height="15" viewBox="0 0 12 15" fill="none"><path d="M7 1L0.5 9h5.5L5 14 11.5 6H6L7 1z" fill="#000"/></svg></div>' +
+        '<div class="ph-bubble bot visible">' +
+          '<div>' + text + '</div>' +
+          '<div class="ph-bubble-time">' + time + '</div>' +
+        '</div>';
+    } else {
+      bubbleRow.style.justifyContent = 'flex-end';
+      bubbleRow.innerHTML = 
+        '<div class="ph-bubble user visible" style="margin-left:auto">' +
+          '<div>' + text + '</div>' +
+          '<div class="ph-bubble-time" style="text-align:right">' + time + '</div>' +
+        '</div>';
+    }
+    chatMsgs.insertBefore(bubbleRow, typingRow);
+  }
+
+  function scrollChat() {
+    chatMsgs.scrollTop = chatMsgs.scrollHeight;
+  }
+
+  // Pill click alerts
+  var pillScore = document.getElementById('ph-pill-score');
+  var pillStreak = document.getElementById('ph-pill-streak');
+  var pillWater = document.getElementById('ph-pill-water');
+  var notif = document.getElementById('ph-notification');
+  var notifTxt = document.getElementById('ph-notif-txt');
+  var notifTimeout;
+
+  function showNotification(text) {
+    if (notifTimeout) clearTimeout(notifTimeout);
+    notifTxt.textContent = text;
+    notif.classList.add('visible');
+    notifTimeout = setTimeout(function() {
+      notif.classList.remove('visible');
+    }, 3500);
+  }
+
+  if (pillScore) {
+    pillScore.addEventListener('click', function() {
+      showNotification('Compliance Score: 73/100 (+4pts). Daily habits 94% consistent.');
+    });
+  }
+  if (pillStreak) {
+    pillStreak.addEventListener('click', function() {
+      showNotification('Weekly Streak: 5 Days compliant. Milestone target: 7 Days.');
+    });
+  }
+  if (pillWater) {
+    pillWater.addEventListener('click', function() {
+      showNotification('Hydration Tracker: 2.1L / 3.0L Target. Daily compliance anchor.');
+    });
+  }
 })();
 
 /* === PROBLEM STORYTELLER SCROLL SCRUB === */
@@ -1993,25 +2225,17 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
     var progress = Math.min(Math.max(currentDistance / totalDistance, 0), 1);
 
     // 5 slides -> 5 ranges
-    // slide 1: 0.0 - 0.2
-    // slide 2: 0.2 - 0.4
-    // slide 3: 0.4 - 0.6
-    // slide 4: 0.6 - 0.8
-    // slide 5: 0.8 - 1.0
     var cardIndex = Math.floor(progress * 4.99); // yields 0 to 4
 
     // Background image opacity and transform behaviors
     if (bgImg) {
       if (cardIndex === 3) {
-        // Slide 4: Full reveal
         bgImg.style.opacity = '0.78';
         bgImg.style.transform = 'scale(1.0)';
       } else if (cardIndex === 4) {
-        // Slide 5: Low opacity behind text
         bgImg.style.opacity = '0.15';
         bgImg.style.transform = 'scale(0.98)';
       } else {
-        // Slides 1, 2, 3: Very low background texture
         bgImg.style.opacity = '0.04';
         bgImg.style.transform = 'scale(1.02)';
       }
