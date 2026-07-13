@@ -76,15 +76,200 @@ body.hovering .cur-f{width:56px;height:56px;border-color:rgba(201,168,76,.5)}
 .mq-track{display:flex;white-space:nowrap}
 .mq-item{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:0 28px;display:inline-flex;align-items:center;gap:28px;flex-shrink:0}
 .mq-dot{width:4px;height:4px;border-radius:50%;background:var(--beige);opacity:.55;flex-shrink:0}
-.prob-g{display:grid;grid-template-columns:1.1fr 1fr;gap:88px;align-items:center}
-.prob-img{position:relative;overflow:hidden}.prob-img img{width:100%;height:600px;object-fit:cover;object-position:center top;filter:brightness(.72);transition:transform .8s var(--ease-out)}.prob-img:hover img{transform:scale(1.03)}
-.prob-img-tag{position:absolute;bottom:28px;left:28px;padding:12px 20px;background:rgba(0,0,0,.9);border:1px solid var(--border2);backdrop-filter:blur(12px);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--beige)}
-.prob-list{list-style:none;margin-top:44px}
-.pl{display:flex;gap:24px;padding:22px 0;border-bottom:1px solid var(--border)}.pl:last-child{border-bottom:none;padding-bottom:0}
-.pl-n{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--beige);min-width:28px;padding-top:2px;opacity:.6}
-.pl h4{font-size:17px;font-weight:800;text-transform:uppercase;color:var(--white);margin-bottom:6px;letter-spacing:.01em}
-.pl p{font-size:13.5px;color:var(--muted);line-height:1.7}
-@media(max-width:900px){.prob-g{grid-template-columns:1fr}.prob-img img{height:380px}}
+/* --- Storyteller Sticky Scroll Layout --- */
+#story-scroll-section {
+  position: relative;
+  height: 500vh; /* 5 panels of scroll depth */
+  background: #000;
+}
+#story-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+#story-bg-img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('assets/founder_burnout.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  filter: grayscale(15%);
+  transform: scale(1.02);
+}
+#story-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.92) 100%);
+}
+.story-content-wrap {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 800px;
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.story-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(40px);
+  clip-path: inset(100% 0 0 0);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), 
+              clip-path 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.story-slide.active {
+  opacity: 1;
+  transform: translateY(0);
+  clip-path: inset(0 0 0 0);
+  pointer-events: auto;
+}
+.story-slide.exit {
+  opacity: 0;
+  transform: translateY(-40px);
+  clip-path: inset(0 0 100% 0);
+  pointer-events: none;
+}
+.story-lbl {
+  font-family: var(--body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.story-h3 {
+  font-family: var(--font);
+  font-size: clamp(32px, 4.5vw, 52px);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin-bottom: 16px;
+}
+.story-p {
+  font-family: var(--body);
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 520px;
+}
+
+/* Slide 4 specific caption */
+.story-caption-only {
+  position: absolute;
+  bottom: 60px;
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--white);
+  text-transform: uppercase;
+  background: rgba(0,0,0,0.8);
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+/* Slide 5 Typography */
+.story-h2 {
+  font-family: var(--font);
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 0.93;
+  letter-spacing: -1.24px;
+}
+.story-sub {
+  font-family: var(--body);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-top: 20px;
+  max-width: 600px;
+}
+
+/* Scroll indicator dot line */
+.story-dots {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 3;
+}
+.story-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  transition: background 0.4s, transform 0.4s;
+}
+.story-dot.active {
+  background: var(--gold);
+  transform: scale(1.4);
+}
+
+@media(max-width: 768px) {
+  #story-scroll-section {
+    height: auto !important;
+  }
+  #story-sticky {
+    position: relative !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 80px 0 60px;
+  }
+  #story-bg-img {
+    display: none;
+  }
+  #story-overlay {
+    display: none;
+  }
+  .story-dots {
+    display: none;
+  }
+  .story-content-wrap {
+    height: auto !important;
+    flex-direction: column;
+    gap: 80px;
+  }
+  .story-slide {
+    position: relative !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+  .story-caption-only {
+    position: relative !important;
+    bottom: auto !important;
+    margin-top: 20px;
+  }
+}
 .svc-g{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:var(--border);margin-top:60px}
 .sc-card{background:var(--bg2);overflow:hidden;cursor:none;transition:background .4s}.sc-card:hover{background:var(--surface)}
 .sc-iw{overflow:hidden;height:280px}.sc-img{width:100%;height:100%;object-fit:cover;filter:brightness(.62) grayscale(12%);transition:transform .7s var(--ease-out),filter .5s}.sc-card:hover .sc-img{transform:scale(1.06);filter:brightness(.82)}
@@ -559,25 +744,58 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
 </div>
 
 <!-- PROBLEM -->
-<section class="sec" style="background:var(--bg)">
-  <div class="wrap">
-    <div class="prob-g">
-      <div class="rv-l">
-        <div class="prob-img">
-          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=900&q=80" alt="Professional working out" loading="lazy">
-          <div class="prob-img-tag">Does this sound like you?</div>
-        </div>
+<section id="story-scroll-section">
+  <div id="story-sticky">
+    
+    <!-- Immersive Background Image -->
+    <div id="story-bg-img"></div>
+    
+    <!-- Dark overlay to ensure text contrast -->
+    <div id="story-overlay"></div>
+    
+    <!-- Slide indicators (vertical dot menu) -->
+    <div class="story-dots">
+      <div class="story-dot active"></div>
+      <div class="story-dot"></div>
+      <div class="story-dot"></div>
+      <div class="story-dot"></div>
+      <div class="story-dot"></div>
+    </div>
+
+    <div class="story-content-wrap">
+      
+      <!-- Slide 1: Problem 01 -->
+      <div class="story-slide active">
+        <div class="story-lbl">01 / Decision Fatigue</div>
+        <h3 class="story-h3">Zero bandwidth left for health</h3>
+        <p class="story-p">After a 10-hour day of business decisions, there is no energy left for planning nutrition.</p>
       </div>
-      <div class="rv-r">
-        <div class="lbl">The pattern we see every day</div>
-        <h2 style="font-size:clamp(38px,5vw,62px);font-weight:900;text-transform:uppercase;color:var(--white);line-height:.93;letter-spacing:-.02em;margin-bottom:20px">YOU KNOW<br>WHAT TO DO.<br><span style="-webkit-text-stroke:1.5px var(--beige);color:transparent;font-style:italic">you just don't<br>have time.</span></h2>
-        <p style="font-size:15px;color:var(--muted);line-height:1.75;max-width:480px">You're eating on the run, relying on caffeine, and promising yourself you'll sort it out when things slow down. They never slow down. That's not a discipline problem — it's a systems problem.</p>
-        <ul class="prob-list">
-          <li class="pl rv" data-d="1"><span class="pl-n">01</span><div><h4>Running on caffeine, not fuel</h4><p>Energy peaks and crashes with your coffee intake — not when you actually need to perform.</p></div></li>
-          <li class="pl rv" data-d="2"><span class="pl-n">02</span><div><h4>Every program fails when life gets busy</h4><p>Strict diets work until your next big week at work. We build around reality, not a perfect version of it.</p></div></li>
-          <li class="pl rv" data-d="3"><span class="pl-n">03</span><div><h4>You've tried before and it hasn't stuck</h4><p>Not because you lack discipline — because the program wasn't built for your actual life.</p></div></li>
-        </ul>
+
+      <!-- Slide 2: Problem 02 -->
+      <div class="story-slide">
+        <div class="story-lbl">02 / Energy Depreciation</div>
+        <h3 class="story-h3">Slipping physical leadership</h3>
+        <p class="story-p">Low energy and poor focus directly eat into your daily boardroom performance and company ROI.</p>
       </div>
+
+      <!-- Slide 3: Problem 03 -->
+      <div class="story-slide">
+        <div class="story-lbl">03 / Schedule Collision</div>
+        <h3 class="story-h3">Rigid diets fail busy calendars</h3>
+        <p class="story-p">Strict gym routines and extreme meal plans collapse the moment client travel or meetings hit.</p>
+      </div>
+
+      <!-- Slide 4: Dramatic Image Reveal -->
+      <div class="story-slide">
+        <div class="story-caption-only">SUBJECT: JAMES THE FOUNDER // EXHAUSTION AUDIT</div>
+      </div>
+
+      <!-- Slide 5: The Relatable Climax -->
+      <div class="story-slide">
+        <h2 class="story-h2">Does this sound<br>like you?</h2>
+        <p class="story-sub">You systematise your business. But run your health on ad-hoc debt.</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1558,6 +1776,75 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   }
 
   requestAnimationFrame(frame);
+})();
+
+/* === PROBLEM STORYTELLER SCROLL SCRUB === */
+(function() {
+  var container = document.getElementById('story-scroll-section');
+  var bgImg = document.getElementById('story-bg-img');
+  var slides = document.querySelectorAll('.story-slide');
+  var dots = document.querySelectorAll('.story-dot');
+  if (!container || slides.length === 0) return;
+
+  function handleScroll() {
+    if (window.innerWidth <= 768) return;
+
+    var rect = container.getBoundingClientRect();
+    var viewHeight = window.innerHeight;
+    var totalDistance = rect.height - viewHeight;
+    var currentDistance = -rect.top;
+    var progress = Math.min(Math.max(currentDistance / totalDistance, 0), 1);
+
+    // 5 slides -> 5 ranges
+    // slide 1: 0.0 - 0.2
+    // slide 2: 0.2 - 0.4
+    // slide 3: 0.4 - 0.6
+    // slide 4: 0.6 - 0.8
+    // slide 5: 0.8 - 1.0
+    var cardIndex = Math.floor(progress * 4.99); // yields 0 to 4
+
+    // Background image opacity and transform behaviors
+    if (bgImg) {
+      if (cardIndex === 3) {
+        // Slide 4: Full reveal
+        bgImg.style.opacity = '0.78';
+        bgImg.style.transform = 'scale(1.0)';
+      } else if (cardIndex === 4) {
+        // Slide 5: Low opacity behind text
+        bgImg.style.opacity = '0.15';
+        bgImg.style.transform = 'scale(0.98)';
+      } else {
+        // Slides 1, 2, 3: Very low background texture
+        bgImg.style.opacity = '0.04';
+        bgImg.style.transform = 'scale(1.02)';
+      }
+    }
+
+    slides.forEach(function(slide, idx) {
+      if (idx === cardIndex) {
+        slide.classList.add('active');
+        slide.classList.remove('exit');
+      } else if (idx < cardIndex) {
+        slide.classList.remove('active');
+        slide.classList.add('exit');
+      } else {
+        slide.classList.remove('active');
+        slide.classList.remove('exit');
+      }
+    });
+
+    dots.forEach(function(dot, idx) {
+      if (idx === cardIndex) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('resize', handleScroll);
+  handleScroll();
 })();
 </script>
 </body>
