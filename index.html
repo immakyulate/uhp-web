@@ -270,15 +270,57 @@ body.hovering .cur-f{width:56px;height:56px;border-color:rgba(201,168,76,.5)}
     margin-top: 20px;
   }
 }
-.svc-g{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:var(--border);margin-top:60px}
-.sc-card{background:var(--bg2);overflow:hidden;cursor:none;transition:background .4s}.sc-card:hover{background:var(--surface)}
-.sc-iw{overflow:hidden;height:280px}.sc-img{width:100%;height:100%;object-fit:cover;filter:brightness(.62) grayscale(12%);transition:transform .7s var(--ease-out),filter .5s}.sc-card:hover .sc-img{transform:scale(1.06);filter:brightness(.82)}
-.sc-body{padding:32px 28px}
-.sc-n{font-size:10px;font-weight:800;letter-spacing:.2em;color:var(--beige);opacity:.65;margin-bottom:14px}
-.sc-title{font-size:22px;font-weight:900;text-transform:uppercase;color:var(--white);margin-bottom:12px;line-height:1.05;letter-spacing:.01em}
-.sc-desc{font-size:13.5px;color:var(--muted);line-height:1.7;margin-bottom:20px}
-.sc-lnk{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--beige);transition:gap .3s,color .3s;cursor:none}.sc-card:hover .sc-lnk{gap:12px;color:var(--white)}
-@media(max-width:900px){.svc-g{grid-template-columns:1fr}}
+/* homepage system pillars */
+.sys-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:0}
+.sys-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:60px}
+.sp{
+  background:var(--surface);padding:44px 36px;
+  display:flex;flex-direction:column;
+  transition:background .35s var(--ease);
+  position:relative;overflow:hidden;
+}
+.sp:hover{background:var(--surface2)}
+.sp::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .5s var(--ease);
+}
+.sp:hover::before{transform:scaleX(1)}
+.sp-num{
+  font-family:var(--font);font-size:clamp(72px,8vw,108px);font-weight:900;
+  -webkit-text-stroke:1px rgba(255,255,255,.07);color:transparent;
+  line-height:1;letter-spacing:-3px;margin-bottom:8px;
+}
+.sp-connector{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:5px 12px 5px 8px;
+  background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);
+  border-radius:1px;margin-bottom:24px;width:fit-content;
+}
+.sp-connector-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.sp-connector-lbl{font-size:9px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold)}
+.sp-title{
+  font-family:var(--font);font-size:clamp(26px,3vw,38px);
+  font-weight:900;text-transform:uppercase;color:var(--white);
+  line-height:.95;letter-spacing:-.5px;margin-bottom:16px;
+}
+.sp-desc{font-size:14px;color:var(--muted);line-height:1.72;margin-bottom:28px;flex:1}
+.sp-feats{list-style:none;margin-bottom:32px;border-top:1px solid var(--border);padding-top:20px}
+.sp-feat{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:8px 0;border-bottom:1px solid var(--border);
+  font-size:13px;color:var(--muted);line-height:1.5;
+}
+.sp-feat:last-child{border-bottom:none}
+.sp-feat-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:6px}
+.sp-lnk{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--beige);transition:gap .3s,color .3s;margin-top:auto;
+}
+.sp:hover .sp-lnk{gap:14px;color:var(--white)}
+@media(max-width:900px){.sys-pillars{grid-template-columns:1fr}}
 .proc-g{display:grid;grid-template-columns:1fr 1fr;gap:0}
 .proc-ic{position:relative;overflow:hidden;min-height:640px}.proc-ic img{width:100%;height:100%;object-fit:cover;filter:brightness(.58)}
 .proc-badge{position:absolute;top:40px;right:-14px;background:var(--white);color:var(--black);padding:16px 44px 16px 28px;font-size:clamp(18px,2vw,26px);font-weight:900;text-transform:uppercase;letter-spacing:.04em;line-height:1.15;max-width:260px}
@@ -800,20 +842,58 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   </div>
 </section>
 
-<!-- SERVICES -->
+<!-- SERVICES / THE UHP SYSTEM -->
 <section class="sec" style="background:var(--black)">
   <div class="wrap">
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px">
-      <div class="rv"><div class="lbl">What we offer</div>
-        <h2 style="font-size:clamp(44px,6.5vw,84px);font-weight:900;text-transform:uppercase;color:var(--white);line-height:.9;letter-spacing:-.025em">EVERYTHING<br>YOU NEED.<br><span style="-webkit-text-stroke:1.5px var(--beige);color:transparent;font-style:italic;font-size:.62em;letter-spacing:0;line-height:1.25;display:block;text-transform:none;margin-top:4px">Nothing you don't.</span></h2>
+    <div class="sys-header">
+      <div class="rv">
+        <div class="lbl">The UHP System</div>
+        <h2 style="font-size:clamp(44px,6.5vw,84px);font-weight:900;text-transform:uppercase;color:var(--white);line-height:.9;letter-spacing:-.025em">One system.<br><span style="-webkit-text-stroke:1.5px var(--beige);color:transparent;font-style:italic;font-size:.72em;letter-spacing:0;line-height:1.25;display:block;text-transform:none;margin-top:6px">Three pillars.</span></h2>
       </div>
-      <a href="services.html" class="btn-b rv" data-d="2">View All Programs →</a>
+      <a href="services.html" class="btn-b rv" data-d="2">See the full system →</a>
     </div>
   </div>
-  <div class="svc-g">
-    <div class="sc-card rv" data-d="1"><div class="sc-iw"><img class="sc-img" src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=700&q=80" alt="Nutrition" loading="lazy"></div><div class="sc-body"><div class="sc-n">01 / Nutrition</div><div class="sc-title">Personalised Nutrition Coaching</div><p class="sc-desc">A flexible strategy built around your schedule, food preferences, and goals — not a rigid meal plan you'll abandon in a week.</p><a href="services.html#nutrition" class="sc-lnk">Learn more →</a></div></div>
-    <div class="sc-card rv" data-d="2"><div class="sc-iw"><img class="sc-img" src="https://images.unsplash.com/photo-1579126038374-6064e9370f0f?auto=format&fit=crop&w=700&q=80" alt="Supplements" loading="lazy"></div><div class="sc-body"><div class="sc-n">02 / Supplements</div><div class="sc-title">Targeted Supplement Support</div><p class="sc-desc">Only what your body actually needs. No expensive guesswork, no unnecessary stacks — targeted and evidence-based.</p><a href="services.html#supplements" class="sc-lnk">Learn more →</a></div></div>
-    <div class="sc-card rv" data-d="3"><div class="sc-iw"><img class="sc-img" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=700&q=80" alt="Accountability" loading="lazy"></div><div class="sc-body"><div class="sc-n">03 / Accountability</div><div class="sc-title">Results-Focused Accountability</div><p class="sc-desc">Regular check-ins, progress tracking, and real-time adjustments. Knowing what to do is rarely the problem — doing it consistently is.</p><a href="services.html#accountability" class="sc-lnk">Learn more →</a></div></div>
+  <div class="sys-pillars">
+
+    <div class="sp rv" data-d="1">
+      <div class="sp-num">01</div>
+      <div class="sp-connector"><div class="sp-connector-dot"></div><span class="sp-connector-lbl">Fixes: Low energy &amp; caffeine dependency</span></div>
+      <div class="sp-title">Nutrition<br>Structure</div>
+      <p class="sp-desc">Simple daily anchors — not complex meal plans. Decisions you make once that keep your energy consistent through back-to-back meetings, travel, and client dinners.</p>
+      <ul class="sp-feats">
+        <li class="sp-feat"><div class="sp-feat-dot"></div>High-protein breakfast anchors</li>
+        <li class="sp-feat"><div class="sp-feat-dot"></div>Simple lunch &amp; dinner decision rules</li>
+        <li class="sp-feat"><div class="sp-feat-dot"></div>Business dinner &amp; travel strategies</li>
+      </ul>
+      <a href="services.html#nutrition" class="sp-lnk">Learn more →</a>
+    </div>
+
+    <div class="sp rv" data-d="2">
+      <div class="sp-num">02</div>
+      <div class="sp-connector"><div class="sp-connector-dot"></div><span class="sp-connector-lbl">Fixes: Programs failing when busy</span></div>
+      <div class="sp-title">Accountability<br>Coaching</div>
+      <p class="sp-desc">The UHP Coach keeps you consistent between sessions. Context-aware AI coaching that knows your week, your travel, and when you need a real-time decision — not a generic reminder.</p>
+      <ul class="sp-feats">
+        <li class="sp-feat"><div class="sp-feat-dot"></div>Daily UHP Coach check-ins</li>
+        <li class="sp-feat"><div class="sp-feat-dot"></div>Real-time advice for high-pressure weeks</li>
+        <li class="sp-feat"><div class="sp-feat-dot"></div>Regular 1:1 review &amp; plan adjustments</li>
+      </ul>
+      <a href="services.html#accountability" class="sp-lnk">Learn more →</a>
+    </div>
+
+    <div class="sp rv" data-d="3">
+      <div class="sp-num">03</div>
+      <div class="sp-connector"><div class="sp-connector-dot"></div><span class="sp-connector-lbl">Fixes: Not knowing if it&apos;s working</span></div>
+      <div class="sp-title">Progress<br>Tracking</div>
+      <p class="sp-desc">You run your business on KPIs. Your health should be no different. We track energy, body composition, sleep, and focus — and review them with you so the plan always reflects what the data says.</p>
+      <ul class="sp-feats">
+        <li class="sp-feat"><div class="sp-feat-dot"></div>Energy, sleep &amp; mood scoring</li>
+        <li class="sp-feat"><div class="sp-feat-dot"></div>Body composition &amp; measurement data</li>
+        <li class="sp-feat"><div class="sp-feat-dot"></div>Compliance &amp; habit consistency tracking</li>
+      </ul>
+      <a href="services.html#tracking" class="sp-lnk">Learn more →</a>
+    </div>
+
   </div>
 </section>
 
