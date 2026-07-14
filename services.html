@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#000000">
 <title>The UHP System — The Ultimate Health Project</title>
-<meta name="description" content="One system. Three pillars. Built for business owners who are done starting over. Personalised nutrition structure, AI accountability coaching, and progress tracking that fits your actual life.">
+<meta name="description" content="One system. Five pillars. Built for business owners. Flexible personalized meal plans, breakfast replacement options, practical nutrition guidance, and sustainable movement patterns.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -221,6 +221,23 @@ body.hovering .cur-f{width:56px;height:56px;border-color:rgba(201,168,76,.5)}
 }
 .pillar-solves-lbl{font-size:9px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
 .pillar-solves-txt{font-size:13px;color:var(--muted);line-height:1.65;font-style:italic}
+
+/* Pillar Theme Colors */
+.p-eating { --pillar-color: #eb6826; --pillar-bg: rgba(235, 104, 38, 0.08); }
+.p-fitness { --pillar-color: #00a8b5; --pillar-bg: rgba(0, 168, 181, 0.08); }
+.p-supps { --pillar-color: #79bc43; --pillar-bg: rgba(121, 188, 67, 0.08); }
+.p-coach { --pillar-color: #f3af22; --pillar-bg: rgba(243, 175, 34, 0.08); }
+.p-community { --pillar-color: #8e44ad; --pillar-bg: rgba(142, 68, 173, 0.08); }
+
+.pf-check { border-color: transparent; }
+.pf-check svg { stroke: var(--black); }
+.kpi-cell::after { background: var(--pillar-color, var(--gold)); }
+.kpi-n span { color: var(--pillar-color, var(--gold)); }
+
+/* Personal Coach Layout Style Overrides */
+#accountability .acct-split { background: var(--surface); }
+#accountability .acct-cc { background: var(--surface); }
+#accountability .acct-demo { background: #161616; }
 
 /* ─── ACCOUNTABILITY PILLAR — CHAT MOCKUP ──────────────────── */
 .acct-split{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--bg)}
@@ -527,8 +544,8 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
       <p class="pg-hero-sub">Most health programs fail business owners because they're built for people with free time. The UHP System is different — it's structured around your calendar, your travel, and the reality of running a company.</p>
       <a href="https://form.jotform.com/24fitclubAU/theultimatehealthprojectWEform" target="_blank" rel="noopener" class="btn-gold">Book a Free Call →</a>
       <div class="pg-hero-note rv" data-d="2">
-        <div class="pg-note-item"><div class="pg-note-dot"></div>No meal plans to follow</div>
-        <div class="pg-note-item"><div class="pg-note-dot"></div>No gym required</div>
+        <div class="pg-note-item"><div class="pg-note-dot"></div>Flexible, personalized meal plans</div>
+        <div class="pg-note-item"><div class="pg-note-dot"></div>No strict gym routines required</div>
         <div class="pg-note-item"><div class="pg-note-dot"></div>Pricing discussed on call</div>
         <div class="pg-note-item"><div class="pg-note-dot"></div>Available globally via Zoom</div>
       </div>
@@ -550,7 +567,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
           <div class="pain-body">
             <h4>You're running on caffeine, not fuel</h4>
             <p>Energy peaks and crashes with your coffee intake — not when you actually need to perform in a board meeting, a pitch, or at the end of a long day with your family.</p>
-            <div class="pain-solve">Pillar 1: Nutrition Structure <span class="pain-solve-arrow">→</span></div>
+            <a href="#nutrition" class="pain-solve">Pillar 1: Healthy Eating <span class="pain-solve-arrow">→</span></a>
           </div>
         </li>
         <li class="pain-item" data-d="2">
@@ -558,7 +575,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
           <div class="pain-body">
             <h4>Every program fails when life gets busy</h4>
             <p>You've started before. It worked until the next big quarter. The problem wasn't discipline — it was a program that assumed you had free time and a predictable week.</p>
-            <div class="pain-solve">Pillar 2: Accountability Coaching <span class="pain-solve-arrow">→</span></div>
+            <a href="#accountability" class="pain-solve">Pillar 4: Personal Coach <span class="pain-solve-arrow">→</span></a>
           </div>
         </li>
         <li class="pain-item" data-d="3">
@@ -566,7 +583,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
           <div class="pain-body">
             <h4>You don't know if it's actually working</h4>
             <p>Without clear KPIs, you're guessing. Energy, body composition, focus, sleep — these are measurable. You just need someone tracking them alongside you.</p>
-            <div class="pain-solve">Pillar 3: Progress Tracking <span class="pain-solve-arrow">→</span></div>
+            <a href="#community" class="pain-solve">Pillar 5: Community Support <span class="pain-solve-arrow">→</span></a>
           </div>
         </li>
       </ul>
@@ -574,53 +591,113 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   </div>
 </div>
 
-<!-- PILLAR 1: NUTRITION STRUCTURE -->
-<section id="nutrition" class="pillar" style="background:var(--bg)">
+<!-- PILLAR 1: HEALTHY EATING -->
+<section id="nutrition" class="pillar p-eating" style="background:var(--bg)">
   <div class="pillar-grid">
     <div class="pillar-img rv-l">
-      <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=900&q=80" alt="Nutrition anchors for busy professionals" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=900&q=80" alt="Healthy eating anchors for busy professionals" loading="lazy">
       <div class="pillar-number">01</div>
       <div class="pillar-img-tag">
         <div style="font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:rgba(196,192,183,.5)">Pillar One</div>
-        <div style="font-size:16px;font-weight:900;font-family:var(--font);text-transform:uppercase;color:#fff;letter-spacing:.04em;margin-top:4px">Nutrition Structure</div>
+        <div style="font-size:16px;font-weight:900;font-family:var(--font);text-transform:uppercase;color:#fff;letter-spacing:.04em;margin-top:4px">Healthy Eating</div>
       </div>
     </div>
     <div class="pillar-cc dark rv-r">
-      <div class="pillar-pill"><div class="pillar-pill-dot"></div><span class="pillar-pill-lbl">Solves: Caffeine dependency &amp; low energy</span></div>
-      <h2 class="pillar-title">Simple anchors.<br><em>Real fuel.</em></h2>
-      <p class="pillar-body">We don't build complex meal plans you'll abandon by week three. We build simple daily nutrition anchors — decisions you make once, that become second nature, that keep your energy consistent through back-to-back meetings and late nights at the office.</p>
+      <div class="pillar-pill"><div class="pillar-pill-dot"></div><span class="pillar-pill-lbl" style="color: var(--pillar-color)">Solves: Diet complexity, travel eating, &amp; calorie guesswork</span></div>
+      <h2 class="pillar-title" style="color: var(--pillar-color)">Personalized plans.<br><em style="color: #fff">Practical guidance.</em></h2>
+      <p class="pillar-body">We design flexible, personalized meal structures that adapt to your schedule—not rigid templates that fail during travel or busy seasons. We audit your travel, client dinners, and calendar to build daily anchors that fit.</p>
       <div class="pillar-solves">
-        <div class="pillar-solves-lbl">What this replaces</div>
-        <div class="pillar-solves-txt">"I'll sort it out when things slow down" — the plan that never gets made because things never slow down.</div>
+        <div class="pillar-solves-lbl" style="color: var(--pillar-color)">What this replaces</div>
+        <div class="pillar-solves-txt">"I'll sort it out when things slow down" — the cycle of eating on the run and skipping meals when work gets busy.</div>
       </div>
       <ul class="pillar-features">
-        <li class="pf-item"><span class="pf-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>High-protein breakfast anchors — shake or food</li>
-        <li class="pf-item"><span class="pf-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Simple lunch &amp; dinner decision rules (no macro counting required)</li>
-        <li class="pf-item"><span class="pf-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Daily hydration targets that fit your schedule</li>
-        <li class="pf-item"><span class="pf-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Business dinner &amp; eating-out strategies, pre-built</li>
-        <li class="pf-item"><span class="pf-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Targeted supplement protocol where relevant</li>
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Flexible, personalized daily meal structures</li>
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Dining out, travel, and client dinner protocols</li>
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Low decision fatigue daily calendar anchors</li>
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Continuous caloric and macro adjustments</li>
       </ul>
       <a href="https://form.jotform.com/24fitclubAU/theultimatehealthprojectWEform" target="_blank" rel="noopener" class="btn-gold" style="align-self:flex-start">Start with a free call →</a>
     </div>
   </div>
 </section>
 
-<!-- PILLAR 2: ACCOUNTABILITY COACHING -->
-<section id="accountability" class="pillar" style="background:var(--surface);padding:0">
+<!-- PILLAR 2: FITNESS PLAN -->
+<section id="fitness" class="pillar p-fitness" style="background:var(--surface)">
+  <div class="pillar-grid">
+    <div class="pillar-cc dark rv-l">
+      <div class="pillar-pill"><div class="pillar-pill-dot"></div><span class="pillar-pill-lbl" style="color: var(--pillar-color)">Solves: Strict gym routines, joint pain, &amp; time constraints</span></div>
+      <h2 class="pillar-title" style="color: var(--pillar-color)">Active life movement.<br><em style="color: #fff">Efficient training.</em></h2>
+      <p class="pillar-body">Sustainable habits focused on functional movement, playing sports, staying active with family, and efficient strength training. We design workouts that fit into 30 minutes, keeping you strong without needing hours in a commercial gym.</p>
+      <div class="pillar-solves">
+        <div class="pillar-solves-lbl" style="color: var(--pillar-color)">What this replaces</div>
+        <div class="pillar-solves-txt">"I don't have 2 hours to spend at the gym" — the belief that fitness requires exhausting daily routines that clash with your schedule.</div>
+      </div>
+      <ul class="pillar-features">
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Daily step and movement protocols</li>
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Efficient, joint-friendly strength training templates</li>
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Active lifestyle and family integration ideas</li>
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Travel and hotel room workouts</li>
+      </ul>
+      <a href="https://form.jotform.com/24fitclubAU/theultimatehealthprojectWEform" target="_blank" rel="noopener" class="btn-gold" style="align-self:flex-start">Talk to us →</a>
+    </div>
+    <div class="pillar-img rv-r">
+      <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=900&q=80" alt="Efficient training and movement protocols" loading="lazy">
+      <div class="pillar-number">02</div>
+      <div class="pillar-img-tag">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:rgba(196,192,183,.5)">Pillar Two</div>
+        <div style="font-size:16px;font-weight:900;font-family:var(--font);text-transform:uppercase;color:#fff;letter-spacing:.04em;margin-top:4px">Fitness Plan</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLAR 3: SUPPLEMENTATION -->
+<section id="supplements" class="pillar p-supps" style="background:var(--bg)">
+  <div class="pillar-grid">
+    <div class="pillar-img rv-l">
+      <img src="https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&w=900&q=80" alt="Premium supplementation delivered" loading="lazy">
+      <div class="pillar-number">03</div>
+      <div class="pillar-img-tag">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:rgba(196,192,183,.5)">Pillar Three</div>
+        <div style="font-size:16px;font-weight:900;font-family:var(--font);text-transform:uppercase;color:#fff;letter-spacing:.04em;margin-top:4px">Supplementation</div>
+      </div>
+    </div>
+    <div class="pillar-cc dark rv-r">
+      <div class="pillar-pill"><div class="pillar-pill-dot"></div><span class="pillar-pill-lbl" style="color: var(--pillar-color)">Solves: Morning rush, nutrient gaps, &amp; low focus</span></div>
+      <h2 class="pillar-title" style="color: var(--pillar-color)">Delivered to your door.<br><em style="color: #fff">Zero decision fatigue.</em></h2>
+      <p class="pillar-body">Done-for-you monthly shipping of delicious breakfast replacement smoothies, plant-based energy teas, protein support, and digestion aloe. Everything arrives automatically, simplifying your morning and optimizing cellular nutrition.</p>
+      <div class="pillar-solves">
+        <div class="pillar-solves-lbl" style="color: var(--pillar-color)">What this replaces</div>
+        <div class="pillar-solves-txt">Skipping breakfast or grabbing high-sugar pastries because you are in a rush.</div>
+      </div>
+      <ul class="pillar-features">
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Daily nutrient-dense breakfast replacement smoothies</li>
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Plant-based focus &amp; energy-boosting teas</li>
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Daily protein support and digestive aloe</li>
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Automated monthly shipping — no reordering needed</li>
+      </ul>
+      <a href="https://form.jotform.com/24fitclubAU/theultimatehealthprojectWEform" target="_blank" rel="noopener" class="btn-gold" style="align-self:flex-start">Start with a free call →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PILLAR 4: PERSONAL COACH -->
+<section id="accountability" class="pillar p-coach" style="background:var(--surface);padding:0">
   <div class="acct-split">
     <div class="acct-cc rv-l">
-      <div class="pillar-pill"><div class="pillar-pill-dot"></div><span class="pillar-pill-lbl">Solves: Programs failing when life gets busy</span></div>
-      <h2 class="pillar-title">Your coach.<br><em>Always on.</em></h2>
-      <p class="pillar-body">Knowledge is not your problem. Consistency is. The UHP Coach is an AI accountability system that keeps you on track between sessions — no nagging, no generic reminders. Context-aware coaching that knows your week, your travel, and your goals.</p>
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:rgba(196,192,183,.5);margin-bottom:12px">Pillar Four · Personal Coach</div>
+      <div class="pillar-pill"><div class="pillar-pill-dot"></div><span class="pillar-pill-lbl" style="color: var(--pillar-color)">Solves: Consistency gaps, schedule changes, &amp; mental load</span></div>
+      <h2 class="pillar-title" style="color: var(--pillar-color)">Your coach.<br><em style="color: #fff">Always on.</em></h2>
+      <p class="pillar-body">Knowledge is not your problem. Consistency is. Steven reviews your weekly progress and audits your calendar. Meanwhile, our context-aware AI check-in system keeps you accountable, providing real-time text advice for menus, travel, and high-stress weeks.</p>
       <div class="pillar-solves">
-        <div class="pillar-solves-lbl">What this replaces</div>
+        <div class="pillar-solves-lbl" style="color: var(--pillar-color)">What this replaces</div>
         <div class="pillar-solves-txt">"I was doing well until the big client week" — the pattern where external pressure always wins over health systems.</div>
       </div>
       <ul class="pillar-features">
-        <li class="pf-item"><span class="pf-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Daily check-in via the UHP Coach assistant</li>
-        <li class="pf-item"><span class="pf-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Real-time advice for travel, client lunches, high-stress weeks</li>
-        <li class="pf-item"><span class="pf-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Habit accountability that simplifies decisions, not adds to them</li>
-        <li class="pf-item"><span class="pf-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Regular 1:1 coaching sessions to review &amp; adjust the system</li>
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Daily check-in via the UHP Coach assistant</li>
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Real-time advice for travel, client dinners, and menus</li>
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>1:1 strategy reviews &amp; calendar audits with Steven</li>
+        <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Continuous adjustments to prevent setbacks</li>
       </ul>
       <a href="https://form.jotform.com/24fitclubAU/theultimatehealthprojectWEform" target="_blank" rel="noopener" class="btn-gold" style="align-self:flex-start">Talk to us →</a>
     </div>
@@ -689,10 +766,10 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   </div>
 </section>
 
-<!-- PILLAR 3: PROGRESS TRACKING -->
-<section id="tracking" class="tracking-sec">
+<!-- PILLAR 5: COMMUNITY SUPPORT -->
+<section id="community" class="tracking-sec p-community" style="background:var(--bg)">
   <div class="wrap">
-    <div class="lbl rv">Pillar Three</div>
+    <div class="lbl rv">Pillar Five</div>
     <div class="tracking-grid">
       <div class="kpi-grid rv-l">
         <div class="kpi-cell" data-d="1">
@@ -717,16 +794,15 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
         </div>
       </div>
       <div class="tracking-copy rv-r">
-        <div class="pillar-pill"><div class="pillar-pill-dot"></div><span class="pillar-pill-lbl">Solves: Not knowing if it's working</span></div>
-        <h3>What gets<br><em>measured</em><br>gets managed.</h3>
-        <p>You run your business on KPIs. Your health should be no different. We track the metrics that actually matter — energy, body composition, sleep quality, focus, and compliance — and review them with you regularly.</p>
+        <div class="pillar-pill"><div class="pillar-pill-dot"></div><span class="pillar-pill-lbl" style="color: var(--pillar-color)">Solves: Isolation, lack of benchmarks, &amp; losing motivation</span></div>
+        <h3 style="color: var(--pillar-color)">What gets<br><em style="color:#fff">measured</em><br>gets managed.</h3>
+        <p>A shared network of high-performing business owners providing collective motivation, shared dashboards, and structured support. Run your health like your business—backed by metrics, shared accountability, and proven results.</p>
         <p>No guesswork. No "I think it's going okay." Just clear, honest data and a plan that adjusts to what the numbers are telling us.</p>
         <ul class="pillar-features">
-          <li class="pf-item"><span class="pf-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Weight &amp; body measurement tracking</li>
-          <li class="pf-item"><span class="pf-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Energy, sleep &amp; mood scores</li>
-          <li class="pf-item"><span class="pf-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Compliance &amp; habit consistency data</li>
-          <li class="pf-item"><span class="pf-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Progress photos &amp; body scan data (where available)</li>
-          <li class="pf-item"><span class="pf-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Regular review &amp; plan adjustments</li>
+          <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Business owner peer network for shared wins</li>
+          <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Shared progress tracking and leaderboard scoring</li>
+          <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Weekly group reviews and collective coaching support</li>
+          <li class="pf-item"><span class="pf-check" style="background: var(--pillar-color)"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>Unified metrics tracking (energy, sleep, compliance)</li>
         </ul>
       </div>
     </div>
@@ -805,7 +881,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
         </div>
         <div class="faq-item">
           <div class="faq-q">Do I need to track calories or macros? <span class="faq-q-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
-          <div class="faq-a">Not unless you want to. We build your approach around what you'll actually maintain — simple anchors and decision rules that don't require tracking apps or macro obsession. Some clients find tracking useful; we'll work it out in the initial call.</div>
+          <div class="faq-a">Not unless you want to. We provide practical nutrition guidance and personalized meal structures that adapt to your schedule. Our focus is on sustainable habits and simple daily anchors rather than macro obsession. Some clients find tracking useful, but it is entirely optional.</div>
         </div>
         <div class="faq-item">
           <div class="faq-q">I travel constantly. Can this work? <span class="faq-q-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
@@ -850,13 +926,13 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
     <div class="ft-g">
       <div class="ft-bc">
         <a href="index.html" style="display:flex;align-items:center;gap:14px;cursor:none"><img src="uhplogo.png" alt="The Ultimate Health Project" class="logo-img"></a>
-        <p style="font-size:14px;color:var(--dim);line-height:1.7;max-width:280px;margin-top:16px">AI accountability coaching and nutrition systems for busy business owners. Regents Park, NSW.</p>
+        <p style="font-size:14px;color:var(--dim);line-height:1.7;max-width:280px;margin-top:16px">More than coaching. Personalized meal plans, breakfast replacements, and AI accountability for busy business owners.</p>
       </div>
       <div class="ft-col"><h6>Navigate</h6><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Programs</a><a href="blog.html">Journal</a><a href="contact.html">Contact</a></div>
-      <div class="ft-col"><h6>The System</h6><a href="#nutrition">Nutrition Structure</a><a href="#accountability">Accountability Coaching</a><a href="#tracking">Progress Tracking</a></div>
+      <div class="ft-col"><h6>The System</h6><a href="#nutrition">Healthy Eating</a><a href="#fitness">Fitness Plan</a><a href="#supplements">Supplementation</a><a href="#accountability">Personal Coach</a><a href="#community">Community Support</a></div>
       <div class="ft-col"><h6>Contact</h6><a href="mailto:steven@24fitclub.com.au">steven@24fitclub.com.au</a><a href="contact.html">Book a free call</a><a href="#">Privacy policy</a></div>
     </div>
-    <div class="ft-bot"><p>© 2026 The Ultimate Health Project · Regents Park, NSW, Australia.</p><p>AI accountability coaching for business owners.</p></div>
+    <div class="ft-bot"><p>© 2026 The Ultimate Health Project · Regents Park, NSW, Australia.</p><p>Personalised nutrition systems, meal plans, and accountability for business owners.</p></div>
   </div>
 </footer>
 
