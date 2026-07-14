@@ -229,8 +229,14 @@ body.hovering .cur-f{width:56px;height:56px;border-color:rgba(201,168,76,.5)}
 .p-coach { --pillar-color: #f3af22; --pillar-bg: rgba(243, 175, 34, 0.08); }
 .p-community { --pillar-color: #8e44ad; --pillar-bg: rgba(142, 68, 173, 0.08); }
 
-.pf-check { border-color: transparent; }
-.pf-check svg { stroke: var(--black); }
+.pf-check { 
+  background: transparent !important; 
+  border: 1px solid var(--pillar-color) !important;
+  color: var(--pillar-color) !important;
+}
+.pf-check svg { 
+  stroke: var(--pillar-color) !important; 
+}
 .kpi-cell::after { background: var(--pillar-color, var(--gold)); }
 .kpi-n span { color: var(--pillar-color, var(--gold)); }
 
