@@ -84,15 +84,6 @@ body.hovering .cur-f{width:56px;height:56px;border-color:rgba(201,168,76,.5)}
   overflow: hidden;
   background: radial-gradient(ellipse 80% 50% at 50% 110%, rgba(201,168,76,.10), transparent 60%), var(--bg);
 }
-.ab-hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: linear-gradient(rgba(201,168,76,.018) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,.018) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: radial-gradient(ellipse 85% 70% at 50% 50%, black 20%, transparent 90%);
-}
 .board-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -102,8 +93,6 @@ body.hovering .cur-f{width:56px;height:56px;border-color:rgba(201,168,76,.5)}
   border: 1px solid var(--border);
   padding: 32px;
   background: var(--bg2);
-  position: relative;
-  z-index: 2;
 }
 .board-cell { text-align: center; }
 .board-num {
@@ -120,89 +109,145 @@ body.hovering .cur-f{width:56px;height:56px;border-color:rgba(201,168,76,.5)}
   .board-grid { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
 }
 
-/* ─── JOURNEY ITEM & TIMELINE ───────────────────────────────── */
-.journeys-sec { padding: 128px 0; background: var(--bg); }
-@media(max-width:768px){ .journeys-sec { padding: 80px 0; } }
-.journey-item {
+/* ─── GALLERY GRID ──────────────────────────────────────────── */
+.gallery-sec { padding: 96px 0; }
+@media(max-width:768px){ .gallery-sec { padding: 80px 0; } }
+.gallery-grid {
   display: grid;
-  grid-template-columns: 1fr 1.6fr;
-  gap: 64px;
-  margin-bottom: 128px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
   align-items: start;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 96px;
 }
-.journey-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-@media(max-width:900px){
-  .journey-item { grid-template-columns: 1fr; gap: 40px; margin-bottom: 80px; padding-bottom: 48px; }
+@media(max-width: 900px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media(max-width: 600px) {
+  .gallery-grid { grid-template-columns: 1fr; }
 }
 
-/* Left Profile */
-.journey-profile {
+.gallery-col { display: flex; flex-direction: column; gap: 24px; }
+.gallery-col.mid-col { margin-top: 48px; }
+@media(max-width: 900px) {
+  .gallery-col.mid-col { margin-top: 0; }
+}
+
+.gallery-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  padding: 40px;
-  border-left: 3px solid var(--pillar-color);
-  position: sticky;
-  top: 120px;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-@media(max-width:900px){
-  .journey-profile { position: relative; top: 0; padding: 28px; }
+.gallery-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: grayscale(100%) contrast(1.05);
+  transition: all 0.4s ease;
 }
-.profile-lbl {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--pillar-color);
-  margin-bottom: 12px;
+.gallery-card:hover img {
+  filter: grayscale(0%) contrast(1);
+  transform: scale(1.02);
+}
+.gallery-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.15);
+}
+
+.zoom-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
-.profile-lbl-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-.profile-name { font-family: var(--font); font-size: 32px; font-weight: 900; text-transform: uppercase; color: var(--white); margin: 4px 0; }
-.profile-role { font-size: 13px; color: var(--muted); margin: 0 0 24px 0; }
-.profile-results { border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px; }
-.result-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 13.5px; }
-.result-lbl { color: var(--muted); }
-.result-val { font-weight: 600; color: var(--white); }
+.gallery-card:hover .zoom-overlay { opacity: 1; }
 
-/* Right Timeline */
-.timeline-flow {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  border-left: 2px solid var(--border);
-  padding-left: 40px;
-  margin-left: 16px;
-}
-@media(max-width:768px){
-  .timeline-flow { padding-left: 24px; margin-left: 8px; }
-}
-.timeline-node { position: relative; }
-.timeline-node::before {
-  content: '';
-  position: absolute;
-  left: -48px;
-  top: 6px;
-  width: 14px;
-  height: 14px;
+.zoom-circle {
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: var(--bg);
-  border: 3px solid var(--pillar-color);
+  background: rgba(8,8,8,0.9);
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.8);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-@media(max-width:768px){
-  .timeline-node::before { left: -32px; }
-}
-.node-time { font-family: var(--font); font-size: 12px; font-weight: 900; color: var(--pillar-color); text-transform: uppercase; letter-spacing: 1.5px; }
-.node-title { font-family: var(--font); font-size: 24px; font-weight: 900; text-transform: uppercase; color: var(--white); margin: 4px 0 8px 0; }
-.node-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.gallery-card:hover .zoom-circle { transform: scale(1); }
 
-/* Color Themes */
-.p-eating { --pillar-color: #eb6826; }
-.p-fitness { --pillar-color: #00a8b5; }
-.p-supps { --pillar-color: #79bc43; }
+/* ─── LIGHTBOX MODAL ────────────────────────────────────────── */
+.lightbox-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.96);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.lightbox-modal.active { display: flex; }
+
+.lightbox-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border: 1px solid var(--border);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  font-size: 28px;
+  color: var(--white);
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  padding: 8px;
+}
+.lightbox-close:hover { opacity: 1; }
+
+.lightbox-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 20px;
+  transition: all 0.2s;
+}
+.lightbox-arrow:hover { background: rgba(255,255,255,0.1); border-color: var(--gold); color: var(--gold); }
+.arrow-left { left: -68px; }
+.arrow-right { right: -68px; }
+@media(max-width: 768px) {
+  .arrow-left { left: -20px; }
+  .arrow-right { right: -20px; }
+}
 
 /* ─── CTA ───────────────────────────────────────────────────── */
 .cta-block{
@@ -283,8 +328,8 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
 <section class="ab-hero">
   <div class="wrap ab-hero-inner">
     <div class="ab-hero-kicker rv"><span class="mock-lbl">Rigorous Results</span></div>
-    <h1 class="story-h3 rv" style="font-size:clamp(48px, 6vw, 96px); font-weight:900; text-transform:uppercase; line-height:0.9; letter-spacing:-2px; margin: 16px 0 24px 0; color:var(--white); text-align:center;">Systematic<br>Transformations</h1>
-    <p class="node-desc rv" style="text-align:center; max-width:600px; margin:0 auto 48px auto; font-size:16px;">Every transformation is a case study in consistency. We systematise health and habit structures to ensure weight loss, peak focus, and lasting Company ROI.</p>
+    <h1 class="story-h3 rv" style="font-size:clamp(48px, 6vw, 96px); font-weight:900; text-transform:uppercase; line-height:0.9; letter-spacing:-2px; margin: 16px 0 24px 0; color:var(--white); text-align:center;">Transformations Directory</h1>
+    <p class="node-desc rv" style="text-align:center; max-width:600px; margin:0 auto 48px auto; font-size:16px;">Every thumbnail below represents a verified client milestone. Real weight loss, energy shifts, and unedited success snapshots from the UHP system.</p>
     
     <div class="board-grid rv" data-d="1">
       <div class="board-cell">
@@ -303,165 +348,182 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   </div>
 </section>
 
-<!-- MAIN JOURNEYS GRID SECTION -->
-<section class="journeys-sec">
+<!-- GALLERY GRID SECTION -->
+<section class="gallery-sec">
   <div class="wrap">
-    
-    <!-- Case Study 01: Marcus B. -->
-    <div class="journey-item p-eating">
-      <!-- Left Profile -->
-      <div class="journey-profile rv-l">
-        <div class="profile-lbl">
-          <span class="profile-lbl-dot"></span>Case Study 01
+    <div class="gallery-grid">
+      <!-- Column 1 -->
+      <div class="gallery-col">
+        <div class="gallery-card" onclick="openLightbox(0)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/18723179_1904848453107329_6263725105566711808_n.jpg" alt="Client win" loading="lazy">
         </div>
-        <h2 class="profile-name">Marcus B.</h2>
-        <div class="profile-role">Founder · Technology Company</div>
-        <p class="node-desc" style="font-style: italic; color: var(--white); margin-bottom: 24px; line-height: 1.5;">
-          "Down 13 kg in 14 weeks and my energy in back-to-back meetings is night and day. I used to crash by 2 pm; now I'm running my best sessions at the end of the day."
-        </p>
-        <div class="profile-results">
-          <div class="result-row">
-            <span class="result-lbl">Initial Weight</span>
-            <span class="result-val">98 kg</span>
-          </div>
-          <div class="result-row">
-            <span class="result-lbl">Current Weight</span>
-            <span class="result-val">85 kg</span>
-          </div>
-          <div class="result-row">
-            <span class="result-lbl">12-Wk Compliance</span>
-            <span class="result-val">93%</span>
-          </div>
+        <div class="gallery-card" onclick="openLightbox(1)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/21984796_348594452256337_8104660333307625472_n.jpg" alt="Client win" loading="lazy">
         </div>
-      </div>
-      
-      <!-- Right Timeline Flow -->
-      <div class="timeline-flow rv-r">
-        <!-- Week 0 -->
-        <div class="timeline-node">
-          <div class="node-time">Week 0</div>
-          <h3 class="node-title">The Friction</h3>
-          <p class="node-desc">Slipping physical leadership. Exhaustion by early afternoon, heavy decision fatigue on meal choices, and skipping meals entirely on client weeks.</p>
+        <div class="gallery-card" onclick="openLightbox(2)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/26866411_327131977790444_5757325990099419136_n.jpg" alt="Client win" loading="lazy">
         </div>
-        <!-- Weeks 1-4 -->
-        <div class="timeline-node">
-          <div class="node-time">Weeks 1–4</div>
-          <h3 class="node-title">Anchors</h3>
-          <p class="node-desc">Low-fatigue breakfast structures. Implemented daily breakfast smoothie replacements and context-aware text checks with UHP Coach to audit travel meals.</p>
+        <div class="gallery-card" onclick="openLightbox(3)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/27881222_1779961958979795_7784955809745600512_n.jpg" alt="Client win" loading="lazy">
         </div>
-        <!-- Weeks 5-12 -->
-        <div class="timeline-node">
-          <div class="node-time">Weeks 5–12</div>
-          <h3 class="node-title">13kg down & peak performance</h3>
-          <p class="node-desc">Energy night and day. Daily fat loss stabilized with macro adjustments. Executive team noticed the shift in meetings.</p>
+        <div class="gallery-card" onclick="openLightbox(4)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/31511030_2126530864300852_6425511945171894272_n.jpg" alt="Client win" loading="lazy">
         </div>
-      </div>
-    </div>
-
-    <!-- Case Study 02: James S. -->
-    <div class="journey-item p-fitness">
-      <!-- Left Profile -->
-      <div class="journey-profile rv-l">
-        <div class="profile-lbl">
-          <span class="profile-lbl-dot"></span>Case Study 02
+        <div class="gallery-card" onclick="openLightbox(5)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/32203117_444880412583983_474190786347401216_n.jpg" alt="Client win" loading="lazy">
         </div>
-        <h2 class="profile-name">James S.</h2>
-        <div class="profile-role">Owner · Marketing Agency</div>
-        <p class="node-desc" style="font-style: italic; color: var(--white); margin-bottom: 24px; line-height: 1.5;">
-          "I've tried every approach. The difference here is the system fits around my week — it doesn't expect a version of me that doesn't exist."
-        </p>
-        <div class="profile-results">
-          <div class="result-row">
-            <span class="result-lbl">Initial Weight</span>
-            <span class="result-val">92.5 kg</span>
-          </div>
-          <div class="result-row">
-            <span class="result-lbl">Current Weight</span>
-            <span class="result-val">82 kg</span>
-          </div>
-          <div class="result-row">
-            <span class="result-lbl">12-Wk Compliance</span>
-            <span class="result-val">95%</span>
-          </div>
+        <div class="gallery-card" onclick="openLightbox(6)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/33680564_2111793528834826_8773681208547606528_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(7)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/35001322_199499880693601_9197218786988523520_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(8)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/36148785_2136492339712816_8942026433149009920_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(9)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/37077705_421261711720533_7231512470081241088_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(10)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/41158126_2089674114682474_7309371757482213376_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(11)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/43284764_1700950976675365_4735619554611298304_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(12)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/43592075_2190204151222716_3201597016190746624_n.jpg" alt="Client win" loading="lazy">
         </div>
       </div>
       
-      <!-- Right Timeline Flow -->
-      <div class="timeline-flow rv-r">
-        <!-- Week 0 -->
-        <div class="timeline-node">
-          <div class="node-time">Week 0</div>
-          <h3 class="node-title">The Friction</h3>
-          <p class="node-desc">Routine clash & joint fatigue. Failed previous strict gym routines due to 10-hour days. Experienced persistent lower back and knee pain from sitting.</p>
+      <!-- Column 2 (mid-col) -->
+      <div class="gallery-col mid-col">
+        <div class="gallery-card" onclick="openLightbox(13)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/43628867_1912745305699031_2405997862871125935_n.jpg" alt="Client win" loading="lazy">
         </div>
-        <!-- Weeks 1-4 -->
-        <div class="timeline-node">
-          <div class="node-time">Weeks 1–4</div>
-          <h3 class="node-title">Anchors</h3>
-          <p class="node-desc">Functional active movement. Began 30-minute joint-friendly strength training templates and daily step audits. Replaced heavy commercial gym goals.</p>
+        <div class="gallery-card" onclick="openLightbox(14)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/43779197_340706859825813_5922005404308242456_n.jpg" alt="Client win" loading="lazy">
         </div>
-        <!-- Weeks 5-12 -->
-        <div class="timeline-node">
-          <div class="node-time">Weeks 5–12</div>
-          <h3 class="node-title">Sharp in boardroom & active with family</h3>
-          <p class="node-desc">Fat loss goal reached. Completely resolved back pain through targeted mobility. Reclaimed high focus at work and presence with kids.</p>
+        <div class="gallery-card" onclick="openLightbox(15)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/47181322_631922940557492_4532636610839455305_n.jpg" alt="Client win" loading="lazy">
         </div>
-      </div>
-    </div>
-
-    <!-- Case Study 03: Anika K. -->
-    <div class="journey-item p-supps">
-      <!-- Left Profile -->
-      <div class="journey-profile rv-l">
-        <div class="profile-lbl">
-          <span class="profile-lbl-dot"></span>Case Study 03
+        <div class="gallery-card" onclick="openLightbox(16)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/47582612_140087146982260_2318606153200663986_n.jpg" alt="Client win" loading="lazy">
         </div>
-        <h2 class="profile-name">Anika K.</h2>
-        <div class="profile-role">Executive Director · Investment Firm</div>
-        <p class="node-desc" style="font-style: italic; color: var(--white); margin-bottom: 24px; line-height: 1.5;">
-          "I travel every second week. Every other coach I'd tried just told me to 'eat well' when I fly. UHP built specific protocols for airports, hotel rooms, and client dinners before I even asked."
-        </p>
-        <div class="profile-results">
-          <div class="result-row">
-            <span class="result-lbl">Initial Weight</span>
-            <span class="result-val">74 kg</span>
-          </div>
-          <div class="result-row">
-            <span class="result-lbl">Current Weight</span>
-            <span class="result-val">64 kg</span>
-          </div>
-          <div class="result-row">
-            <span class="result-lbl">12-Wk Compliance</span>
-            <span class="result-val">91%</span>
-          </div>
+        <div class="gallery-card" onclick="openLightbox(17)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/47584784_2193397284208145_3187910123761509218_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(18)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/47689888_610994336000144_2931083839643772396_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(19)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/47690928_395638791177292_832970824302466199_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(20)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/47694061_475246022880502_2167249759425900248_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(21)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/49831359_412188312857177_1474341189024544932_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(22)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/49956565_767594830265951_6863590369964239614_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(23)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/50051950_237762760433572_6864974319187464403_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(24)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/50295436_112905396491175_6481925407061071275_n.jpg" alt="Client win" loading="lazy">
         </div>
       </div>
       
-      <!-- Right Timeline Flow -->
-      <div class="timeline-flow rv-r">
-        <!-- Week 0 -->
-        <div class="timeline-node">
-          <div class="node-time">Week 0</div>
-          <h3 class="node-title">The Friction</h3>
-          <p class="node-desc">Airport & client dinners chaos. Frequent travel schedules disrupted regular eating. Airplane food, late dinners, and business dining caused poor recovery and weight gain.</p>
+      <!-- Column 3 -->
+      <div class="gallery-col">
+        <div class="gallery-card" onclick="openLightbox(25)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/50310358_119103365829654_355945250914203623_n.jpg" alt="Client win" loading="lazy">
         </div>
-        <!-- Weeks 1-4 -->
-        <div class="timeline-node">
-          <div class="node-time">Weeks 1–4</div>
-          <h3 class="node-title">Anchors</h3>
-          <p class="node-desc">Done-for-you travel protocols. Customized low decision-fatigue travel checklists. Added on-the-go protein packs and pre-flight nutrient guidelines.</p>
+        <div class="gallery-card" onclick="openLightbox(26)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/50481138_128330824878030_5852474621666040753_n.jpg" alt="Client win" loading="lazy">
         </div>
-        <!-- Weeks 5-12 -->
-        <div class="timeline-node">
-          <div class="node-time">Weeks 5–12</div>
-          <h3 class="node-title">10kg fat loss & energy consistency</h3>
-          <p class="node-desc">Reached target weight. Replaced airplane snacks with high-protein alternatives. Consistent energy levels regardless of travel time zones.</p>
+        <div class="gallery-card" onclick="openLightbox(27)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/50516763_619403655177498_6094100500675763135_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(28)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/50626404_2003370249962888_2442782331828098047_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(29)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/50804087_152142285776278_568543749643282943_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(30)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/50844763_171109003868950_4355200596001781073_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(31)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/50970102_825282334474103_925482986468057682_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(32)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/51101368_287513728599623_4875544907998093317_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(33)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/51132334_615718432190626_4811932657355177439_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(34)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/51533630_2980431565315893_948692056595776333_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(35)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/47584784_2193397284208145_3187910123761509218_n.jpg" alt="Client win" loading="lazy">
+        </div>
+        <div class="gallery-card" onclick="openLightbox(36)">
+          <div class="zoom-overlay"><div class="zoom-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          <img src="assets/transformations/49956565_767594830265951_6863590369964239614_n.jpg" alt="Client win" loading="lazy">
         </div>
       </div>
     </div>
-
   </div>
 </section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox-modal" id="lightbox">
+  <div class="lightbox-content">
+    <div class="lightbox-close" onclick="closeLightbox()">✕</div>
+    <div class="lightbox-arrow arrow-left" onclick="prevImage()">❮</div>
+    <img id="lightbox-img" src="" alt="Active View">
+    <div class="lightbox-arrow arrow-right" onclick="nextImage()">❯</div>
+  </div>
+</div>
 
 <!-- CTA -->
 <section class="cta-block">
@@ -515,7 +577,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   let mx=innerWidth/2,my=innerHeight/2,fx=mx,fy=my;
   document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.cssText=`left:${mx}px;top:${my}px`});
   (function loop(){fx+=(mx-fx)*.14;fy+=(my-fy)*.14;curf.style.cssText=`left:${fx}px;top:${fy}px`;requestAnimationFrame(loop)})();
-  document.querySelectorAll('a,button').forEach(el=>{
+  document.querySelectorAll('a,button,.gallery-card,.lightbox-close,.lightbox-arrow').forEach(el=>{
     el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));
     el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
   });
@@ -552,6 +614,88 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   },{threshold:.07,rootMargin:'0px 0px -40px 0px'});
   document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>io.observe(el));
 })();
+
+  /* ─── LIGHTBOX CONTROLLER ──────────────────────────────────── */
+  const images = [
+    "assets/transformations/18723179_1904848453107329_6263725105566711808_n.jpg",
+    "assets/transformations/21984796_348594452256337_8104660333307625472_n.jpg",
+    "assets/transformations/26866411_327131977790444_5757325990099419136_n.jpg",
+    "assets/transformations/27881222_1779961958979795_7784955809745600512_n.jpg",
+    "assets/transformations/31511030_2126530864300852_6425511945171894272_n.jpg",
+    "assets/transformations/32203117_444880412583983_474190786347401216_n.jpg",
+    "assets/transformations/33680564_2111793528834826_8773681208547606528_n.jpg",
+    "assets/transformations/35001322_199499880693601_9197218786988523520_n.jpg",
+    "assets/transformations/36148785_2136492339712816_8942026433149009920_n.jpg",
+    "assets/transformations/37077705_421261711720533_7231512470081241088_n.jpg",
+    "assets/transformations/41158126_2089674114682474_7309371757482213376_n.jpg",
+    "assets/transformations/43284764_1700950976675365_4735619554611298304_n.jpg",
+    "assets/transformations/43592075_2190204151222716_3201597016190746624_n.jpg",
+    "assets/transformations/43628867_1912745305699031_2405997862871125935_n.jpg",
+    "assets/transformations/43779197_340706859825813_5922005404308242456_n.jpg",
+    "assets/transformations/47181322_631922940557492_4532636610839455305_n.jpg",
+    "assets/transformations/47582612_140087146982260_2318606153200663986_n.jpg",
+    "assets/transformations/47584784_2193397284208145_3187910123761509218_n.jpg",
+    "assets/transformations/47689888_610994336000144_2931083839643772396_n.jpg",
+    "assets/transformations/47690928_395638791177292_832970824302466199_n.jpg",
+    "assets/transformations/47694061_475246022880502_2167249759425900248_n.jpg",
+    "assets/transformations/49831359_412188312857177_1474341189024544932_n.jpg",
+    "assets/transformations/49956565_767594830265951_6863590369964239614_n.jpg",
+    "assets/transformations/50051950_237762760433572_6864974319187464403_n.jpg",
+    "assets/transformations/50295436_112905396491175_6481925407061071275_n.jpg",
+    "assets/transformations/50310358_119103365829654_355945250914203623_n.jpg",
+    "assets/transformations/50481138_128330824878030_5852474621666040753_n.jpg",
+    "assets/transformations/50516763_619403655177498_6094100500675763135_n.jpg",
+    "assets/transformations/50626404_2003370249962888_2442782331828098047_n.jpg",
+    "assets/transformations/50804087_152142285776278_568543749643282943_n.jpg",
+    "assets/transformations/50844763_171109003868950_4355200596001781073_n.jpg",
+    "assets/transformations/50970102_825282334474103_925482986468057682_n.jpg",
+    "assets/transformations/51101368_287513728599623_4875544907998093317_n.jpg",
+    "assets/transformations/51132334_615718432190626_4811932657355177439_n.jpg",
+    "assets/transformations/51533630_2980431565315893_948692056595776333_n.jpg",
+    "assets/transformations/47584784_2193397284208145_3187910123761509218_n.jpg",
+    "assets/transformations/49956565_767594830265951_6863590369964239614_n.jpg"
+  ];
+
+  let currentIdx = 0;
+  const modal = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+
+  window.openLightbox = function(idx) {
+    currentIdx = idx;
+    lbImg.src = images[currentIdx];
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeLightbox = function() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  window.nextImage = function() {
+    currentIdx = (currentIdx + 1) % images.length;
+    lbImg.src = images[currentIdx];
+  };
+
+  window.prevImage = function() {
+    currentIdx = (currentIdx - 1 + images.length) % images.length;
+    lbImg.src = images[currentIdx];
+  };
+
+  // Close on click outside the image
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal || e.target.classList.contains('lightbox-content')) {
+      closeLightbox();
+    }
+  });
+
+  // Keyboard nav
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') nextImage();
+    if (e.key === 'ArrowLeft') prevImage();
+  });
 </script>
 </body>
 </html>
