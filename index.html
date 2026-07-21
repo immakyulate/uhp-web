@@ -93,27 +93,31 @@ body.hovering .cur-f{width:56px;height:56px;border-color:rgba(201,168,76,.5)}
   justify-content: center;
   overflow: hidden;
 }
+#story-bg-img-1,
+#story-bg-img-2,
+#story-bg-img-3,
 #story-bg-img {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image: url('assets/founder_burnout.jpg');
   background-size: cover;
   background-position: center;
   opacity: 0;
   transition: opacity 0.6s ease, transform 0.6s ease;
-  filter: grayscale(15%);
   transform: scale(1.02);
 }
-#story-bg-img-active {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  transform: scale(1.02);
+#story-bg-img-1 {
+  background-image: url('assets/decision_fatigue.jpg');
+}
+#story-bg-img-2 {
+  background-image: url('assets/founder_burnout.jpg');
+}
+#story-bg-img-3 {
+  background-image: url('assets/active_lifestyle.jpg');
+}
+#story-bg-img {
+  background-image: url('assets/founder_burnout.jpg');
+  filter: grayscale(15%);
 }
 #story-overlay {
   position: absolute;
@@ -255,6 +259,9 @@ body.hovering .cur-f{width:56px;height:56px;border-color:rgba(201,168,76,.5)}
     overflow: visible !important;
     padding: 80px 0 60px;
   }
+  #story-bg-img-1,
+  #story-bg-img-2,
+  #story-bg-img-3,
   #story-bg-img {
     display: none;
   }
@@ -1013,8 +1020,10 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
   <div id="story-sticky">
     
     <!-- Immersive Background Image Layers -->
+    <div id="story-bg-img-1"></div>
+    <div id="story-bg-img-2"></div>
+    <div id="story-bg-img-3"></div>
     <div id="story-bg-img"></div>
-    <div id="story-bg-img-active" style="background-image: url('assets/active_lifestyle.jpg');"></div>
     
     <!-- Dark overlay to ensure text contrast -->
     <div id="story-overlay"></div>
@@ -2385,8 +2394,10 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
 /* === PROBLEM STORYTELLER SCROLL SCRUB === */
 (function() {
   var container = document.getElementById('story-scroll-section');
+  var bgImg1 = document.getElementById('story-bg-img-1');
+  var bgImg2 = document.getElementById('story-bg-img-2');
+  var bgImg3 = document.getElementById('story-bg-img-3');
   var bgImg = document.getElementById('story-bg-img');
-  var bgActiveImg = document.getElementById('story-bg-img-active');
   var slides = document.querySelectorAll('.story-slide');
   var dots = document.querySelectorAll('.story-dot');
   if (!container || slides.length === 0) return;
@@ -2404,31 +2415,32 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:80px 0
     var cardIndex = Math.floor(progress * 4.99); // yields 0 to 4
 
     // Background image opacity and transform behaviors
-    if (bgImg && bgActiveImg) {
-      if (cardIndex === 2) {
-        // Slide 3: Routine Friction -> Fade in Active Lifestyle Image
-        bgImg.style.opacity = '0';
-        bgImg.style.transform = 'scale(0.98)';
-        bgActiveImg.style.opacity = '0.45';
-        bgActiveImg.style.transform = 'scale(1.0)';
+    if (bgImg1 && bgImg2 && bgImg3 && bgImg) {
+      bgImg1.style.opacity = '0'; bgImg1.style.transform = 'scale(1.02)';
+      bgImg2.style.opacity = '0'; bgImg2.style.transform = 'scale(1.02)';
+      bgImg3.style.opacity = '0'; bgImg3.style.transform = 'scale(1.02)';
+      bgImg.style.opacity = '0';  bgImg.style.transform = 'scale(1.02)';
+
+      if (cardIndex === 0) {
+        // Slide 1: Decision Fatigue
+        bgImg1.style.opacity = '0.45';
+        bgImg1.style.transform = 'scale(1.0)';
+      } else if (cardIndex === 1) {
+        // Slide 2: Energy Depreciation
+        bgImg2.style.opacity = '0.45';
+        bgImg2.style.transform = 'scale(1.0)';
+      } else if (cardIndex === 2) {
+        // Slide 3: Routine Friction
+        bgImg3.style.opacity = '0.45';
+        bgImg3.style.transform = 'scale(1.0)';
       } else if (cardIndex === 3) {
         // Slide 4: Dramatic Image Reveal
         bgImg.style.opacity = '0.78';
         bgImg.style.transform = 'scale(1.0)';
-        bgActiveImg.style.opacity = '0';
-        bgActiveImg.style.transform = 'scale(1.02)';
       } else if (cardIndex === 4) {
         // Slide 5: Does this sound like you?
-        bgImg.style.opacity = '0.15';
+        bgImg.style.opacity = '0.18';
         bgImg.style.transform = 'scale(0.98)';
-        bgActiveImg.style.opacity = '0';
-        bgActiveImg.style.transform = 'scale(1.02)';
-      } else {
-        // Slide 1 & 2: Decision Fatigue & Energy Depreciation
-        bgImg.style.opacity = '0.04';
-        bgImg.style.transform = 'scale(1.02)';
-        bgActiveImg.style.opacity = '0';
-        bgActiveImg.style.transform = 'scale(1.02)';
       }
     }
 
